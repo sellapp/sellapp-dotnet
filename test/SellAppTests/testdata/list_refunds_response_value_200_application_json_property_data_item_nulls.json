@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "source": "test_source",
+  "refundable": {
+    "type": "order",
+    "id": 1
+  },
+  "provider": "provider_01234",
+  "provider_payment_id": null,
+  "provider_refund_id": null,
+  "amount_cents": 1,
+  "currency": "test_currency",
+  "status": "test_status",
+  "reason": null
+}

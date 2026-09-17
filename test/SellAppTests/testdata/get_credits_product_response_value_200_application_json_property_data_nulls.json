@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "store_id": 1,
+  "title": "test_title",
+  "slug": "test_slug",
+  "description": null,
+  "visibility": "PUBLIC",
+  "type": "credits",
+  "is_draft": true,
+  "is_discoverable": true,
+  "section_id": null,
+  "default_variant": null,
+  "variant_invariant": null,
+  "created_at": null,
+  "updated_at": null,
+  "deleted_at": null
+}

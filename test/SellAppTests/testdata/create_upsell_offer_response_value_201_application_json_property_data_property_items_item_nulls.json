@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "target_listing_id": 1,
+  "target_variant_id": 1,
+  "headline": null,
+  "description": null,
+  "discount_type": null,
+  "discount_value": null,
+  "maximum_discount_amount": null,
+  "sort_order": 1,
+  "target_product": null,
+  "target_variant": null,
+  "created_at": null,
+  "updated_at": null
+}

@@ -1,0 +1,373 @@
+[
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createCharge",
+    "mountTarget": "Charges",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Charges.CreateAsync(new ChargesCreateOptions\n    {\n        Email = \"sofia.rivera@example.com\",\n        ReturnUrl = \"https://example.com/launch-complete\",\n        Reference = JsonConvert.DeserializeObject<string?>(\"\\\"One more thing launch\\\"\")!,\n        Currency = \"USD\",\n        Total = 10000,\n        PaymentMethod = JsonConvert.DeserializeObject<SdkCreateChargeRequestApplicationJsonPaymentMethod>(\"\\\"PAYPAL\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "default",
+    "summary": "default",
+    "mediaType": "application/json",
+    "request": {
+      "email": "sofia.rivera@example.com",
+      "return_url": "https://example.com/launch-complete",
+      "currency": "USD",
+      "total": 10000,
+      "payment_method": "PAYPAL",
+      "reference": "One more thing launch"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createCharge",
+    "mountTarget": "Charges",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Charges.CreateAsync(new ChargesCreateOptions\n    {\n        Email = \"maya.chen@example.com\",\n        ReturnUrl = \"https://example.com/payment-return\",\n        Currency = \"USD\",\n        Total = 1999,\n        PaymentMethod = JsonConvert.DeserializeObject<SdkCreateChargeRequestApplicationJsonPaymentMethod>(\"\\\"CUSTOM_PAYMENT_METHOD\\\"\")!,\n        CustomPaymentMethodId = JsonConvert.DeserializeObject<string?>(\"\\\"01J00000000000000000000001\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "customPreselected",
+    "summary": "Preselect an enabled custom method in this store",
+    "mediaType": "application/json",
+    "request": {
+      "email": "maya.chen@example.com",
+      "return_url": "https://example.com/payment-return",
+      "currency": "USD",
+      "total": 1999,
+      "payment_method": "CUSTOM_PAYMENT_METHOD",
+      "custom_payment_method_id": "01J00000000000000000000001"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createCharge",
+    "mountTarget": "Charges",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Charges.CreateAsync(new ChargesCreateOptions\n    {\n        Email = \"maya.chen@example.com\",\n        ReturnUrl = \"https://example.com/payment-return\",\n        Currency = \"USD\",\n        Total = 1999,\n        PaymentMethods = JsonConvert.DeserializeObject<List<SdkCreateChargeRequestApplicationJsonPaymentMethods>>(\"[\\\"CUSTOM_PAYMENT_METHOD\\\"]\")!,\n        CustomPaymentMethodIds = JsonConvert.DeserializeObject<List<string>>(\"[\\\"01J00000000000000000000001\\\"]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "customChoices",
+    "summary": "Offer a specific custom method for customer selection",
+    "mediaType": "application/json",
+    "request": {
+      "email": "maya.chen@example.com",
+      "return_url": "https://example.com/payment-return",
+      "currency": "USD",
+      "total": 1999,
+      "payment_methods": [
+        "CUSTOM_PAYMENT_METHOD"
+      ],
+      "custom_payment_method_ids": [
+        "01J00000000000000000000001"
+      ]
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createGroup",
+    "mountTarget": "Groups",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Groups.CreateAsync(new GroupsCreateOptions\n    {\n        Title = \"Design kit\",\n        Unlisted = true,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "minimal",
+    "summary": "Minimal valid request",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Design kit",
+      "unlisted": true
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createGroup",
+    "mountTarget": "Groups",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Groups.CreateAsync(new GroupsCreateOptions\n    {\n        Title = \"Design kit\",\n        Unlisted = true,\n        Order = JsonConvert.DeserializeObject<long?>(\"1\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "realistic",
+    "summary": "With optional fields",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Design kit",
+      "unlisted": true,
+      "order": 1
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "validateLicenseKey",
+    "mountTarget": "Licenses",
+    "methodName": "validate",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Licenses.ValidateAsync(new LicensesValidateOptions\n    {\n        LicenseKey = \"01965f1d-f038-7116-b57f-9e7ecb4e7b8f\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "minimal",
+    "summary": "Minimal valid request",
+    "mediaType": "application/json",
+    "request": {
+      "license_key": "01965f1d-f038-7116-b57f-9e7ecb4e7b8f"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "validateLicenseKey",
+    "mountTarget": "Licenses",
+    "methodName": "validate",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Licenses.ValidateAsync(new LicensesValidateOptions\n    {\n        LicenseKey = \"01965f1d-f038-7116-b57f-9e7ecb4e7b8f\",\n        InstanceId = \"9ebd3be0-de72-4da7-805e-bc99d1ac1186\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "realistic",
+    "summary": "With optional fields",
+    "mediaType": "application/json",
+    "request": {
+      "license_key": "01965f1d-f038-7116-b57f-9e7ecb4e7b8f",
+      "instance_id": "9ebd3be0-de72-4da7-805e-bc99d1ac1186"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createProduct",
+    "mountTarget": "Products",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.CreateAsync(new ProductsCreateOptions\n    {\n        Title = \"Design kit\",\n        Description = \"Templates for your next project.\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"HIDDEN\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "minimal",
+    "summary": "Minimal hidden product",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Design kit",
+      "description": "Templates for your next project.",
+      "visibility": "HIDDEN"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createProduct",
+    "mountTarget": "Products",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.CreateAsync(new ProductsCreateOptions\n    {\n        Title = \"Design kit\",\n        Description = \"Templates for your next project.\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"HIDDEN\\\"\")!,\n        Slug = \"design-kit-launch\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "realistic",
+    "summary": "Product with a custom URL slug",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Design kit",
+      "description": "Templates for your next project.",
+      "visibility": "HIDDEN",
+      "slug": "design-kit-launch"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createProduct",
+    "mountTarget": "Products",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.CreateAsync(new ProductsCreateOptions\n    {\n        Title = \"Design kit\",\n        Description = \"Reusable templates for your next launch\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"PUBLIC\\\"\")!,\n        Variants = JsonConvert.DeserializeObject<List<CreateProductRequestApplicationJsonPropertyVariantsItem>>(\"[{\\\"title\\\":\\\"Standard\\\",\\\"description\\\":\\\"The complete design kit\\\",\\\"pricing\\\":{\\\"price\\\":{\\\"price\\\":1999,\\\"currency\\\":\\\"USD\\\"},\\\"humble\\\":false},\\\"deliverable\\\":{\\\"types\\\":[\\\"MANUAL\\\"],\\\"data\\\":{\\\"comment\\\":\\\"Your kit will be delivered shortly.\\\"}},\\\"minimum_purchase_quantity\\\":1,\\\"maximum_purchase_quantity\\\":10,\\\"payment_methods\\\":[\\\"PAYPAL\\\"]}]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "withVariants",
+    "summary": "Create a product and its first variant",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Design kit",
+      "description": "Reusable templates for your next launch",
+      "visibility": "PUBLIC",
+      "variants": [
+        {
+          "title": "Standard",
+          "description": "The complete design kit",
+          "pricing": {
+            "price": {
+              "price": 1999,
+              "currency": "USD"
+            },
+            "humble": false
+          },
+          "deliverable": {
+            "types": [
+              "MANUAL"
+            ],
+            "data": {
+              "comment": "Your kit will be delivered shortly."
+            }
+          },
+          "minimum_purchase_quantity": 1,
+          "maximum_purchase_quantity": 10,
+          "payment_methods": [
+            "PAYPAL"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createProduct",
+    "mountTarget": "Products",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.CreateAsync(new ProductsCreateOptions\n    {\n        Title = \"Launch bundle\",\n        Description = \"Two design kits in one purchase\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"PUBLIC\\\"\")!,\n        Type = JsonConvert.DeserializeObject<SdkCreateProductRequestApplicationJsonType>(\"\\\"bundle\\\"\")!,\n        Variants = JsonConvert.DeserializeObject<List<CreateProductRequestApplicationJsonPropertyVariantsItem>>(\"[{\\\"title\\\":\\\"Standard\\\",\\\"description\\\":\\\"The complete design kit\\\",\\\"pricing\\\":{\\\"price\\\":{\\\"price\\\":1999,\\\"currency\\\":\\\"USD\\\"},\\\"humble\\\":false},\\\"deliverable\\\":{\\\"types\\\":[\\\"BUNDLE\\\"],\\\"data\\\":{}},\\\"minimum_purchase_quantity\\\":1,\\\"maximum_purchase_quantity\\\":10,\\\"payment_methods\\\":[\\\"PAYPAL\\\"]}]\")!,\n        BundleItems = JsonConvert.DeserializeObject<List<CreateProductRequestApplicationJsonPropertyBundleItemsItem>>(\"[{\\\"product_variant_id\\\":4321,\\\"quantity\\\":2}]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "completeBundle",
+    "summary": "Create a complete bundle",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Launch bundle",
+      "description": "Two design kits in one purchase",
+      "visibility": "PUBLIC",
+      "type": "bundle",
+      "variants": [
+        {
+          "title": "Standard",
+          "description": "The complete design kit",
+          "pricing": {
+            "price": {
+              "price": 1999,
+              "currency": "USD"
+            },
+            "humble": false
+          },
+          "deliverable": {
+            "types": [
+              "BUNDLE"
+            ],
+            "data": {}
+          },
+          "minimum_purchase_quantity": 1,
+          "maximum_purchase_quantity": 10,
+          "payment_methods": [
+            "PAYPAL"
+          ]
+        }
+      ],
+      "bundle_items": [
+        {
+          "product_variant_id": 4321,
+          "quantity": 2
+        }
+      ]
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "cancelSubscriptionImmediately",
+    "mountTarget": "Subscriptions",
+    "methodName": "cancel_immediately",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Subscriptions.CancelImmediatelyAsync(\n    \"55\",\n    new SubscriptionsCancelImmediatelyOptions\n    {\n        Reason = JsonConvert.DeserializeObject<string?>(\"\\\"Customer request\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "minimal",
+    "summary": "Cancel without requesting a refund",
+    "mediaType": "application/json",
+    "request": {
+      "reason": "Customer request"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "cancelSubscriptionImmediately",
+    "mountTarget": "Subscriptions",
+    "methodName": "cancel_immediately",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Subscriptions.CancelImmediatelyAsync(\n    \"55\",\n    new SubscriptionsCancelImmediatelyOptions\n    {\n        Reason = JsonConvert.DeserializeObject<string?>(\"\\\"Customer request\\\"\")!,\n        RefundLastPayment = true,\n        ProRatedRefund = true,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "with_refund",
+    "summary": "Requests a real prorated refund; cancellation success does not prove refund success",
+    "mediaType": "application/json",
+    "request": {
+      "reason": "Customer request",
+      "refund_last_payment": true,
+      "pro_rated_refund": true
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createAddOnDraft",
+    "mountTarget": "AddOns",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AddOns.CreateAsync(new AddOnsCreateOptions\n    {\n        Title = \"Customer support\",\n        Description = \"Priority support for launches scheduled suspiciously close to Friday.\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"PUBLIC\\\"\")!,\n        ParentProductIds = JsonConvert.DeserializeObject<List<long>>(\"[120,121]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "draft",
+    "summary": "Create a draft add-on",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Customer support",
+      "description": "Priority support for launches scheduled suspiciously close to Friday.",
+      "visibility": "PUBLIC",
+      "parent_product_ids": [
+        120,
+        121
+      ]
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createAddOnDraft",
+    "mountTarget": "AddOns",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AddOns.CreateAsync(new AddOnsCreateOptions\n    {\n        Title = \"Priority support\",\n        Description = \"Personal help with your design kit\",\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"PUBLIC\\\"\")!,\n        IsDraft = false,\n        ParentProductIds = JsonConvert.DeserializeObject<List<long>>(\"[120]\")!,\n        Variant = JsonConvert.DeserializeObject<CreateAddOnDraftRequestApplicationJsonPropertyVariant>(\"{\\\"title\\\":\\\"Standard\\\",\\\"description\\\":\\\"The complete design kit\\\",\\\"pricing\\\":{\\\"price\\\":{\\\"price\\\":1999,\\\"currency\\\":\\\"USD\\\"},\\\"humble\\\":false},\\\"deliverable\\\":{\\\"types\\\":[\\\"MANUAL\\\"],\\\"data\\\":{\\\"comment\\\":\\\"Your kit will be delivered shortly.\\\"}},\\\"minimum_purchase_quantity\\\":1,\\\"maximum_purchase_quantity\\\":10,\\\"payment_methods\\\":[\\\"PAYPAL\\\"]}\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "published",
+    "summary": "Create and publish an add-on with a variant",
+    "mediaType": "application/json",
+    "request": {
+      "title": "Priority support",
+      "description": "Personal help with your design kit",
+      "visibility": "PUBLIC",
+      "is_draft": false,
+      "parent_product_ids": [
+        120
+      ],
+      "variant": {
+        "title": "Standard",
+        "description": "The complete design kit",
+        "pricing": {
+          "price": {
+            "price": 1999,
+            "currency": "USD"
+          },
+          "humble": false
+        },
+        "deliverable": {
+          "types": [
+            "MANUAL"
+          ],
+          "data": {
+            "comment": "Your kit will be delivered shortly."
+          }
+        },
+        "minimum_purchase_quantity": 1,
+        "maximum_purchase_quantity": 10,
+        "payment_methods": [
+          "PAYPAL"
+        ]
+      }
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "exchangeOAuthToken",
+    "mountTarget": "Oauth",
+    "methodName": "exchange_oauth_token",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = \"\",\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = \"\",\n});\n\nvar result = await client.OAuth.ExchangeTokenAsync(new OAuthExchangeTokenOptions { Body = JsonConvert.DeserializeObject<ExchangeOAuthTokenRequestApplicationXWwwFormUrlencodedOneOfValue1>(\"{\\\"client_id\\\":\\\"01992a65-e064-71ba-b38f-902b7966a6be\\\",\\\"grant_type\\\":\\\"authorization_code\\\",\\\"code\\\":\\\"AUTHORIZATION_CODE\\\",\\\"redirect_uri\\\":\\\"http://127.0.0.1:49152/callback\\\",\\\"code_verifier\\\":\\\"dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk\\\"}\")! });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "authorizationCode",
+    "summary": "authorizationCode",
+    "mediaType": "application/x-www-form-urlencoded",
+    "request": {
+      "client_id": "01992a65-e064-71ba-b38f-902b7966a6be",
+      "grant_type": "authorization_code",
+      "code": "AUTHORIZATION_CODE",
+      "redirect_uri": "http://127.0.0.1:49152/callback",
+      "code_verifier": "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+    }
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "exchangeOAuthToken",
+    "mountTarget": "Oauth",
+    "methodName": "exchange_oauth_token",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = \"\",\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = \"\",\n});\n\nvar result = await client.OAuth.ExchangeTokenAsync(new OAuthExchangeTokenOptions { Body = JsonConvert.DeserializeObject<ExchangeOAuthTokenRequestApplicationXWwwFormUrlencodedOneOfValue2>(\"{\\\"client_id\\\":\\\"01992a65-e064-71ba-b38f-902b7966a6be\\\",\\\"grant_type\\\":\\\"refresh_token\\\",\\\"refresh_token\\\":\\\"REFRESH_TOKEN\\\"}\")! });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n",
+    "exampleId": "refresh",
+    "summary": "refresh",
+    "mediaType": "application/x-www-form-urlencoded",
+    "request": {
+      "client_id": "01992a65-e064-71ba-b38f-902b7966a6be",
+      "grant_type": "refresh_token",
+      "refresh_token": "REFRESH_TOKEN"
+    }
+  }
+]

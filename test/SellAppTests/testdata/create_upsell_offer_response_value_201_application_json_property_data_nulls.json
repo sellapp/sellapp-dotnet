@@ -1,0 +1,44 @@
+{
+  "id": 1,
+  "name": "Test",
+  "description": null,
+  "is_active": true,
+  "source_listing_id": 1,
+  "source_variant_id": null,
+  "minimum_order_total_usd_cents": null,
+  "maximum_order_total_usd_cents": null,
+  "starts_at": null,
+  "ends_at": null,
+  "available_for_days": null,
+  "max_accepts_per_customer": null,
+  "sort_order": 1,
+  "version": 1,
+  "source_product": null,
+  "source_variant": null,
+  "items": [
+    {
+      "id": 1,
+      "target_listing_id": 1,
+      "target_variant_id": 1,
+      "headline": "test_headline",
+      "description": "test_description",
+      "discount_type": "percentage",
+      "discount_value": "15.00",
+      "maximum_discount_amount": "25.00",
+      "sort_order": 1,
+      "target_product": {
+        "id": 1,
+        "title": "test_title"
+      },
+      "target_variant": {
+        "id": 1,
+        "title": "test_title"
+      },
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    }
+  ],
+  "created_at": null,
+  "updated_at": null,
+  "deleted_at": null
+}

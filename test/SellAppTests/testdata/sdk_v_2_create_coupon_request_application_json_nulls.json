@@ -1,0 +1,11 @@
+{
+  "code": "test_code",
+  "type": "PERCENTAGE",
+  "discount": 1,
+  "store_wide": true,
+  "products": null,
+  "product_variants": null,
+  "limit": null,
+  "expires_at": null,
+  "minimum_amount": null
+}

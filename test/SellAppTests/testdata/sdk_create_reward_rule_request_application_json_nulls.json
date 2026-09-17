@@ -1,0 +1,17 @@
+{
+  "name": "Test",
+  "description": null,
+  "is_active": true,
+  "trigger_type": "PURCHASE_COUNT",
+  "trigger_threshold": 1,
+  "outputs": [
+    {
+      "type": "WALLET_CREDIT",
+      "amount_cents": 1,
+      "reward_coupon_template_id": 1,
+      "label": "test_label",
+      "color": "zinc"
+    }
+  ],
+  "expected_updated_at": null
+}

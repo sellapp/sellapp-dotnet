@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "custom_name": null,
+  "filename": "Test",
+  "extension": "test_extension",
+  "mime_type": "test_mime_type",
+  "size": 1,
+  "watermark": true,
+  "max_downloads": null,
+  "limit_to_purchase_ip": true,
+  "folder_id": null,
+  "variant_id": 1,
+  "product_id": 1,
+  "created_at": null,
+  "updated_at": null
+}

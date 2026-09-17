@@ -1,0 +1,11 @@
+{
+  "type": "text",
+  "required": true,
+  "label": "test_label",
+  "key": null,
+  "options": null,
+  "placeholder": null,
+  "description": null,
+  "variant": null,
+  "date_options": null
+}

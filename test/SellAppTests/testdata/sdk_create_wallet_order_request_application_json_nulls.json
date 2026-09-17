@@ -1,0 +1,10 @@
+{
+  "customer_email": "test@example.com",
+  "customer_ip": null,
+  "coupon": null,
+  "vat_id": null,
+  "country": null,
+  "affiliate": null,
+  "extra": null,
+  "product_variants": {}
+}

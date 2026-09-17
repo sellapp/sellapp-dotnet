@@ -1,0 +1,60 @@
+{
+  "pricing": {
+    "type": "SINGLE_PAYMENT",
+    "price": {
+      "price": 1,
+      "currency": "AUD"
+    },
+    "compare_at_price": {
+      "price": 1,
+      "currency": "AUD"
+    },
+    "humble": true,
+    "frequency": {
+      "value": 1,
+      "interval": "DAY"
+    }
+  },
+  "payment_methods": [
+    "AUTHNET",
+    "BTCPAY",
+    "CASHAPP",
+    "COINBASE",
+    "PADDLE",
+    "PAYDASH",
+    "PAYPAL",
+    "PAYSTACK",
+    "SQUARE",
+    "STRIPE",
+    "VENMO",
+    "NMI",
+    "MERCADO_PAGO",
+    "MOLLIE",
+    "RAZORPAY",
+    "CUSTOM_PAYMENT_METHOD",
+    "LIFI",
+    "BTC",
+    "LTC",
+    "ETH",
+    "XMR",
+    "SOL",
+    "ADA",
+    "BNB",
+    "TRX",
+    "MATIC",
+    "ETH_USDT",
+    "ETH_USDC",
+    "ETH_UNI",
+    "ETH_SHIB",
+    "ETH_DAI",
+    "BNB_USDT",
+    "BNB_USDC",
+    "TRX_USDT",
+    "TRX_USDC",
+    "SOL_USDT",
+    "SOL_USDC"
+  ],
+  "custom_payment_method_ids": null,
+  "bulk_discount": null,
+  "expected_updated_at": null
+}

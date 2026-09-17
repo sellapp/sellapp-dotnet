@@ -1,0 +1,13 @@
+{
+  "id": null,
+  "product_subscription_id": null,
+  "subscription_id": null,
+  "action": null,
+  "status": null,
+  "provider": null,
+  "customer_message": null,
+  "confirmed_at": null,
+  "failed_at": null,
+  "created_at": null,
+  "updated_at": null
+}

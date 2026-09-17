@@ -1,0 +1,24 @@
+{
+  "id": 1,
+  "title": "test_title",
+  "status": "test_status",
+  "customer": {
+    "id": 1,
+    "email": "test@example.com"
+  },
+  "reference": {
+    "type": "product",
+    "id": 1
+  },
+  "created_at": null,
+  "updated_at": null,
+  "store_id": 1,
+  "archived": 1,
+  "read_status": {
+    "customer": true,
+    "store": true
+  },
+  "order_id": null,
+  "reason": null,
+  "message_count": 1
+}

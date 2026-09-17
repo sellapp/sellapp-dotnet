@@ -1,0 +1,16 @@
+{
+  "name": "Test",
+  "type": "PERCENTAGE",
+  "discount": "test_discount",
+  "store_wide": true,
+  "minimum_amount": null,
+  "maximum_discount_amount": null,
+  "expires_at": null,
+  "expires_after_days": null,
+  "redemption_mode": "customer_locked",
+  "is_active": true,
+  "listing_ids": [
+    1
+  ],
+  "expected_updated_at": null
+}

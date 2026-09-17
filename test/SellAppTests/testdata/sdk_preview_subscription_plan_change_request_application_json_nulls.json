@@ -1,0 +1,7 @@
+{
+  "idempotency_key": null,
+  "target_variant_id": 1,
+  "effective_timing": null,
+  "proration_behavior": null,
+  "metadata": null
+}

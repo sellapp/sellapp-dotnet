@@ -1,0 +1,19 @@
+{
+  "mode": null,
+  "conflict_scope": null,
+  "timezone": null,
+  "duration_minutes": null,
+  "capacity_per_slot": null,
+  "min_notice_minutes": null,
+  "max_advance_days": null,
+  "buffer_before_minutes": null,
+  "buffer_after_minutes": null,
+  "availability": null,
+  "provider_connection_ids": null,
+  "video_provider": null,
+  "video_provider_connection_id": null,
+  "reminders_enabled": null,
+  "reminder_offset_value": null,
+  "reminder_offset_unit": null,
+  "meta": null
+}

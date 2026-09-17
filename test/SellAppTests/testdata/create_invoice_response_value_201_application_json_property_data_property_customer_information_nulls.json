@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "email": "test@example.com",
+  "country": null,
+  "location": "test_location",
+  "ip": "test_ip",
+  "proxied": true,
+  "browser_agent": "test_browser_agent",
+  "vat": null
+}

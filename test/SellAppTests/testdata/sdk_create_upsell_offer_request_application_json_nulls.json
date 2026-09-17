@@ -1,0 +1,26 @@
+{
+  "name": "Test",
+  "description": null,
+  "is_active": true,
+  "source_listing_id": 1,
+  "source_variant_id": null,
+  "minimum_order_total_usd_cents": null,
+  "maximum_order_total_usd_cents": null,
+  "starts_at": null,
+  "ends_at": null,
+  "available_for_days": null,
+  "max_accepts_per_customer": null,
+  "expected_version": null,
+  "items": [
+    {
+      "id": 1,
+      "target_listing_id": 1,
+      "target_variant_id": 1,
+      "headline": "test_headline",
+      "description": "test_description",
+      "discount_type": "percentage",
+      "discount_value": 1,
+      "maximum_discount_amount": 1
+    }
+  ]
+}

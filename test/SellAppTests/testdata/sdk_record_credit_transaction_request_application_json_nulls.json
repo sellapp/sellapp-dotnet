@@ -1,0 +1,11 @@
+{
+  "customer_id": 1,
+  "product_id": 1,
+  "kind": "grant",
+  "amount_units": 1,
+  "idempotency_key": "idempotency_key_01234",
+  "reason": null,
+  "source_type": null,
+  "source_id": null,
+  "metadata": null
+}

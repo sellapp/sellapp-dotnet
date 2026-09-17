@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "promotion_id": 1,
+  "sort_order": 1,
+  "discount_type": "percentage",
+  "discount_value": "test_discount_value",
+  "ends_at": null,
+  "max_redemptions": null,
+  "minimum_amount": null,
+  "created_at": null,
+  "updated_at": null,
+  "deleted_at": null
+}

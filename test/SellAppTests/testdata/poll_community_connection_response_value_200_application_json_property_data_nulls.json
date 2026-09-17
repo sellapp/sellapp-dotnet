@@ -1,0 +1,9 @@
+{
+  "platform": "telegram",
+  "status": "pending",
+  "expires_at": null,
+  "qr_code": null,
+  "server": null,
+  "groups_loaded": null,
+  "available_servers": null
+}

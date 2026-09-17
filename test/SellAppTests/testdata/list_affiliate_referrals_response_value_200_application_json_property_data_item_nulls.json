@@ -1,0 +1,22 @@
+{
+  "id": 1,
+  "affiliate_id": null,
+  "affiliate_email": null,
+  "order_id": 1,
+  "invoice_v2_id": null,
+  "product_variant_id": 1,
+  "product_title": null,
+  "variant_title": null,
+  "customer_id": null,
+  "amount_usd_cents": 1,
+  "commission": {
+    "type": "percentage",
+    "percentage": "test_percentage",
+    "amount_usd_cents": 1
+  },
+  "status": "created",
+  "eligible_for_payout_at": null,
+  "payout_id": null,
+  "created_at": null,
+  "updated_at": null
+}

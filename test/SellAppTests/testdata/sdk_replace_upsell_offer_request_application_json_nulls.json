@@ -1,0 +1,15 @@
+{
+  "name": null,
+  "description": null,
+  "is_active": null,
+  "source_listing_id": null,
+  "source_variant_id": null,
+  "minimum_order_total_usd_cents": null,
+  "maximum_order_total_usd_cents": null,
+  "starts_at": null,
+  "ends_at": null,
+  "available_for_days": null,
+  "max_accepts_per_customer": null,
+  "expected_version": 1,
+  "items": null
+}

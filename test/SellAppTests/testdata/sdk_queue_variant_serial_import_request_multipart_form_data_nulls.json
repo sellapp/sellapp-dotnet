@@ -1,0 +1,7 @@
+{
+  "file": "test_file",
+  "parsing_mode": "COMMA",
+  "custom_delimiter": null,
+  "remove_duplicates": null,
+  "mode": null
+}

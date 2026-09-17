@@ -1,0 +1,25 @@
+<!-- @oagen-ignore-file -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>SellApp</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>SellApp</Authors>
+    <Description>Official SellApp API client for .NET.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/sellapp/sellapp-dotnet</RepositoryUrl>
+    <PackageProjectUrl>https://sell.app/docs/api</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../LICENSE.txt;../../NOTICE.txt" Pack="true" PackagePath="/" />
+    <None Include="../../docs/*.md" Pack="true" PackagePath="docs/" />
+    <None Include="../../examples/Onboarding/Program.cs;../../examples/Onboarding/Onboarding.csproj" Pack="true" PackagePath="examples/Onboarding/" />
+    <None Include="../../examples/README.md" Pack="true" PackagePath="examples/" />
+  </ItemGroup>
+</Project>

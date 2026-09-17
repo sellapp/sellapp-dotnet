@@ -1,0 +1,10 @@
+{
+  "method": null,
+  "transaction_id": null,
+  "payment_id": null,
+  "payment_capture_id": null,
+  "blockchain_txid": null,
+  "settlement_gateway": null,
+  "has_checkout_url": true,
+  "checkout_url": null
+}

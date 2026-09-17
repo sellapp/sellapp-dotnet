@@ -1,0 +1,10 @@
+{
+  "type": "SINGLE_PAYMENT",
+  "price": {
+    "price": 1,
+    "currency": "AUD"
+  },
+  "compare_at_price": null,
+  "humble": true,
+  "frequency": null
+}

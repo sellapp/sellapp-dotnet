@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "provider": null,
+  "status": null,
+  "current_period_start": null,
+  "current_period_end": null,
+  "cancel_at_period_end": true
+}

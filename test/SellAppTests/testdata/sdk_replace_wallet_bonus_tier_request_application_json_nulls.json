@@ -1,0 +1,9 @@
+{
+  "minimum_top_up_cents": 1,
+  "bonus_kind": "fixed",
+  "fixed_bonus_cents": null,
+  "percent_basis": null,
+  "maximum_bonus_cents": null,
+  "priority": 1,
+  "is_active": true
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "discord",
+  "type": "oauth",
+  "mode": null,
+  "connect_url": null,
+  "verification_token": null,
+  "status_token": null,
+  "expires_at": null,
+  "bot_username": null,
+  "qr_code": null
+}

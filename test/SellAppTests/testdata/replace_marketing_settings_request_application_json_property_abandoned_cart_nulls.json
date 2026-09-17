@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "min_total_cents": null,
+  "max_total_cents": null,
+  "reminders": null,
+  "incentive_mode": null,
+  "coupon_id": null,
+  "send_incentive_on_step": null
+}

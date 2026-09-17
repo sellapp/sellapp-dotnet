@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "domain": "test_domain",
+  "status": "pending",
+  "hostname_status": null,
+  "ssl_status": null,
+  "ownership_verification": null,
+  "ssl_validation_records": null,
+  "cname_target": "Test",
+  "last_checked_at": null,
+  "verified_at": null
+}

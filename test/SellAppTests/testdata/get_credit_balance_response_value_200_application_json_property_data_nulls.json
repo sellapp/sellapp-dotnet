@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "store_id": 1,
+  "customer_id": 1,
+  "customer_email": null,
+  "product_id": 1,
+  "product_title": null,
+  "balance_units": 1,
+  "ledger_entries": null,
+  "created_at": null,
+  "updated_at": null
+}

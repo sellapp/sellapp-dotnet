@@ -1,0 +1,14 @@
+{
+  "id": "01234",
+  "name": "Test",
+  "type": null,
+  "health_status": null,
+  "health_checked_at": null,
+  "roles": [
+    {
+      "id": "01234",
+      "name": "Test",
+      "color": "test_color"
+    }
+  ]
+}

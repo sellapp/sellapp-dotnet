@@ -1,0 +1,17 @@
+{
+  "title": "test_title",
+  "slug": null,
+  "description": null,
+  "visibility": "PUBLIC",
+  "section_id": null,
+  "is_draft": null,
+  "price_cents": null,
+  "currency": null,
+  "minimum_purchase_quantity": null,
+  "maximum_purchase_quantity": null,
+  "quantity_increment": null,
+  "stock": null,
+  "payment_methods": null,
+  "rate_tiers": null,
+  "expected_updated_at": null
+}

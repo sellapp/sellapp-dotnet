@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "type": "WALLET_CREDIT",
+  "payload": {},
+  "coupon_id": null,
+  "wallet_ledger_entry_id": null,
+  "created_at": null
+}

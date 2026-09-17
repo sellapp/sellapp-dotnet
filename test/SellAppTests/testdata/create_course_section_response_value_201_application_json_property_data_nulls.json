@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "title": "test_title",
+  "description": null,
+  "sort_order": 1,
+  "lessons": null,
+  "created_at": "2023-01-01T00:00:00.000Z",
+  "updated_at": "2023-01-01T00:00:00.000Z"
+}

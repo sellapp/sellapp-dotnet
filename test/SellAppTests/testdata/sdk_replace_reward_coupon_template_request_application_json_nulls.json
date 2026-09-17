@@ -1,0 +1,14 @@
+{
+  "name": null,
+  "type": null,
+  "discount": null,
+  "store_wide": null,
+  "minimum_amount": null,
+  "maximum_discount_amount": null,
+  "expires_at": null,
+  "expires_after_days": null,
+  "redemption_mode": null,
+  "is_active": null,
+  "listing_ids": null,
+  "expected_updated_at": null
+}
