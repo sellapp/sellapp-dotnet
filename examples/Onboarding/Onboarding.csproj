@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/SellApp.net/SellApp.net.csproj" Condition="'$(SellAppPackageDirectory)' == ''" />
-    <PackageReference Include="SellApp" Version="0.1.0" Condition="'$(SellAppPackageDirectory)' != ''" />
+    <PackageReference Include="SellApp" Version="0.1.1" Condition="'$(SellAppPackageDirectory)' != ''" />
   </ItemGroup>
 </Project>

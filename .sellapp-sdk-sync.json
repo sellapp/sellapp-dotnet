@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "dotnet",
   "repository": "sellapp/sellapp-dotnet",
-  "sourceSha": "8d8876b1921e931e18baf6f31ed48f79c5282f73",
+  "sourceSha": "e4051383c6618a31c201c050d55d7bdacd157f0c",
   "specSha256": "02043ebfc36589e78743f00a0f4a2f3ac9ac14914b9cf2910f04fc34ad2d0924",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "5dafc49d0a72a9c8a5d9900a3b0f6b767a4ca94634d57d3e1e7d8c2f6f62fbf9",
-  "contentDigest": "e4b39e134f3c121697cfd3c1921b3e86c81781afc0a2a1c48fe5ff14a5448536",
+  "treeDigest": "f13a27b1547cb1d7a7ea93a2ef6c9cb45122fa99077b5f1f4ee1144a0e00f4dd",
+  "contentDigest": "29a90191ed9ba2e82e1130f84ae32db3c4dcf1fca7ebaa36278b5264e64f6f31",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -47,7 +47,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "7f664b101e35950e19fee73c5affb0f34d574b32ef2e65eae06eb7a65abd43b0"
+      "sha256": "9d646bf02483d9cef6e7f3bd8711c4e9bf44db6725974c1cb9c957b43cebae6a"
     },
     {
       "path": "SellApp.sln",
@@ -467,7 +467,7 @@
     {
       "path": "examples/Onboarding/Onboarding.csproj",
       "mode": "100644",
-      "sha256": "93d4fb18308b8bb7aecae275a6a0ae0cc79aa2b65eeaccc85ba524eb6766b6fb"
+      "sha256": "4fad83e77ced02824cfcb666b170f3c0746149eb392aa0fae4f79e5d5663aae5"
     },
     {
       "path": "examples/Onboarding/Program.cs",
@@ -482,12 +482,12 @@
     {
       "path": "examples/check-package.mjs",
       "mode": "100644",
-      "sha256": "afbd521285e556cac0153f57dab83460ed28e50d56e48fab7c4333b4a4dd18a4"
+      "sha256": "c077af4d2721b8b63e021d9b26e0c2acfe4e8563172d8f1f67edd41434fb010e"
     },
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "28b4af9efa7508cecb3b8db6377dd3331c40c853645a50e3ec1fd2a115c9e4f8"
+      "sha256": "daf4016f25de4cfcb5ae857756e39323753f07ffaaf132f86a8152a6295040ee"
     },
     {
       "path": "src/SellApp.net/Client/Errors.cs",
@@ -507,7 +507,7 @@
     {
       "path": "src/SellApp.net/Client/SellAppClient.cs",
       "mode": "100644",
-      "sha256": "1bfbed3d2ddd443fae5b70e5fac290502be4058a303fe8501526c7920242b999"
+      "sha256": "48154e0eb612748b0731ca8f5ebefd7ab48efdf1bf799cef08dff73a9987521b"
     },
     {
       "path": "src/SellApp.net/Client/SellAppOptions.cs",
@@ -14777,7 +14777,7 @@
     {
       "path": "src/SellApp.net/SellApp.net.csproj",
       "mode": "100644",
-      "sha256": "bb0651be42168466fe1b226b737a132de9f0f350fac9245360f0287250373294"
+      "sha256": "bb699772013ec7fbd66283fdc36c0a774132634992f7fc39ba154af2d6687653"
     },
     {
       "path": "src/SellApp.net/Services/Account/AccountService.cs",

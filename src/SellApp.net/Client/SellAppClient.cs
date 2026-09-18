@@ -613,7 +613,7 @@ public partial class SellAppClient : IDisposable
         }
         if (contract.Server.Length > 0) path = (customBase ? baseAddress!.GetLeftPart(UriPartial.Authority) : contract.Server).TrimEnd('/') + "/" + path;
         var message = new HttpRequestMessage(request.Method, new Uri(baseAddress, path));
-        message.Headers.UserAgent.ParseAdd("sellapp-dotnet/0.1.0");
+        message.Headers.UserAgent.ParseAdd("sellapp-dotnet/0.1.1");
         if (!string.IsNullOrWhiteSpace(request.RequestOptions?.IdempotencyKey)) message.Headers.Add("Idempotency-Key", request.RequestOptions.IdempotencyKey);
         if (request.RequestOptions?.Headers is not null) foreach (var header in request.RequestOptions.Headers) message.Headers.TryAddWithoutValidation(header.Key, header.Value);
         message.Headers.Remove("Authorization"); message.Headers.Remove("X-STORE"); message.Headers.Remove("Cookie");

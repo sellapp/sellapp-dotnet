@@ -35,16 +35,16 @@ function readArchive(file) {
 
 const execute = promisify(execFile);
 assert(process.argv[2], 'Pass the directory containing the freshly built NuGet package');
-const archivePath = resolve(process.argv[2], 'SellApp.0.1.0.nupkg');
+const archivePath = resolve(process.argv[2], 'SellApp.0.1.1.nupkg');
 const archive = readArchive(archivePath);
 for (const name of ['README.md', 'LICENSE.txt', 'NOTICE.txt', 'docs/usage.md', 'docs/methods.md', 'examples/README.md', 'examples/Onboarding/Program.cs']) assert(archive.has(name), 'Missing package documentation: ' + name);
 assert(archive.get('README.md').toString().startsWith('# SellApp .NET SDK'));
 assert(archive.get('SellApp.nuspec').toString().includes('<readme>README.md</readme>'));
 for (const name of archive.keys()) assert(!/(^|\/)(test|tests|testdata|fixtures|obj|bin)(\/|$)/.test(name), 'Unwanted package content: ' + name);
 const assets = JSON.parse(readFileSync('examples/Onboarding/obj/project.assets.json', 'utf8'));
-assert.equal(assets.libraries['SellApp/0.1.0']?.type, 'package', 'Example must consume the packed NuGet package');
+assert.equal(assets.libraries['SellApp/0.1.1']?.type, 'package', 'Example must consume the packed NuGet package');
 assert(Object.keys(assets.packageFolders).some((folder) => resolve(folder) === resolve(process.argv[2], 'consumer-packages')), 'Use an isolated RestorePackagesPath under the package directory');
-assert.equal(assets.libraries['SellApp/0.1.0'].sha512, createHash('sha512').update(readFileSync(archivePath)).digest('base64'), 'Consumer must restore this exact package archive');
+assert.equal(assets.libraries['SellApp/0.1.1'].sha512, createHash('sha512').update(readFileSync(archivePath)).digest('base64'), 'Consumer must restore this exact package archive');
 const product = {"id":120,"title":"Design kit","slug":"design-kit","description":"<p>Templates for your next project.</p>","images":[{"path":"store/1/listings/NM6TBKIMzpFJq1MKTV24oMJ1W4UrKCo7NS98nt4K.png","metadata":{"size":39289,"filename":"NM6TBKIMzpFJq1MKTV24oMJ1W4UrKCo7NS98nt4K","extension":"png","mime_type":"image/png"}},{"path":"store/1/listings/ov6XMb68tRr80zl7sqfN1or7xfqqH5WbZygDEQ8X.png","metadata":{"size":422373,"filename":"ov6XMb68tRr80zl7sqfN1or7xfqqH5WbZygDEQ8X","extension":"png","mime_type":"image/png"}}],"order":1,"visibility":"PUBLIC","delivery_text":"Thanks for your purchase. Your download is ready.","additional_information":[{"required":true,"key":"3aecffd000e00e2211e94558007ffc37","type":"checkbox","label":"Do you agree to the purchase terms?"}],"other_settings":{"faq":[{"answer":"Yes. Adapt the included templates to your project.","question":"Can I use these templates for my own project?"}],"video_url":"https://example.com/launch-lab/product-tour","redirect_url":"https://example.com/post-launch?customer_email=[customer_email]&order_id=[order_id]","product_title":"Design kit","product_description":"Templates for your next project."},"deleted_at":null,"created_at":"2026-08-24T10:00:00.000000Z","updated_at":"2026-08-24T10:00:00.000000Z","store_id":1,"category_id":null,"section_id":null,"section_order":null,"is_discoverable":true,"variants":[{"id":4321,"title":"Design kit"}],"url":"https://launch-lab.sell.app/product/design-kit"};
 let mode = 'first';
 let calls = [];

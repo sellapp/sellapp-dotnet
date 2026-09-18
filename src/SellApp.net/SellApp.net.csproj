@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>SellApp</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>SellApp</Authors>
     <Description>Official SellApp API client for .NET.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
