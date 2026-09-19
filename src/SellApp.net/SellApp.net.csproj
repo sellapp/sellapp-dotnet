@@ -8,7 +8,9 @@
     <PackageId>SellApp</PackageId>
     <Version>0.1.1</Version>
     <Authors>SellApp</Authors>
-    <Description>Official SellApp API client for .NET.</Description>
+    <Description>Official C# and .NET SDK for SellApp. Integrate products, orders, customers, and subscriptions into your application.</Description>
+    <PackageTags>sellapp;api;sdk;ecommerce</PackageTags>
+    <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sellapp/sellapp-dotnet</RepositoryUrl>

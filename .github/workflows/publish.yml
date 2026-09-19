@@ -1,0 +1,77 @@
+# Generated manual publication; pushes and tags never publish automatically.
+name: Publish validated NuGet package
+'on':
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Release tag containing the validated package assets (vX.Y.Z)
+        required: true
+        type: string
+      manifest_sha256:
+        description: SHA-256 from the reviewed local publication manifest
+        required: true
+        type: string
+      publish:
+        description: Upload to NuGet after verification (leave unchecked for verification only)
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: dotnet-nuget-publication
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'sellapp/sellapp-dotnet' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Verify retained package hashes and source identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          MANIFEST_SHA256: ${{ inputs.manifest_sha256 }}
+        run: >-
+          python3 .github/scripts/verify-dotnet-publication.py --tag "$RELEASE_TAG" --sha256
+          "$MANIFEST_SHA256"
+      - name: Retain verified distributions
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: verified-nuget-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    needs: verify
+    if: inputs.publish && !github.event.repository.private
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: nuget
+      url: https://www.nuget.org/packages/SellApp
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+        with:
+          name: verified-nuget-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dist/
+      - name: Set up the publishing client
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: 8.0.x
+      - name: Exchange the GitHub identity for a short-lived NuGet credential
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Publish the verified NuGet package
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: >-
+          dotnet nuget push dist/*.nupkg --api-key "$NUGET_API_KEY" --source
+          https://api.nuget.org/v3/index.json --timeout 300

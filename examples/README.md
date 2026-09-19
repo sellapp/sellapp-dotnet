@@ -13,4 +13,4 @@ dotnet run --project examples/Onboarding -- pagination
 dotnet test test/SellAppTests --filter DocumentationExamples
 ```
 
-The first command reads one product, the second reads up to three pages, and both explain failures through the same error handler. The third command tests those methods against a local server with dummy credentials, without contacting your store. A separate application can use the project reference shown in the [README](../README.md).
+The first command reads one product, the second reads up to three pages, and both explain failures through the same error handler. The third command tests those methods against a local server with dummy credentials, without contacting your store. A separate application can install the NuGet package as shown in the [README](../README.md).

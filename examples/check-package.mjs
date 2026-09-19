@@ -61,12 +61,12 @@ const server = createServer((request, response) => {
     if (mode === 'pagination') assert.equal(url.searchParams.get('page'), String(calls.length));
     response.setHeader('Content-Type', 'application/json');
     if (mode === 'error') { response.writeHead(403); response.end(JSON.stringify({message:'Forbidden',request_id:'req_example'})); return; }
-    response.end(JSON.stringify({data:[product], links:{next: mode === 'pagination' && calls.length === 1 ? '?page=2' : null}, meta:{current_page: calls.length,last_page: mode === 'pagination' ? 2 : 1}}));
+    response.end(JSON.stringify({data:mode === 'empty' ? [] : [product], links:{next: mode === 'pagination' && calls.length === 1 ? '?page=2' : null}, meta:{current_page: calls.length,last_page: mode === 'pagination' ? 2 : 1}}));
   } catch (error) { failures.push(error); response.writeHead(500); response.end('{}'); }
 });
 await new Promise((done) => server.listen(0, '127.0.0.1', done));
 try {
-  for (mode of ['first', 'pagination', 'error']) {
+  for (mode of ['first', 'empty', 'pagination', 'error']) {
     calls = [];
     const env = {...process.env, SELLAPP_API_KEY:'test_key', SELLAPP_STORE:'test_store', SELLAPP_API_BASE_URL:'http://127.0.0.1:' + server.address().port};
     const args = ['examples/Onboarding/bin/Release/net8.0/Onboarding.dll', ...(mode === 'pagination' ? ['pagination'] : [])];
@@ -76,6 +76,7 @@ try {
     assert.equal(result.code, mode === 'error' ? 1 : 0, result.stderr);
     assert.equal(calls.length, mode === 'pagination' ? 2 : 1);
     if (mode === 'error') assert(result.stderr.includes('req_example'));
+    else if (mode === 'empty') assert.equal(result.stdout.trim(), 'No products yet. Your connection is ready.');
     else assert.equal(result.stdout.trim().split(/\r?\n/).filter(Boolean).join('|'), Array(calls.length).fill(product.id + ': ' + product.title).join('|'));
     assert.equal(failures.length, 0, failures.map(String).join('\n'));
     console.log('Packaged .NET example ' + mode + ': PASS');

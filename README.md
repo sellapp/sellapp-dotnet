@@ -6,41 +6,38 @@ Let's start with one product's name in your terminal. A small request, a useful 
 
 Already know your way around? Jump to [configuration](https://github.com/sellapp/sellapp-dotnet/blob/main/docs/usage.md#client-configuration), [usage details](https://github.com/sellapp/sellapp-dotnet/blob/main/docs/usage.md), or the [method index](https://github.com/sellapp/sellapp-dotnet/blob/main/docs/methods.md).
 
-## Install from source
+## Install
 
-**Use the source checkout for now.** This SDK is pre-release, and a published SellApp release of the intended NuGet package, `SellApp`, has not yet been verified. The repository is private, so cloning requires access.
-
-The library targets .NET 8. With the .NET 8 SDK or a compatible newer SDK installed, clone and build it:
+The SDK requires .NET 8 or later. Install [`SellApp` from NuGet](https://www.nuget.org/packages/SellApp). From an existing project directory:
 
 ```sh
-git clone https://github.com/sellapp/sellapp-dotnet.git
-cd sellapp-dotnet
-dotnet build src/SellApp.net/SellApp.net.csproj
+dotnet add package SellApp --version 0.1.1
 ```
 
-Already have a .NET 8 console application? Run this from its directory to reference your local SDK project. Adjust the sibling path if you cloned the SDK elsewhere:
+For a new console application, create the project first:
 
 ```sh
-dotnet add reference ../sellapp-dotnet/src/SellApp.net/SellApp.net.csproj
+dotnet new console --name SellAppExample --framework net8.0
+cd SellAppExample
+dotnet add package SellApp --version 0.1.1
 ```
-
 
 ## Your first request
 
 Your request needs an API key to identify you and a store slug to select your store. Give the key the `listing` ability, which grants access to the catalog. For `example-store.sell.app`, the slug is `example-store`. The [authentication guide](https://sell.app/docs/api/authentication) helps you get both ready.
 
-Set `SELLAPP_API_KEY` and `SELLAPP_STORE` as environment variables: settings passed to your program rather than saved in its source. Keep the key out of Git history. From the SDK checkout, replace the fictitious values below and run these commands in a Bash-compatible shell:
+Set `SELLAPP_API_KEY` and `SELLAPP_STORE` as environment variables: settings passed to your program rather than saved in its source. Keep the key out of Git history. Replace your application's `Program.cs` with the program below. Then replace the fictitious values and run these commands in a Bash-compatible shell:
 
 ```sh
 export SELLAPP_API_KEY=sk_example_replace_me
 export SELLAPP_STORE=example-store
 export SELLAPP_API_BASE_URL=https://sell.app/api
-dotnet run --project examples/Onboarding
+dotnet run
 ```
 
 You should see a product's ID and title. If the store is empty, the program says so; that still means the request worked. The URL points at your real store, so the example asks you to choose it explicitly. `SELLAPP_API_BASE_URL` is an example setting, not an SDK environment setting, and an unconfigured run stops before making a request.
 
-Here's the complete [onboarding program](https://github.com/sellapp/sellapp-dotnet/blob/main/examples/Onboarding/Program.cs). Start with `FirstRequestAsync`: it waits for the response and reads products from `page.Data`. The remaining methods handle additional pages and failures, ready for when you need them.
+Here's the [onboarding program](https://github.com/sellapp/sellapp-dotnet/blob/main/examples/Onboarding/Program.cs). Start with `FirstRequestAsync`: it waits for the response and reads products from `page.Data`. The remaining methods handle additional pages and failures, ready for when you need them.
 
 ```csharp
 using SellApp;

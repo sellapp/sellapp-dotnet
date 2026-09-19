@@ -10,7 +10,7 @@ An idempotency key identifies one intended change. RequestOptions.IdempotencyKey
 
 ## Authentication and errors
 
-Missing or blank credentials fail during construction with `ConfigurationException`. Both a key and store are needed for authenticated API calls.
+The SDK selects credentials per operation. Ordinary integrations use API keys. A missing or blank required credential raises `ConfigurationException` before transport. API-key v2 operations can omit the store where the operation permits it; legacy operations require it. The first-request example explicitly requires a store so you know which catalog it reads.
 
 ApiException carries status, type, code, message, parameter, request ID, and documentation URL. Request IDs prefer the X-Request-ID header, then the body. Every status-specific exception, including AuthenticationException, preserves this metadata.
 
@@ -39,7 +39,7 @@ Use `using` to dispose the SDK client. It disposes an HTTP client it created; a 
 
 ## Pagination and failures
 
-The API splits a long catalog into pages. `Products.ListAsync` returns one of them: `Data` contains products, and `Meta` and `Links` describe the listing. Run `dotnet run --project examples/Onboarding -- pagination` to read up to three pages by number.
+The API splits a long catalog into pages. `Products.ListAsync` returns one of them: `Data` contains products, and `Meta` and `Links` describe the listing. Run `dotnet run -- pagination` to read up to three pages by number.
 
 The automatic pager supports cursor metadata and validated numeric page links. It rejects cross-origin, path-changing, malformed, duplicate, and cyclic links, and `RequestOptions.MaxPages` / `MaxItems` bound traversal.
 
