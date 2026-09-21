@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "dotnet",
   "repository": "sellapp/sellapp-dotnet",
-  "sourceSha": "65b023d5ffbdabb2411b942354d9f5fdcb3de5b8",
+  "sourceSha": "617c71170f5c326d2d707c0f3e01caf9a948d2fc",
   "specSha256": "02043ebfc36589e78743f00a0f4a2f3ac9ac14914b9cf2910f04fc34ad2d0924",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "550ef6afedd6d27954abcd9f0550582bfbb7c557718876a757a130424c2e1140",
-  "contentDigest": "26e9bec33db4eecebce4ade9b03474c4b5063b720fc9f556ac90c9c6a37a7429",
+  "treeDigest": "1fbbe6218656556d3200fceed89173ed5ae5975c38b195a6edfbe7f0248a2dc8",
+  "contentDigest": "f245e05d221de3dbbffb36720dbdd0811e2ce0c325d9a70d940a190f5f6ebf2f",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -492,12 +492,12 @@
     {
       "path": "examples/check-package.mjs",
       "mode": "100644",
-      "sha256": "ce1cdbd6108d74643263fdb6a5dba61f31ac4006ebdf8993e49566d56c6979e0"
+      "sha256": "76908c5d4aa8656a0a5cb33608d23b55a1b1a2024580aaeb9718c58be2f904db"
     },
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "8db67150059a7810ddf99e70e6f624aa069efd4a0b3f5d322b4fd88e239750f2"
+      "sha256": "40517b8afc2dda2e3587f6794d120ac446c1ea42139e27e5bc07a4f4f56731d1"
     },
     {
       "path": "src/SellApp.net/Client/Errors.cs",

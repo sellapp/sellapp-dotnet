@@ -7,14 +7,16 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 
 import { inflateRawSync } from 'node:zlib';
-function readArchive(file) {
+function readArchive(file, maxEntries = 10000) {
+  assert(Number.isSafeInteger(maxEntries) && maxEntries > 0 && maxEntries <= 65535, 'Invalid ZIP entry limit');
   const bytes = readFileSync(file);
   assert(bytes.length <= 256 * 1024 * 1024, 'Archive is unexpectedly large');
   const footer = bytes.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
   assert(footer >= 0 && footer + 22 <= bytes.length, 'Missing ZIP directory');
   const count = bytes.readUInt16LE(footer + 10);
-  assert(count < 10000, 'Unexpected ZIP entry count');
+  assert(count < maxEntries, 'Unexpected ZIP entry count');
   const files = new Map();
+  let expandedSize = 0;
   let offset = bytes.readUInt32LE(footer + 16);
   for (let index = 0; index < count; index++) {
     assert.equal(bytes.readUInt32LE(offset), 0x02014b50, 'Invalid ZIP directory entry');
@@ -27,7 +29,10 @@ function readArchive(file) {
     const start = local + 30 + bytes.readUInt16LE(local + 26) + bytes.readUInt16LE(local + 28);
     assert(start + size <= bytes.length && (method === 0 || method === 8), 'Unsupported ZIP entry');
     const compressed = bytes.subarray(start, start + size);
-    files.set(name, method === 0 ? compressed : inflateRawSync(compressed, { maxOutputLength: 32 * 1024 * 1024 }));
+    const contents = method === 0 ? compressed : inflateRawSync(compressed, { maxOutputLength: 32 * 1024 * 1024 });
+    expandedSize += contents.length;
+    assert(expandedSize <= 256 * 1024 * 1024, 'Expanded archive is unexpectedly large');
+    files.set(name, contents);
     offset += 46 + nameSize + extraSize + commentSize;
   }
   return files;
