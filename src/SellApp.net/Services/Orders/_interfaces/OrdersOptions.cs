@@ -27,6 +27,7 @@ namespace SellApp
         [STJS.JsonPropertyName("customer_email")]
         public string CustomerEmail { get; set; } = default!;
 
+        /// <summary>The IP address the customer is buying from. Send it when you sell a plan with a trial: a trial of the same product taken from this address in the last 30 days counts as the customer's. Without it, only `customer_email` is checked, so a customer could take another trial with a new email address.</summary>
         [JsonProperty("customer_ip")]
         [STJS.JsonPropertyName("customer_ip")]
         public string? CustomerIp { get; set; }
@@ -186,6 +187,7 @@ namespace SellApp
         [STJS.JsonPropertyName("customer_email")]
         public string CustomerEmail { get; set; } = default!;
 
+        /// <summary>The IP address the customer is buying from. Send it when you sell a plan with a trial: a trial of the same product taken from this address in the last 30 days counts as the customer's. Without it, only `customer_email` is checked, so a customer could take another trial with a new email address.</summary>
         [JsonProperty("customer_ip")]
         [STJS.JsonPropertyName("customer_ip")]
         public string? CustomerIp { get; set; }

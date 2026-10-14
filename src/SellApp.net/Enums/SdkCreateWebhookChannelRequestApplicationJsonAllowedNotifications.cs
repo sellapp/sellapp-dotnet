@@ -37,15 +37,19 @@ namespace SellApp
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications ProductCreated => new("product.created");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications ProductTrashed => new("product.trashed");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications ProductUpdated => new("product.updated");
+        public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionAction => new("subscription.action");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionCancelled => new("subscription.cancelled");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionCreated => new("subscription.created");
+        public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionPlanChangeNeedsAttention => new("subscription.plan_change_needs_attention");
+        public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionRenewalNeedsAttention => new("subscription.renewal_needs_attention");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionRenewed => new("subscription.renewed");
+        public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications SubscriptionSignupNeedsAttention => new("subscription.signup_needs_attention");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications TicketMessageCreated => new("ticket_message.created");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications VariantCreated => new("variant.created");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications VariantSoldOut => new("variant.sold_out");
         public static SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications VariantUpdated => new("variant.updated");
 
-        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.cancelled" or "subscription.created" or "subscription.renewed" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
+        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.action" or "subscription.cancelled" or "subscription.created" or "subscription.plan_change_needs_attention" or "subscription.renewal_needs_attention" or "subscription.renewed" or "subscription.signup_needs_attention" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
         public bool Equals(SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is SdkCreateWebhookChannelRequestApplicationJsonAllowedNotifications other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

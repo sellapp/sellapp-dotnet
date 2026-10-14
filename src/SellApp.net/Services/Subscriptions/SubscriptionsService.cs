@@ -26,13 +26,14 @@ namespace SellApp
 
         /// <summary>Cancel a subscription</summary>
         /// <remarks>
-        /// Cancel an active subscription now or at period end. cancel_at_period_end is required. Refund flags are valid only when it is false; period-end cancellation does not refund the last payment. Refunds are off by default. refund_last_payment requests a real refund; pro_rated_refund requires refund_last_payment and defaults to false. Cancellation can succeed even if the requested refund fails. A 200 response or confirmed cancellation does not prove a refund, and the action response does not expose the provider refund result. Check the order and payment-provider refund records before retrying; do not replay cancellation as a refund-recovery step. Reuse an idempotency key only with identical action input and actor. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Cancel an active subscription now or at period end, or one with a payment still owed now: a past due one the store bills in house, or a past due or unpaid Stripe, PayPal, or Razorpay subscription. cancel_at_period_end is required. Refund flags are valid only when it is false; period-end cancellation does not refund the last payment. New integrations should use the cancel-at-period-end and cancel-immediately lifecycle actions instead. A provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. Refunds are off by default. refund_last_payment requests a real refund; pro_rated_refund requires refund_last_payment and defaults to false. While a Stripe, PayPal, or Razorpay subscription is past due or unpaid, its current period was never paid for, so a pro-rated refund returns `422`; a full refund or no refund still works. Cancellation can succeed even if the requested refund fails. A 200 response or confirmed cancellation does not prove a refund, and the action response does not expose the provider refund result. Check the order and payment-provider refund records before retrying; do not replay cancellation as a refund-recovery step. Reuse an idempotency key only with identical action input and actor. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="subscription">The subscription path parameter.</param>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The <see cref="SdkCancelSubscriptionResponseValue200ApplicationJson"/> result.</returns>
+        [System.Obsolete("This operation is deprecated.")]
         public virtual async Task<SdkCancelSubscriptionResponseValue200ApplicationJson> CancelAsync(string subscription, SubscriptionsCancelOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "cancelSubscription", true);
@@ -54,9 +55,118 @@ namespace SellApp
             return this.CancelAsync(subscription, options, requestOptions, cancellationToken);
         }
 
+        /// <summary>List subscriptions</summary>
+        /// <remarks>
+        /// List the subscriptions belonging to the authenticated store, ordered by identifier ascending. Requires the `invoice` Sanctum ability. Use `status[]` to keep only the states you care about. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>A page of <see cref="SdkListSubscriptionsResponseValue200ApplicationJson"/> results.</returns>
+        public virtual async Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>> ListAsync(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "listSubscriptions", false);
+            return await this.GetAsync<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>>("/v2/subscriptions", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>>> ListWithResponseAsync(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ListAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ListAsync"/>.</summary>
+        public virtual Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>> List(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ListAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Auto-paging variant of <see cref="ListAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async sequence of <see cref="SdkListSubscriptionsResponseValue200ApplicationJson"/> items.</returns>
+        public virtual IAsyncEnumerable<SdkListSubscriptionsResponseValue200ApplicationJson> ListAutoPagingAsync(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "listSubscriptions", false);
+            return base.ListAutoPagingAsync<SdkListSubscriptionsResponseValue200ApplicationJson>(HttpMethod.Get, "/v2/subscriptions", options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Search subscriptions</summary>
+        /// <remarks>
+        /// Search the store's subscriptions, ordered by identifier ascending unless `sort` says otherwise. `search.value` matches the provider subscription ID, the provider customer ID, and the customer email. Filter on `id`, `customer_id` (the SellApp customer ID, as in `customer.id`), `provider`, `status`, or `product_variant_id`, and sort on `id`, `status`, `current_period_start`, `current_period_end`, `created_at`, or `updated_at`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>A page of <see cref="SdkSearchSubscriptionsResponseValue200ApplicationJson"/> results.</returns>
+        public virtual async Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "searchSubscriptions", false);
+            return await this.PostAsync<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>>("/v2/subscriptions/search", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>>> SearchWithResponseAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.SearchAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="SearchAsync"/>.</summary>
+        public virtual Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>> Search(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.SearchAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Auto-paging variant of <see cref="SearchAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async sequence of <see cref="SdkSearchSubscriptionsResponseValue200ApplicationJson"/> items.</returns>
+        public virtual IAsyncEnumerable<SdkSearchSubscriptionsResponseValue200ApplicationJson> SearchAutoPagingAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "searchSubscriptions", false);
+            return base.ListAutoPagingAsync<SdkSearchSubscriptionsResponseValue200ApplicationJson>(HttpMethod.Post, "/v2/subscriptions/search", options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve a subscription</summary>
+        /// <remarks>
+        /// Retrieve one subscription by its SellApp subscription record identifier. Requires the `invoice` Sanctum ability. Foreign-store identifiers return not found. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="productSubscription">The productSubscription path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetSubscriptionResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getSubscription", false);
+            return await this.GetAsync<SdkGetSubscriptionResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetSubscriptionResponseValue200ApplicationJson>> GetWithResponseAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetAsync(productSubscription, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetAsync"/>.</summary>
+        public virtual Task<SdkGetSubscriptionResponseValue200ApplicationJson> Get(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetAsync(productSubscription, requestOptions, cancellationToken);
+        }
+
         /// <summary>View subscription capabilities</summary>
         /// <remarks>
-        /// Return the lifecycle actions currently supported for a subscription. Capability status controls whether an actor can pause, resume, cancel, update the payment method, change plan, or shift the billing date. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Return the lifecycle actions currently supported for a subscription, each with the reason the customer and the seller are shown. A `customer_only` status names who owns the action rather than who may call the API: a store token carries a plan change and a payment method update on the customer's behalf, while a `customer_only` auto-renewal switch stays with the customer portal. `set_auto_renew` has no API route at all. While a Stripe, PayPal, or Razorpay subscription is past due or unpaid, every action except `cancel_immediately` and, on Razorpay, `update_payment_method`, is `unsupported`, and a subscription the store bills in house that is on hold for an unpaid renewal reports `resume` as `customer_only`, because only the customer can pay to resume it. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -85,7 +195,7 @@ namespace SellApp
 
         /// <summary>Cancel a subscription at period end</summary>
         /// <remarks>
-        /// Schedule cancellation at the end of the current billing period without requesting a refund. Inspect capabilities first. The response records the cancellation action; retrieve the subscription to observe its current state. Reuse an idempotency key only with identical action input and actor. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Schedule cancellation at the end of the current billing period without requesting a refund. Inspect capabilities first. PayPal has no cancellation at period end, so on a PayPal subscription this cancels it with PayPal straight away and keeps the customer's access until the period ends; it can't be kept afterwards. The response records the cancellation action; retrieve the subscription to observe its current state. Reuse an idempotency key only with identical action input and actor. A provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -115,7 +225,7 @@ namespace SellApp
 
         /// <summary>Cancel a subscription immediately</summary>
         /// <remarks>
-        /// Request immediate subscription cancellation. Inspect capabilities for provider support. This ends future billing and can change customer access. Refunds are off by default. refund_last_payment requests a real refund; pro_rated_refund requires refund_last_payment and defaults to false. Cancellation can succeed even if the requested refund fails. A 200 response or confirmed cancellation does not prove a refund, and the action response does not expose the provider refund result. Check the order and payment-provider refund records before retrying; do not replay cancellation as a refund-recovery step. Reuse an idempotency key only with identical action input and actor. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Request immediate subscription cancellation. Inspect capabilities for provider support. This ends future billing and can change customer access. It is the one action left on a Stripe or PayPal subscription that is past due or unpaid, and one of two left on a Razorpay one alongside a payment method update. A provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. Refunds are off by default. refund_last_payment requests a real refund; pro_rated_refund requires refund_last_payment and defaults to false. While a Stripe, PayPal, or Razorpay subscription is past due or unpaid, its current period was never paid for, so a pro-rated refund returns `422`; a full refund or no refund still works. Cancellation can succeed even if the requested refund fails. A 200 response or confirmed cancellation does not prove a refund, and the action response does not expose the provider refund result. Check the order and payment-provider refund records before retrying; do not replay cancellation as a refund-recovery step. Reuse an idempotency key only with identical action input and actor. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -143,9 +253,39 @@ namespace SellApp
             return this.CancelImmediatelyAsync(productSubscription, options, requestOptions, cancellationToken);
         }
 
+        /// <summary>Keep a subscription</summary>
+        /// <remarks>
+        /// Stop a scheduled cancellation so the subscription keeps renewing, which is the undo for cancelling at period end. The subscription has to still be active, still be scheduled to cancel, and its period must not have ended yet. Any of those, a provider that cannot undo its own schedule (a PayPal subscription or a Razorpay trial, both already cancelled with the provider), or a change already in progress returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="productSubscription">The productSubscription path parameter.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkKeepSubscriptionResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkKeepSubscriptionResponseValue200ApplicationJson> KeepAsync(string productSubscription, SubscriptionsKeepOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "keepSubscription", true);
+            return await this.PostAsync<SdkKeepSubscriptionResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/keep", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkKeepSubscriptionResponseValue200ApplicationJson>> KeepWithResponseAsync(string productSubscription, SubscriptionsKeepOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.KeepAsync(productSubscription, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="KeepAsync"/>.</summary>
+        public virtual Task<SdkKeepSubscriptionResponseValue200ApplicationJson> Keep(string productSubscription, SubscriptionsKeepOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.KeepAsync(productSubscription, options, requestOptions, cancellationToken);
+        }
+
         /// <summary>Pause a subscription</summary>
         /// <remarks>
-        /// Pause a subscription after checking capabilities. Automatic resume dates are supported only by the current Stripe flow; use a future resume_at when supplied. Other provider pauses may need an explicit resume action. Customer-originated pauses are also subject to store pause policies. Reuse an idempotency key only with identical input and actor, and retrieve the subscription after the action. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Pause a subscription after checking capabilities. Automatic resume dates are supported by Stripe and by subscriptions the store bills in house; use a future resume_at when supplied. Other provider pauses may need an explicit resume action. Customer-originated pauses are also subject to store pause policies. Reuse an idempotency key only with identical input and actor, and retrieve the subscription after the action. A provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -175,7 +315,7 @@ namespace SellApp
 
         /// <summary>Resume a subscription</summary>
         /// <remarks>
-        /// Resume a paused subscription and restore related entitlements where possible. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Resume a paused subscription and restore related entitlements where possible. A subscription that is not paused, a subscription the store bills in house that is on hold for an unpaid renewal (only the customer can resume it, by paying that renewal from the customer portal), a provider refusal, or a change already in progress returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -205,19 +345,20 @@ namespace SellApp
 
         /// <summary>Update a subscription payment method</summary>
         /// <remarks>
-        /// This action belongs to the customer. Seller API requests return a 422 validation error. Check subscription capabilities and use the customer flow; never expose a seller API key to work around this restriction. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Request a subscription payment method update. A payment method belongs to the customer, and a store token requests the update on their behalf. The customer still enters the new card themselves, so the action stays `pending` and `redirect_url` is where they finish it: Stripe's hosted page for a Stripe subscription, or a SellApp page for a Razorpay one. `return_url` chooses where Stripe sends the customer afterwards; Razorpay ignores it. PayPal subscriptions and subscriptions the store bills in house don't support the update. Read `update_payment_method` in the capabilities response before calling: an unsupported payment method, or a state check such as a change already in progress, a subscription that is no longer active, or a Stripe subscription with a payment still owed, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task<string> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        /// <returns>The <see cref="SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "updateSubscriptionPaymentMethod", true);
-            return await this.PostAsync<string>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/update-payment-method", options, requestOptions, cancellationToken);
+            return await this.PostAsync<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/update-payment-method", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<string>> UpdatePaymentMethodWithResponseAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson>> UpdatePaymentMethodWithResponseAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
@@ -227,26 +368,27 @@ namespace SellApp
         }
 
         /// <summary>Compatibility wrapper for <see cref="UpdatePaymentMethodAsync"/>.</summary>
-        public virtual Task<string> UpdatePaymentMethod(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson> UpdatePaymentMethod(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.UpdatePaymentMethodAsync(productSubscription, options, requestOptions, cancellationToken);
         }
 
         /// <summary>Preview a subscription plan change</summary>
         /// <remarks>
-        /// This action belongs to the customer. Seller API requests return a 422 validation error. Check subscription capabilities and use the customer flow; never expose a seller API key to work around this restriction. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Preview a subscription plan change before confirming it. The preview stores the change it was taken for and returns a `preview_token` the confirmation must send back, alongside the provider's own pricing preview. On Stripe and in-house subscriptions, `preview_payload.payment_required` says whether confirming charges `amount_due` today or leaves any amount to the next invoice, and `preview_payload.renewal_date` says when the subscription renews next. A plan change belongs to the customer, and a store token previews it on their behalf; a provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task<string> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        /// <returns>The <see cref="SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "previewSubscriptionPlanChange", true);
-            return await this.PostAsync<string>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-plan/preview", options, requestOptions, cancellationToken);
+            return await this.PostAsync<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-plan/preview", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<string>> PreviewPlanChangeWithResponseAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson>> PreviewPlanChangeWithResponseAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
@@ -256,26 +398,27 @@ namespace SellApp
         }
 
         /// <summary>Compatibility wrapper for <see cref="PreviewPlanChangeAsync"/>.</summary>
-        public virtual Task<string> PreviewPlanChange(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson> PreviewPlanChange(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.PreviewPlanChangeAsync(productSubscription, options, requestOptions, cancellationToken);
         }
 
         /// <summary>Confirm a subscription plan change</summary>
         /// <remarks>
-        /// This action belongs to the customer. Seller API requests return a 422 validation error. Check subscription capabilities and use the customer flow; never expose a seller API key to work around this restriction. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Confirm a previously previewed subscription plan change, sending back the `preview_token` for a preview of the same change. A plan change belongs to the customer, and a store token confirms it on their behalf; a provider refusal, or a state check such as a change already in progress or a subscription that is no longer active, returns `422` with the refusal sentence under `errors.subscription`. `approval_url` accompanies a `pending` action whenever the customer still has to approve the revision at the provider or pay the proration order `proration_order_id` names, and is left out entirely when the provider applied the change itself. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task<string> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        /// <returns>The <see cref="SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "confirmSubscriptionPlanChange", true);
-            return await this.PostAsync<string>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-plan/confirm", options, requestOptions, cancellationToken);
+            return await this.PostAsync<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-plan/confirm", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<string>> ConfirmPlanChangeWithResponseAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson>> ConfirmPlanChangeWithResponseAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
@@ -285,14 +428,14 @@ namespace SellApp
         }
 
         /// <summary>Compatibility wrapper for <see cref="ConfirmPlanChangeAsync"/>.</summary>
-        public virtual Task<string> ConfirmPlanChange(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson> ConfirmPlanChange(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.ConfirmPlanChangeAsync(productSubscription, options, requestOptions, cancellationToken);
         }
 
         /// <summary>Preview a subscription renewal date change</summary>
         /// <remarks>
-        /// Preview a new renewal date before confirmation when the subscription's billing-date policy requires a preview. The current Stripe and PayPal provider flows do not support renewal-date changes and return 422. Check shift_billing_date capabilities before sending a request. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Preview a new renewal date before confirmation when the subscription's billing-date policy requires one. No payment method supports renewal-date changes today: Stripe, PayPal, Razorpay, and subscriptions the store bills in house all report `shift_billing_date` as `unsupported`, so this returns `422` with the refusal sentence under `errors.subscription`. Read the capabilities response first. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -322,7 +465,7 @@ namespace SellApp
 
         /// <summary>Confirm a subscription renewal date change</summary>
         /// <remarks>
-        /// Confirm a subscription renewal date change. A preview token is required when the variant's billing-date policy requires previews. The current Stripe and PayPal provider flows do not support renewal-date changes and return 422. Check shift_billing_date capabilities before sending a request. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Confirm a subscription renewal date change, sending a `preview_token` when the variant's billing-date policy requires previews. No payment method supports renewal-date changes today: Stripe, PayPal, Razorpay, and subscriptions the store bills in house all report `shift_billing_date` as `unsupported`, so this returns `422` with the refusal sentence under `errors.subscription`. Read the capabilities response first. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -348,113 +491,6 @@ namespace SellApp
         public virtual Task<SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson> ConfirmRenewalDate(string productSubscription, SubscriptionsConfirmRenewalDateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.ConfirmRenewalDateAsync(productSubscription, options, requestOptions, cancellationToken);
-        }
-
-        /// <summary>List subscriptions</summary>
-        /// <remarks>
-        /// List page-based subscriptions with canonical customer and deprecated provider aliases. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
-        /// </remarks>
-        /// <param name="requestOptions">Per-request configuration overrides.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>A page of <see cref="ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "listSubscriptions", false);
-            return await this.GetAsync<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/subscriptions", null, requestOptions, cancellationToken);
-        }
-
-        public virtual async Task<ApiResponse<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            var capture = new ApiResponseCapture();
-            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
-            requestOptions.Capture = capture;
-            var value = await this.ListAsync(requestOptions, cancellationToken);
-            return capture.Wrap(value);
-        }
-
-        /// <summary>Compatibility wrapper for <see cref="ListAsync"/>.</summary>
-        public virtual Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> List(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            return this.ListAsync(requestOptions, cancellationToken);
-        }
-
-        /// <summary>Auto-paging variant of <see cref="ListAsync"/>. Yields individual items across all pages.</summary>
-        /// <param name="requestOptions">Per-request configuration overrides.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async sequence of <see cref="ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "listSubscriptions", false);
-            return base.ListAutoPagingAsync<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/subscriptions", null, requestOptions, cancellationToken);
-        }
-
-        /// <summary>Search subscriptions</summary>
-        /// <remarks>
-        /// Search while preserving page-based pagination. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
-        /// </remarks>
-        /// <param name="options">Request options.</param>
-        /// <param name="requestOptions">Per-request configuration overrides.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>A page of <see cref="SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "searchSubscriptions", false);
-            return await this.PostAsync<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/subscriptions/search", options, requestOptions, cancellationToken);
-        }
-
-        public virtual async Task<ApiResponse<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>> SearchWithResponseAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            var capture = new ApiResponseCapture();
-            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
-            requestOptions.Capture = capture;
-            var value = await this.SearchAsync(options, requestOptions, cancellationToken);
-            return capture.Wrap(value);
-        }
-
-        /// <summary>Compatibility wrapper for <see cref="SearchAsync"/>.</summary>
-        public virtual Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> Search(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            return this.SearchAsync(options, requestOptions, cancellationToken);
-        }
-
-        /// <summary>Auto-paging variant of <see cref="SearchAsync"/>. Yields individual items across all pages.</summary>
-        /// <param name="options">Request options.</param>
-        /// <param name="requestOptions">Per-request configuration overrides.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async sequence of <see cref="SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem> SearchAutoPagingAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "searchSubscriptions", false);
-            return base.ListAutoPagingAsync<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Post, "/v2/subscriptions/search", options, requestOptions, cancellationToken);
-        }
-
-        /// <summary>Retrieve a subscription</summary>
-        /// <remarks>
-        /// Retrieve by SellApp subscription record ID. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
-        /// </remarks>
-        /// <param name="productSubscription">The productSubscription identifier.</param>
-        /// <param name="requestOptions">Per-request configuration overrides.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The <see cref="SdkGetSubscriptionResponseValue200ApplicationJson"/> result.</returns>
-        public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "getSubscription", false);
-            return await this.GetAsync<SdkGetSubscriptionResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}", null, requestOptions, cancellationToken);
-        }
-
-        public virtual async Task<ApiResponse<SdkGetSubscriptionResponseValue200ApplicationJson>> GetWithResponseAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            var capture = new ApiResponseCapture();
-            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
-            requestOptions.Capture = capture;
-            var value = await this.GetAsync(productSubscription, requestOptions, cancellationToken);
-            return capture.Wrap(value);
-        }
-
-        /// <summary>Compatibility wrapper for <see cref="GetAsync"/>.</summary>
-        public virtual Task<SdkGetSubscriptionResponseValue200ApplicationJson> Get(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-        {
-            return this.GetAsync(productSubscription, requestOptions, cancellationToken);
         }
     }
 }

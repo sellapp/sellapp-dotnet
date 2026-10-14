@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "status": "ACTIVE",
+  "cancel_at_period_end": true,
+  "current_period_start": null,
+  "current_period_end": null,
+  "trial_ends_at": null,
+  "paused_at": null,
+  "pause_resumes_at": null,
+  "plan": null,
+  "created_at": null,
+  "updated_at": null
+}

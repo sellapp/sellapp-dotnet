@@ -13,9 +13,11 @@ namespace SellApp
         [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("data")]
         public MarkPendingInvoiceVoidedResponseValue200ApplicationJsonPropertyPaymentPropertyGatewayPropertyData Data { get; set; } = default!;
-        [JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
+
+        /// <summary>The payment method, or `null` for an invoice that costs nothing. A free trial sold through Stripe, PayPal, or Razorpay keeps its payment method, because that provider bills the plan once the trial ends.</summary>
+        [JsonProperty("type", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("type")]
-        public string Type { get; set; } = default!;
+        public string? Type { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

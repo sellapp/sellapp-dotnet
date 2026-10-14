@@ -67,6 +67,11 @@ namespace SellApp
         /// <summary>Gets the <see cref="SubscriptionsService"/> for subscriptions API operations.</summary>
         public virtual SubscriptionsService Subscriptions => this.subscriptions ??= new SubscriptionsService(this);
 
+        private SubscriptionsActionsService subscriptionsActions;
+
+        /// <summary>Gets the <see cref="SubscriptionsActionsService"/> for subscriptions actions API operations.</summary>
+        public virtual SubscriptionsActionsService SubscriptionsActions => this.subscriptionsActions ??= new SubscriptionsActionsService(this);
+
         private BookingsService bookings;
 
         /// <summary>Gets the <see cref="BookingsService"/> for bookings API operations.</summary>

@@ -37,15 +37,19 @@ namespace SellApp
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent ProductCreated => new("product.created");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent ProductTrashed => new("product.trashed");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent ProductUpdated => new("product.updated");
+        public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionAction => new("subscription.action");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionCancelled => new("subscription.cancelled");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionCreated => new("subscription.created");
+        public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionPlanChangeNeedsAttention => new("subscription.plan_change_needs_attention");
+        public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionRenewalNeedsAttention => new("subscription.renewal_needs_attention");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionRenewed => new("subscription.renewed");
+        public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent SubscriptionSignupNeedsAttention => new("subscription.signup_needs_attention");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent TicketMessageCreated => new("ticket_message.created");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent VariantCreated => new("variant.created");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent VariantSoldOut => new("variant.sold_out");
         public static SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent VariantUpdated => new("variant.updated");
 
-        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.cancelled" or "subscription.created" or "subscription.renewed" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
+        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.action" or "subscription.cancelled" or "subscription.created" or "subscription.plan_change_needs_attention" or "subscription.renewal_needs_attention" or "subscription.renewed" or "subscription.signup_needs_attention" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
         public bool Equals(SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is SendTestWebhookResponseValue200ApplicationJsonPropertyDataEvent other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

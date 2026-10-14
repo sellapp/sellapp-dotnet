@@ -32,10 +32,17 @@ namespace SellApp
         [JsonProperty("bulk_discount")]
         [STJS.JsonPropertyName("bulk_discount")]
         public List<BatchUpdateProductVariantsRequestApplicationJsonPropertyResourcesMapValuePropertyBulkDiscountItem>? BulkDiscount { get; set; }
+
+        /// <summary>Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.</summary>
         [JsonProperty("payment_methods")]
         [STJS.JsonPropertyName("payment_methods")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<BatchUpdateProductVariantsRequestApplicationJsonPropertyResourcesMapValuePaymentMethods>? PaymentMethods { get; set; }
+
+        /// <summary>Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.</summary>
+        [JsonProperty("custom_payment_method_ids")]
+        [STJS.JsonPropertyName("custom_payment_method_ids")]
+        public List<string>? CustomPaymentMethodIds { get; set; }
         [JsonProperty("other_settings")]
         [STJS.JsonPropertyName("other_settings")]
         public BatchUpdateProductVariantsRequestApplicationJsonPropertyResourcesMapValuePropertyOtherSettings? OtherSettings { get; set; }
@@ -44,6 +51,12 @@ namespace SellApp
         [JsonProperty("expected_updated_at")]
         [STJS.JsonPropertyName("expected_updated_at")]
         public DateTimeOffset? ExpectedUpdatedAt { get; set; }
+
+        /// <summary>Set an existing variant's stock count while preserving delivery instructions and uploaded files. Send 0 for out of stock or null for unlimited stock. Omit deliverable for a stock-only change. TEXT variants manage stock through their serial inventory and reject this field.</summary>
+        [JsonProperty("stock")]
+        [STJS.JsonPropertyName("stock")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 2147483647d)]
+        public long? Stock { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

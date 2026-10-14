@@ -61,10 +61,16 @@ namespace SellApp
         [STJS.JsonPropertyName("bulk_discount")]
         public List<CreateProductVariantRequestApplicationJsonPropertyBulkDiscountItem>? BulkDiscount { get; set; }
 
+        /// <summary>Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.</summary>
         [JsonProperty("payment_methods", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("payment_methods")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<SdkCreateProductVariantRequestApplicationJsonPaymentMethods> PaymentMethods { get; set; } = default!;
+
+        /// <summary>Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.</summary>
+        [JsonProperty("custom_payment_method_ids")]
+        [STJS.JsonPropertyName("custom_payment_method_ids")]
+        public List<string>? CustomPaymentMethodIds { get; set; }
 
         [JsonProperty("other_settings")]
         [STJS.JsonPropertyName("other_settings")]
@@ -125,10 +131,16 @@ namespace SellApp
         [STJS.JsonPropertyName("bulk_discount")]
         public List<ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem>? BulkDiscount { get; set; }
 
+        /// <summary>Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.</summary>
         [JsonProperty("payment_methods")]
         [STJS.JsonPropertyName("payment_methods")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<SdkReplaceProductVariantWithPutRequestApplicationJsonPaymentMethods>? PaymentMethods { get; set; }
+
+        /// <summary>Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.</summary>
+        [JsonProperty("custom_payment_method_ids")]
+        [STJS.JsonPropertyName("custom_payment_method_ids")]
+        public List<string>? CustomPaymentMethodIds { get; set; }
 
         [JsonProperty("other_settings")]
         [STJS.JsonPropertyName("other_settings")]
@@ -138,6 +150,12 @@ namespace SellApp
         [JsonProperty("expected_updated_at")]
         [STJS.JsonPropertyName("expected_updated_at")]
         public DateTimeOffset? ExpectedUpdatedAt { get; set; }
+
+        /// <summary>Set an existing variant's stock count while preserving delivery instructions and uploaded files. Send 0 for out of stock or null for unlimited stock. Omit deliverable for a stock-only change. TEXT variants manage stock through their serial inventory and reject this field.</summary>
+        [JsonProperty("stock")]
+        [STJS.JsonPropertyName("stock")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 2147483647d)]
+        public long? Stock { get; set; }
 
     }
 
@@ -173,16 +191,39 @@ namespace SellApp
         [STJS.JsonPropertyName("bulk_discount")]
         public List<UpdateProductVariantRequestApplicationJsonPropertyBulkDiscountItem>? BulkDiscount { get; set; }
 
+        /// <summary>Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.</summary>
         [JsonProperty("payment_methods")]
         [STJS.JsonPropertyName("payment_methods")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<SdkUpdateProductVariantRequestApplicationJsonPaymentMethods>? PaymentMethods { get; set; }
+
+        /// <summary>Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.</summary>
+        [JsonProperty("custom_payment_method_ids")]
+        [STJS.JsonPropertyName("custom_payment_method_ids")]
+        public List<string>? CustomPaymentMethodIds { get; set; }
 
         [JsonProperty("other_settings")]
         [STJS.JsonPropertyName("other_settings")]
         public UpdateProductVariantRequestApplicationJsonPropertyOtherSettings? OtherSettings { get; set; }
 
         /// <summary>Optional optimistic-concurrency snapshot for updates. Use the variant's latest updated_at value; stale snapshots receive a 422 validation response.</summary>
+        [JsonProperty("expected_updated_at")]
+        [STJS.JsonPropertyName("expected_updated_at")]
+        public DateTimeOffset? ExpectedUpdatedAt { get; set; }
+
+        /// <summary>Set an existing variant's stock count while preserving delivery instructions and uploaded files. Send 0 for out of stock or null for unlimited stock. Omit deliverable for a stock-only change. TEXT variants manage stock through their serial inventory and reject this field.</summary>
+        [JsonProperty("stock")]
+        [STJS.JsonPropertyName("stock")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 2147483647d)]
+        public long? Stock { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="ProductVariantsService.DeleteAsync"/>: Delete a product variant</summary>
+    [SellAppModelSchema(false)]
+    public class ProductVariantsDeleteOptions : BaseOptions
+    {
+        /// <summary>Optional optimistic-concurrency snapshot. Send the exact `updated_at` value from the product you last retrieved; the mutation is rejected if the product has changed.</summary>
         [JsonProperty("expected_updated_at")]
         [STJS.JsonPropertyName("expected_updated_at")]
         public DateTimeOffset? ExpectedUpdatedAt { get; set; }

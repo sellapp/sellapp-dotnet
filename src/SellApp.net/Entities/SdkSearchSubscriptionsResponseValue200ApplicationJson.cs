@@ -10,15 +10,6 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class SdkSearchSubscriptionsResponseValue200ApplicationJson
     {
-        [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("data")]
-        public List<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem> Data { get; set; } = default!;
-        [JsonProperty("links", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("links")]
-        public PaginationLinks Links { get; set; } = default!;
-        [JsonProperty("meta", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("meta")]
-        public PaginationMeta Meta { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

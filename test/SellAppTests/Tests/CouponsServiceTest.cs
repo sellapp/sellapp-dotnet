@@ -122,7 +122,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_batch_create_coupons_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v1/coupons/batch", HttpStatusCode.OK, fixture);
-            var result = await this.service.BatchCreateAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsBatchCreateOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1}]}")!);
+            var result = await this.service.BatchCreateAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsBatchCreateOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1,\"applies_to\":\"one_time\",\"subscription_payments\":1}]}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v1/coupons/batch");
         }
@@ -241,7 +241,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_v_2_batch_create_coupons_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/coupons/batch", HttpStatusCode.OK, fixture);
-            var result = await this.service.V2BatchCreateCouponsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsV2BatchCreateCouponsOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1}]}")!);
+            var result = await this.service.V2BatchCreateCouponsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsV2BatchCreateCouponsOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1,\"applies_to\":\"one_time\",\"subscription_payments\":1}]}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/coupons/batch");
         }

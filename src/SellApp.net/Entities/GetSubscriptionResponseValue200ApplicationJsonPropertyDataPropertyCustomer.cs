@@ -30,7 +30,8 @@ namespace SellApp
         public string? Locale { get; set; }
         [JsonProperty("metadata", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("metadata")]
-        public GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata Metadata { get; set; } = default!;
+        [SellAppSchemaConstraints(MaxProperties = 50)]
+        public Dictionary<string, ScalarMetadataValue> Metadata { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

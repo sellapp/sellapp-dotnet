@@ -6,7 +6,7 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
-    /// <summary>Represents a batch create product variants request application json property resources item property pricing.</summary>
+    /// <summary>These endpoints do not write a subscription trial. A `trial` object is refused with a `422` on `pricing.trial`; `trial: null` removes the stored trial, and leaving the key out keeps it. Set a trial through the [pricing endpoint](https://sell.app/docs/api/product-variants/update-product-variant-pricing).</summary>
     [SellAppModelSchema(true)]
     public class BatchCreateProductVariantsRequestApplicationJsonPropertyResourcesItemPropertyPricing
     {

@@ -20,7 +20,7 @@ namespace SellApp
         [STJS.JsonPropertyName("refund_last_payment")]
         public bool? RefundLastPayment { get; set; }
 
-        /// <summary>Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled.</summary>
+        /// <summary>Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled. Refused with `422` while a Stripe, PayPal, or Razorpay subscription is past due or unpaid.</summary>
         [JsonProperty("pro_rated_refund")]
         [STJS.JsonPropertyName("pro_rated_refund")]
         public bool? ProRatedRefund { get; set; }
@@ -30,6 +30,61 @@ namespace SellApp
         [STJS.JsonPropertyName("idempotency_key")]
         [SellAppSchemaConstraints(MaxLength = 128)]
         public string? IdempotencyKey { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="SubscriptionsService.ListAsync"/>: List subscriptions</summary>
+    [SellAppModelSchema(false)]
+    public class SubscriptionsListOptions : ListOptions
+    {
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
+        /// <summary>Set to false to return at most 100 matching items in one data array without pagination links or metadata.</summary>
+        [JsonProperty("pagination")]
+        [STJS.JsonPropertyName("pagination")]
+        public bool? Pagination { get; set; }
+
+        /// <summary>Filter by one or more subscription statuses. Repeat the parameter to select several; a single `status=ACTIVE` works too. A status outside the list is rejected with a validation error.</summary>
+        [JsonProperty("status[]")]
+        [STJS.JsonPropertyName("status[]")]
+        public List<SubscriptionsStatus>? Status { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="SubscriptionsService.SearchAsync"/>: Search subscriptions</summary>
+    [SellAppModelSchema(false)]
+    public class SubscriptionsSearchOptions : ListOptions
+    {
+        [JsonProperty("filters")]
+        [STJS.JsonPropertyName("filters")]
+        public List<SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem>? Filters { get; set; }
+
+        [JsonProperty("sort")]
+        [STJS.JsonPropertyName("sort")]
+        public List<SearchSubscriptionsRequestApplicationJsonPropertySortItem>? Sort { get; set; }
+
+        [JsonProperty("search")]
+        [STJS.JsonPropertyName("search")]
+        public SearchSubscriptionsRequestApplicationJsonPropertySearch? Search { get; set; }
+
+        [JsonProperty("includes")]
+        [STJS.JsonPropertyName("includes")]
+        public List<SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
+
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
+        /// <summary>Set to false to return at most 100 matching items in one data array without pagination links or metadata.</summary>
+        [JsonProperty("pagination")]
+        [STJS.JsonPropertyName("pagination")]
+        public bool? Pagination { get; set; }
 
     }
 
@@ -70,10 +125,22 @@ namespace SellApp
         [STJS.JsonPropertyName("refund_last_payment")]
         public bool? RefundLastPayment { get; set; }
 
-        /// <summary>Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled.</summary>
+        /// <summary>Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled. Refused with `422` while a Stripe, PayPal, or Razorpay subscription is past due or unpaid.</summary>
         [JsonProperty("pro_rated_refund")]
         [STJS.JsonPropertyName("pro_rated_refund")]
         public bool? ProRatedRefund { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="SubscriptionsService.KeepAsync"/>: Keep a subscription</summary>
+    [SellAppModelSchema(false)]
+    public class SubscriptionsKeepOptions : BaseOptions
+    {
+        /// <summary>Optional idempotency key. You may also send this as the Idempotency-Key header.</summary>
+        [JsonProperty("idempotency_key")]
+        [STJS.JsonPropertyName("idempotency_key")]
+        [SellAppSchemaConstraints(MaxLength = 128)]
+        public string? IdempotencyKey { get; set; }
 
     }
 
@@ -87,7 +154,7 @@ namespace SellApp
         [SellAppSchemaConstraints(MaxLength = 128)]
         public string? IdempotencyKey { get; set; }
 
-        /// <summary>Use a future date-time at execution time. Automatic resume dates are supported only for Stripe; the shown date is illustrative.</summary>
+        /// <summary>Use a future date-time at execution time. Automatic resume dates are supported by Stripe and by subscriptions the store bills in house; the shown date is illustrative.</summary>
         [JsonProperty("resume_at")]
         [STJS.JsonPropertyName("resume_at")]
         public DateTimeOffset? ResumeAt { get; set; }
@@ -120,6 +187,12 @@ namespace SellApp
         [STJS.JsonPropertyName("idempotency_key")]
         [SellAppSchemaConstraints(MaxLength = 128)]
         public string? IdempotencyKey { get; set; }
+
+        /// <summary>Where Stripe returns the customer once its hosted page finishes. Defaults to the store's customer portal page for this subscription. Razorpay subscriptions ignore it.</summary>
+        [JsonProperty("return_url")]
+        [STJS.JsonPropertyName("return_url")]
+        [SellAppSchemaConstraints(MaxLength = 2000)]
+        public string? ReturnUrl { get; set; }
 
     }
 
@@ -236,20 +309,6 @@ namespace SellApp
         [JsonProperty("metadata")]
         [STJS.JsonPropertyName("metadata")]
         public ConfirmSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
-
-    }
-
-    /// <summary>Request options for <see cref="SubscriptionsService.SearchAsync"/>: Search subscriptions</summary>
-    [SellAppModelSchema(false)]
-    public class SubscriptionsSearchOptions : ListOptions
-    {
-        [JsonProperty("search")]
-        [STJS.JsonPropertyName("search")]
-        public string? Search { get; set; }
-
-        [JsonProperty("status")]
-        [STJS.JsonPropertyName("status")]
-        public string? Status { get; set; }
 
     }
 }

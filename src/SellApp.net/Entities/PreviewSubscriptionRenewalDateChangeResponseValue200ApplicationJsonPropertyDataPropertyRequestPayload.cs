@@ -6,7 +6,7 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
-    /// <summary>Represents a preview subscription renewal date change response value200 application json property data property request payload.</summary>
+    /// <summary>The request the preview was taken for. The confirmation has to describe the same change, or it is rejected.</summary>
     [SellAppModelSchema(true)]
     public class PreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyRequestPayload
     {

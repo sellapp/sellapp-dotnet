@@ -66,6 +66,180 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## ListAsync
+
+List subscriptions
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```csharp
+public virtual async Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>> ListAsync(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `SubscriptionsListOptions?` | No |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Subscriptions.ListAsync(new SubscriptionsListOptions
+    {
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## SearchAsync
+
+Search subscriptions
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```csharp
+public virtual async Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `SubscriptionsSearchOptions?` | No |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Subscriptions.SearchAsync(new SubscriptionsSearchOptions
+    {
+        Filters = JsonConvert.DeserializeObject<List<SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem>>("[{\"field\":\"status\",\"operator\":\"=\",\"value\":\"ACTIVE\"}]")!,
+        Search = JsonConvert.DeserializeObject<SearchSubscriptionsRequestApplicationJsonPropertySearch>("{\"value\":\"maya.chen@example.com\"}")!,
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## GetAsync
+
+Retrieve a subscription
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```csharp
+public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| productSubscription | `string` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkGetSubscriptionResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Subscriptions.GetAsync("123");
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## GetCapabilitiesAsync
 
 View subscription capabilities
@@ -248,6 +422,68 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## KeepAsync
+
+Keep a subscription
+
+[API reference](https://sell.app/docs/api/subscriptions/keep-a-subscription) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkKeepSubscriptionResponseValue200ApplicationJson> KeepAsync(string productSubscription, SubscriptionsKeepOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| productSubscription | `string` | Yes |
+| options | `SubscriptionsKeepOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkKeepSubscriptionResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Subscriptions.KeepAsync(
+    "55",
+    new SubscriptionsKeepOptions
+    {
+    }
+);
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## PauseAsync
 
 Pause a subscription
@@ -381,7 +617,7 @@ Update a subscription payment method
 [API reference](https://sell.app/docs/api/subscriptions/update-payment-method) · Effect: **consequential**
 
 ```csharp
-public virtual async Task<string> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
@@ -391,7 +627,7 @@ public virtual async Task<string> UpdatePaymentMethodAsync(string productSubscri
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
-Returns: `Task<string>`.
+Returns: `Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson>`.
 
 ```cs
 using SellApp;
@@ -405,13 +641,14 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-await client.Subscriptions.UpdatePaymentMethodAsync(
-    "1",
+var result = await client.Subscriptions.UpdatePaymentMethodAsync(
+    "55",
     new SubscriptionsUpdatePaymentMethodOptions
     {
+        ReturnUrl = JsonConvert.DeserializeObject<string?>("\"https://store.example.com/billing/updated\"")!,
     }
 );
-Console.WriteLine("Request completed.");
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 
 ### Authentication and errors
@@ -432,7 +669,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -443,7 +680,7 @@ Preview a subscription plan change
 [API reference](https://sell.app/docs/api/subscriptions/preview-plan-change) · Effect: **consequential**
 
 ```csharp
-public virtual async Task<string> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
@@ -453,7 +690,7 @@ public virtual async Task<string> PreviewPlanChangeAsync(string productSubscript
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
-Returns: `Task<string>`.
+Returns: `Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson>`.
 
 ```cs
 using SellApp;
@@ -467,7 +704,7 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-await client.Subscriptions.PreviewPlanChangeAsync(
+var result = await client.Subscriptions.PreviewPlanChangeAsync(
     "1",
     new SubscriptionsPreviewPlanChangeOptions
     {
@@ -476,7 +713,7 @@ await client.Subscriptions.PreviewPlanChangeAsync(
         ProrationBehavior = JsonConvert.DeserializeObject<SdkPreviewSubscriptionPlanChangeRequestApplicationJsonProrationBehavior>("\"provider_default\"")!,
     }
 );
-Console.WriteLine("Request completed.");
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 
 ### Authentication and errors
@@ -497,7 +734,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -508,7 +745,7 @@ Confirm a subscription plan change
 [API reference](https://sell.app/docs/api/subscriptions/confirm-plan-change) · Effect: **consequential**
 
 ```csharp
-public virtual async Task<string> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
@@ -518,7 +755,7 @@ public virtual async Task<string> ConfirmPlanChangeAsync(string productSubscript
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
-Returns: `Task<string>`.
+Returns: `Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson>`.
 
 ```cs
 using SellApp;
@@ -532,15 +769,15 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-await client.Subscriptions.ConfirmPlanChangeAsync(
-    "1",
+var result = await client.Subscriptions.ConfirmPlanChangeAsync(
+    "55",
     new SubscriptionsConfirmPlanChangeOptions
     {
         TargetVariantId = 4321,
         PreviewToken = "subprev_9c4b2f",
     }
 );
-Console.WriteLine("Request completed.");
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 
 ### Authentication and errors
@@ -561,7 +798,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -691,177 +928,6 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## ListAsync
-
-List subscriptions
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```csharp
-public virtual async Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| requestOptions | `RequestOptions?` | No |
-| cancellationToken | `CancellationToken` | No |
-
-Returns: `Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>`.
-
-```cs
-using SellApp;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-
-var client = new SellAppClient(new SellAppOptions
-{
-    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
-    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
-    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
-});
-
-var result = await client.Subscriptions.ListAsync();
-Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## SearchAsync
-
-Search subscriptions
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```csharp
-public virtual async Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| options | `SubscriptionsSearchOptions?` | No |
-| requestOptions | `RequestOptions?` | No |
-| cancellationToken | `CancellationToken` | No |
-
-Returns: `Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>`.
-
-```cs
-using SellApp;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-
-var client = new SellAppClient(new SellAppOptions
-{
-    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
-    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
-    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
-});
-
-var result = await client.Subscriptions.SearchAsync(new SubscriptionsSearchOptions
-    {
-        Search = "maya.chen@example.com",
-        Status = "active",
-    });
-Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## GetAsync
-
-Retrieve a subscription
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```csharp
-public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| productSubscription | `string` | Yes |
-| requestOptions | `RequestOptions?` | No |
-| cancellationToken | `CancellationToken` | No |
-
-Returns: `Task<SdkGetSubscriptionResponseValue200ApplicationJson>`.
-
-```cs
-using SellApp;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-
-var client = new SellAppClient(new SellAppOptions
-{
-    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
-    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
-    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
-});
-
-var result = await client.Subscriptions.GetAsync("991");
-Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

@@ -10,9 +10,11 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyData
     {
-        [JsonProperty("subscription_id", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("subscription_id")]
-        public long SubscriptionId { get; set; }
+
+        /// <summary>The SellApp subscription ID.</summary>
+        [JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("id")]
+        public long Id { get; set; }
         [JsonProperty("capabilities", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("capabilities")]
         public GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilities Capabilities { get; set; } = default!;

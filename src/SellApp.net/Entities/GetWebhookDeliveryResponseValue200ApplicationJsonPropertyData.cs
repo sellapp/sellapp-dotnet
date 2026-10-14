@@ -20,6 +20,8 @@ namespace SellApp
         [JsonProperty("event_type", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("event_type")]
         public string EventType { get; set; } = default!;
+
+        /// <summary>A disabled channel retains new deliveries with zero attempts. Fix the endpoint and save the channel to re-enable automatic delivery. Retained deliveries require an explicit replay; saving does not send the backlog.</summary>
         [JsonProperty("status", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("status")]

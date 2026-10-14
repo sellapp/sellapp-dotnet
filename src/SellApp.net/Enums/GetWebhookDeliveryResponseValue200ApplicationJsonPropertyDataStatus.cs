@@ -21,10 +21,12 @@ namespace SellApp
         public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Unknown => new("unknown");
         public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Pending => new("pending");
         public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Delivering => new("delivering");
+        public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Retrying => new("retrying");
         public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Succeeded => new("succeeded");
         public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Failed => new("failed");
+        public static GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus Disabled => new("disabled");
 
-        public bool IsKnown => Value is "pending" or "delivering" or "succeeded" or "failed";
+        public bool IsKnown => Value is "pending" or "delivering" or "retrying" or "succeeded" or "failed" or "disabled";
         public bool Equals(GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

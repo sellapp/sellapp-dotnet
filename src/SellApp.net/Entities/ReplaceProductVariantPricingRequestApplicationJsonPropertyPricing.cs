@@ -26,6 +26,9 @@ namespace SellApp
         [JsonProperty("frequency")]
         [STJS.JsonPropertyName("frequency")]
         public ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency? Frequency { get; set; }
+        [JsonProperty("trial")]
+        [STJS.JsonPropertyName("trial")]
+        public ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial? Trial { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

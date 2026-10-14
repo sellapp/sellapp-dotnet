@@ -12,7 +12,7 @@ namespace SellApp
     {
         [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("data")]
-        public GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData Data { get; set; } = default!;
+        public CustomerPortalSubscription Data { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

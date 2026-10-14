@@ -95,6 +95,7 @@ namespace SellApp
         [STJS.JsonPropertyName("metadata")]
         public CreateChargeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
 
+        /// <summary>Optional coupon code. A charge takes a store-wide coupon for one-time purchases only: a coupon whose `applies_to` is `subscriptions` returns `422` with `Coupon code {code} only applies to subscriptions.`</summary>
         [JsonProperty("coupon_code")]
         [STJS.JsonPropertyName("coupon_code")]
         public string? CouponCode { get; set; }

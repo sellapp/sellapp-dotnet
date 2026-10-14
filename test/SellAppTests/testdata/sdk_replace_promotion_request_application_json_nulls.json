@@ -6,5 +6,10 @@
   "priority": null,
   "is_stackable": null,
   "max_redemptions": null,
+  "applies_to": null,
+  "subscription_payments": null,
+  "store_wide": null,
+  "products": null,
+  "product_variants": null,
   "phases": null
 }

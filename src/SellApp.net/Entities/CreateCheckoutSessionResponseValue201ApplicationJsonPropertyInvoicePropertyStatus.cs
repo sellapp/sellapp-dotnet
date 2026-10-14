@@ -12,7 +12,7 @@ namespace SellApp
     {
         [JsonProperty("history", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("history")]
-        public List<string> History { get; set; } = default!;
+        public List<CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem> History { get; set; } = default!;
         [JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("status")]
         public CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus Status { get; set; } = default!;

@@ -23,11 +23,13 @@ namespace SellApp
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction Resume => new("resume");
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction CancelAtPeriodEnd => new("cancel_at_period_end");
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction CancelImmediately => new("cancel_immediately");
+        public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction KeepSubscription => new("keep_subscription");
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction UpdatePaymentMethod => new("update_payment_method");
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction ChangePlan => new("change_plan");
         public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction ShiftBillingDate => new("shift_billing_date");
+        public static CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction SetAutoRenew => new("set_auto_renew");
 
-        public bool IsKnown => Value is "pause" or "resume" or "cancel_at_period_end" or "cancel_immediately" or "update_payment_method" or "change_plan" or "shift_billing_date";
+        public bool IsKnown => Value is "pause" or "resume" or "cancel_at_period_end" or "cancel_immediately" or "keep_subscription" or "update_payment_method" or "change_plan" or "shift_billing_date" or "set_auto_renew";
         public bool Equals(CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

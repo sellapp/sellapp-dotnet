@@ -150,18 +150,18 @@ namespace SellApp
 
         /// <summary>List customer subscriptions</summary>
         /// <remarks>
-        /// List subscriptions belonging to the customer session.
+        /// List subscriptions belonging to the customer session, newest first, 15 per page. `trial_ends_at` is only set while a subscription is `TRIALING`.
         /// </remarks>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The <see cref="SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson"/> result.</returns>
-        public virtual async Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        /// <returns>A page of <see cref="CustomerPortalSubscription"/> results.</returns>
+        public virtual async Task<SellAppList<CustomerPortalSubscription>> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listCustomerPortalSubscriptions", false);
-            return await this.GetAsync<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson>("/v2/customer-portal/subscriptions", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<CustomerPortalSubscription>>("/v2/customer-portal/subscriptions", null, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson>> ListSubscriptionsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<CustomerPortalSubscription>>> ListSubscriptionsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
@@ -171,9 +171,19 @@ namespace SellApp
         }
 
         /// <summary>Compatibility wrapper for <see cref="ListSubscriptionsAsync"/>.</summary>
-        public virtual Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson> ListSubscriptions(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<CustomerPortalSubscription>> ListSubscriptions(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.ListSubscriptionsAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Auto-paging variant of <see cref="ListSubscriptionsAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async sequence of <see cref="CustomerPortalSubscription"/> items.</returns>
+        public virtual IAsyncEnumerable<CustomerPortalSubscription> ListSubscriptionsAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "listCustomerPortalSubscriptions", false);
+            return base.ListAutoPagingAsync<CustomerPortalSubscription>(HttpMethod.Get, "/v2/customer-portal/subscriptions", null, requestOptions, cancellationToken);
         }
 
         /// <summary>Retrieve a customer subscription</summary>
@@ -207,7 +217,7 @@ namespace SellApp
 
         /// <summary>Retrieve subscription capabilities</summary>
         /// <remarks>
-        /// Read immediately before displaying lifecycle controls.
+        /// Read immediately before displaying lifecycle controls. Each of the nine actions (`pause`, `resume`, `cancel_at_period_end`, `cancel_immediately`, `keep_subscription`, `update_payment_method`, `change_plan`, `shift_billing_date`, and `set_auto_renew`) reports a status and the reason to show the customer when it is not available. While a Stripe, PayPal, or Razorpay subscription has a payment still owed, every action except `cancel_immediately` and, on Razorpay, `update_payment_method`, is `unsupported`. `resume` is `unsupported` on a subscription on hold for an unpaid renewal, which the customer pays and resumes on the store's customer portal page. The example is abbreviated to three of the actions.
         /// </remarks>
         /// <param name="subscription">The subscription identifier.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -264,7 +274,7 @@ namespace SellApp
 
         /// <summary>Cancel at period end</summary>
         /// <remarks>
-        /// Cancel at period end. Read capabilities first; state conflicts return 409.
+        /// Schedule the subscription to end when the current period ends. The customer keeps access until then. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -294,7 +304,7 @@ namespace SellApp
 
         /// <summary>Cancel immediately</summary>
         /// <remarks>
-        /// Cancel immediately. Read capabilities first; state conflicts return 409.
+        /// End the subscription now. A customer session cannot request a refund. It is the one action left on a Stripe or PayPal subscription with a payment still owed, and one of two left on a Razorpay one alongside a payment method update. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -324,7 +334,7 @@ namespace SellApp
 
         /// <summary>Pause a subscription</summary>
         /// <remarks>
-        /// Pause a subscription. Read capabilities first; state conflicts return 409.
+        /// Pause billing, optionally until `resume_at`. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -354,37 +364,36 @@ namespace SellApp
 
         /// <summary>Resume a subscription</summary>
         /// <remarks>
-        /// Resume a subscription. Read capabilities first; state conflicts return 409.
+        /// Resume a paused subscription. A subscription the store bills in house that is on hold for an unpaid renewal comes back only when the customer pays that renewal on the store's customer portal page, so it is refused. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
-        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The <see cref="SdkResumeCustomerSubscriptionResponseValue200ApplicationJson"/> result.</returns>
-        public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, CustomerPortalResumeSubscriptionOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "resumeCustomerSubscription", true);
-            return await this.PostAsync<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson>($"/v2/customer-portal/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/resume", options, requestOptions, cancellationToken);
+            return await this.PostAsync<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson>($"/v2/customer-portal/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/resume", null, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson>> ResumeSubscriptionWithResponseAsync(string productSubscription, CustomerPortalResumeSubscriptionOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson>> ResumeSubscriptionWithResponseAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.ResumeSubscriptionAsync(productSubscription, options, requestOptions, cancellationToken);
+            var value = await this.ResumeSubscriptionAsync(productSubscription, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="ResumeSubscriptionAsync"/>.</summary>
-        public virtual Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscription(string productSubscription, CustomerPortalResumeSubscriptionOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscription(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.ResumeSubscriptionAsync(productSubscription, options, requestOptions, cancellationToken);
+            return this.ResumeSubscriptionAsync(productSubscription, requestOptions, cancellationToken);
         }
 
         /// <summary>Update payment method</summary>
         /// <remarks>
-        /// Update payment method. Read capabilities first; state conflicts return 409.
+        /// Start a payment method update. Send the customer to `redirect_url` to finish it with the provider. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -414,7 +423,7 @@ namespace SellApp
 
         /// <summary>Preview a plan change</summary>
         /// <remarks>
-        /// Preview a plan change. Read capabilities first; state conflicts return 409.
+        /// Preview a plan change before confirming it. On Stripe and in-house subscriptions, `preview.payment_required` says whether confirming charges `amount_due` today or leaves any amount to the next invoice, and `preview.renewal_date` says when the subscription renews next. A plan change during a trial never charges today. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -423,7 +432,7 @@ namespace SellApp
         /// <returns>The <see cref="SdkPreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJson"/> result.</returns>
         public virtual async Task<SdkPreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJson> PreviewSubscriptionPlanChangeAsync(string productSubscription, CustomerPortalPreviewSubscriptionPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "previewCustomerSubscriptionPlanChange", true);
+            requestOptions = RequestOptions.ForOperation(requestOptions, "previewCustomerSubscriptionPlanChange", false);
             return await this.PostAsync<SdkPreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJson>($"/v2/customer-portal/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-plan/preview", options, requestOptions, cancellationToken);
         }
 
@@ -444,7 +453,7 @@ namespace SellApp
 
         /// <summary>Confirm a plan change</summary>
         /// <remarks>
-        /// Confirm a plan change. Read capabilities first; state conflicts return 409.
+        /// Confirm a previewed plan change, sending back its `preview_token`. When the change still needs the customer to approve it with the provider or pay for it, the action is `pending` and `redirect_url` says where. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -474,7 +483,7 @@ namespace SellApp
 
         /// <summary>Preview a renewal-date change</summary>
         /// <remarks>
-        /// Preview a renewal-date change. Read capabilities first; state conflicts return 409.
+        /// Preview moving the next renewal to `renewal_date`. `preview` is the provider's own preview, so its keys differ per provider. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>
@@ -483,7 +492,7 @@ namespace SellApp
         /// <returns>The <see cref="SdkPreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson"/> result.</returns>
         public virtual async Task<SdkPreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson> PreviewSubscriptionRenewalDateChangeAsync(string productSubscription, CustomerPortalPreviewSubscriptionRenewalDateChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "previewCustomerSubscriptionRenewalDateChange", true);
+            requestOptions = RequestOptions.ForOperation(requestOptions, "previewCustomerSubscriptionRenewalDateChange", false);
             return await this.PostAsync<SdkPreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson>($"/v2/customer-portal/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/change-renewal-date/preview", options, requestOptions, cancellationToken);
         }
 
@@ -504,7 +513,7 @@ namespace SellApp
 
         /// <summary>Confirm a renewal-date change</summary>
         /// <remarks>
-        /// Confirm a renewal-date change. Read capabilities first; state conflicts return 409.
+        /// Confirm a renewal-date change, sending the `preview_token` when the plan requires a preview. Read capabilities first. A refusal returns 422 with the sentence to show the customer under `errors.subscription`.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription identifier.</param>
         /// <param name="options">Request options.</param>

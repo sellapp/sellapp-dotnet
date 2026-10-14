@@ -36,24 +36,9 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalCancelSubscriptionAtPeriodEndOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
-
         [JsonProperty("reason")]
         [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 500)]
         public string? Reason { get; set; }
 
     }
@@ -62,24 +47,9 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalCancelSubscriptionImmediatelyOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
-
         [JsonProperty("reason")]
         [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 500)]
         public string? Reason { get; set; }
 
     }
@@ -88,50 +58,13 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalPauseSubscriptionOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
+        [JsonProperty("resume_at")]
+        [STJS.JsonPropertyName("resume_at")]
+        public DateTimeOffset? ResumeAt { get; set; }
 
         [JsonProperty("reason")]
         [STJS.JsonPropertyName("reason")]
-        public string? Reason { get; set; }
-
-    }
-
-    /// <summary>Request options for <see cref="CustomerPortalService.ResumeSubscriptionAsync"/>: Resume a subscription</summary>
-    [SellAppModelSchema(false)]
-    public class CustomerPortalResumeSubscriptionOptions : BaseOptions
-    {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
-
-        [JsonProperty("reason")]
-        [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 500)]
         public string? Reason { get; set; }
 
     }
@@ -140,25 +73,10 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalUpdateSubscriptionPaymentMethodOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
         [JsonProperty("return_url")]
         [STJS.JsonPropertyName("return_url")]
+        [SellAppSchemaConstraints(MaxLength = 2000)]
         public string? ReturnUrl { get; set; }
-
-        [JsonProperty("reason")]
-        [STJS.JsonPropertyName("reason")]
-        public string? Reason { get; set; }
 
     }
 
@@ -166,25 +84,21 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalPreviewSubscriptionPlanChangeOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
+        [JsonProperty("target_variant_id", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("target_variant_id")]
+        public long TargetVariantId { get; set; }
 
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
+        [JsonProperty("effective_timing")]
+        [STJS.JsonPropertyName("effective_timing")]
+        public SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming? EffectiveTiming { get; set; }
 
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
+        [JsonProperty("proration_behavior")]
+        [STJS.JsonPropertyName("proration_behavior")]
+        public SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior? ProrationBehavior { get; set; }
 
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
-
-        [JsonProperty("reason")]
-        [STJS.JsonPropertyName("reason")]
-        public string? Reason { get; set; }
+        [JsonProperty("metadata")]
+        [STJS.JsonPropertyName("metadata")]
+        public PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
 
     }
 
@@ -192,25 +106,26 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalConfirmSubscriptionPlanChangeOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
+        [JsonProperty("target_variant_id", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("target_variant_id")]
+        public long TargetVariantId { get; set; }
 
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
+        [JsonProperty("preview_token", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("preview_token")]
+        [SellAppSchemaConstraints(MaxLength = 128)]
+        public string PreviewToken { get; set; } = default!;
 
-        [JsonProperty("renewal_date")]
-        [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
+        [JsonProperty("effective_timing")]
+        [STJS.JsonPropertyName("effective_timing")]
+        public SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming? EffectiveTiming { get; set; }
 
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
+        [JsonProperty("proration_behavior")]
+        [STJS.JsonPropertyName("proration_behavior")]
+        public SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior? ProrationBehavior { get; set; }
 
-        [JsonProperty("reason")]
-        [STJS.JsonPropertyName("reason")]
-        public string? Reason { get; set; }
+        [JsonProperty("metadata")]
+        [STJS.JsonPropertyName("metadata")]
+        public ConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
 
     }
 
@@ -218,25 +133,18 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalPreviewSubscriptionRenewalDateChangeOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
+        [JsonProperty("renewal_date", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
-
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
+        public DateTimeOffset RenewalDate { get; set; }
 
         [JsonProperty("reason")]
         [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 500)]
         public string? Reason { get; set; }
+
+        [JsonProperty("metadata")]
+        [STJS.JsonPropertyName("metadata")]
+        public PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
 
     }
 
@@ -244,25 +152,23 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class CustomerPortalConfirmSubscriptionRenewalDateChangeOptions : BaseOptions
     {
-        [JsonProperty("preview_id")]
-        [STJS.JsonPropertyName("preview_id")]
-        public string? PreviewId { get; set; }
-
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
-
-        [JsonProperty("renewal_date")]
+        [JsonProperty("renewal_date", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("renewal_date")]
-        public string? RenewalDate { get; set; }
+        public DateTimeOffset RenewalDate { get; set; }
 
-        [JsonProperty("return_url")]
-        [STJS.JsonPropertyName("return_url")]
-        public string? ReturnUrl { get; set; }
+        [JsonProperty("preview_token")]
+        [STJS.JsonPropertyName("preview_token")]
+        [SellAppSchemaConstraints(MaxLength = 128)]
+        public string? PreviewToken { get; set; }
 
         [JsonProperty("reason")]
         [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 500)]
         public string? Reason { get; set; }
+
+        [JsonProperty("metadata")]
+        [STJS.JsonPropertyName("metadata")]
+        public ConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata? Metadata { get; set; }
 
     }
 }

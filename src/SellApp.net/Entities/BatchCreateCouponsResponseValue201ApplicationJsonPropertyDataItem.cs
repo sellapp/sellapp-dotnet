@@ -31,7 +31,7 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool StoreWide { get; set; }
 
-        /// <summary>The decimal minimum order amount in the store currency's major unit, or null when no minimum applies.</summary>
+        /// <summary>The decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null when no minimum applies.</summary>
         [JsonProperty("minimum_amount", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("minimum_amount")]
         public string? MinimumAmount { get; set; }
@@ -57,6 +57,17 @@ namespace SellApp
         [JsonProperty("maximum_discount_amount", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("maximum_discount_amount")]
         public string? MaximumDiscountAmount { get; set; }
+
+        /// <summary>`one_time` when the coupon discounts one-time purchases, or `subscriptions` when it discounts the first payments of a subscription plan.</summary>
+        [JsonProperty("applies_to", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("applies_to")]
+        public BatchCreateCouponsResponseValue201ApplicationJsonPropertyDataItemAppliesTo AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first. Null on a `one_time` coupon.</summary>
+        [JsonProperty("subscription_payments", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("subscription_payments")]
+        public long? SubscriptionPayments { get; set; }
 
         /// <summary>Product IDs this coupon applies to. Store-wide coupons return an empty array.</summary>
         [JsonProperty("products", Required = Newtonsoft.Json.Required.Always)]

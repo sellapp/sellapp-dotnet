@@ -210,7 +210,7 @@ List customer subscriptions
 [API reference](https://sell.app/docs/api/customer-portal) · Effect: **read**
 
 ```csharp
-public virtual async Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<CustomerPortalSubscription>> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
@@ -218,7 +218,7 @@ public virtual async Task<SdkListCustomerPortalSubscriptionsResponseValue200Appl
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
-Returns: `Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson>`.
+Returns: `Task<SellAppList<CustomerPortalSubscription>>`.
 
 ```cs
 using SellApp;
@@ -436,9 +436,8 @@ var result = await client.CustomerPortal.CancelSubscriptionAtPeriodEndAsync(
     "42",
     new CustomerPortalCancelSubscriptionAtPeriodEndOptions
     {
-        Reason = "Customer requested this change",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        Reason = JsonConvert.DeserializeObject<string?>("\"Taking a break over the summer.\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -494,9 +493,8 @@ var result = await client.CustomerPortal.CancelSubscriptionImmediatelyAsync(
     "42",
     new CustomerPortalCancelSubscriptionImmediatelyOptions
     {
-        Reason = "Customer requested this change",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        Reason = JsonConvert.DeserializeObject<string?>("\"No longer needed.\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -552,9 +550,8 @@ var result = await client.CustomerPortal.PauseSubscriptionAsync(
     "42",
     new CustomerPortalPauseSubscriptionOptions
     {
-        Reason = "Customer requested this change",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        ResumeAt = JsonConvert.DeserializeObject<DateTimeOffset?>("\"2026-11-01T00:00:00Z\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -582,13 +579,12 @@ Resume a subscription
 [API reference](https://sell.app/docs/api/customer-portal) · Effect: **consequential**
 
 ```csharp
-public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, CustomerPortalResumeSubscriptionOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
 | productSubscription | `string` | Yes |
-| options | `CustomerPortalResumeSubscriptionOptions` | Yes |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -606,14 +602,7 @@ var client = new SellAppClient(new SellAppOptions
     Store = "",
 });
 
-var result = await client.CustomerPortal.ResumeSubscriptionAsync(
-    "42",
-    new CustomerPortalResumeSubscriptionOptions
-    {
-        Reason = "Customer requested this change",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
-);
+var result = await client.CustomerPortal.ResumeSubscriptionAsync("42");
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 
@@ -668,9 +657,8 @@ var result = await client.CustomerPortal.UpdateSubscriptionPaymentMethodAsync(
     "42",
     new CustomerPortalUpdateSubscriptionPaymentMethodOptions
     {
-        Reason = "Customer requested this change",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        ReturnUrl = JsonConvert.DeserializeObject<string?>("\"https://acme.sell.app/customer-portal/subscriptions/991\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -726,9 +714,8 @@ var result = await client.CustomerPortal.PreviewSubscriptionPlanChangeAsync(
     "42",
     new CustomerPortalPreviewSubscriptionPlanChangeOptions
     {
-        ProductVariantId = 84,
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        TargetVariantId = 97,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -784,9 +771,9 @@ var result = await client.CustomerPortal.ConfirmSubscriptionPlanChangeAsync(
     "42",
     new CustomerPortalConfirmSubscriptionPlanChangeOptions
     {
-        PreviewId = "preview_01K4",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        TargetVariantId = 97,
+        PreviewToken = "subprev_portal_991",
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -842,9 +829,8 @@ var result = await client.CustomerPortal.PreviewSubscriptionRenewalDateChangeAsy
     "42",
     new CustomerPortalPreviewSubscriptionRenewalDateChangeOptions
     {
-        RenewalDate = "2026-10-15",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        RenewalDate = JsonConvert.DeserializeObject<DateTimeOffset>("\"2026-10-15T00:00:00Z\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -900,9 +886,9 @@ var result = await client.CustomerPortal.ConfirmSubscriptionRenewalDateChangeAsy
     "42",
     new CustomerPortalConfirmSubscriptionRenewalDateChangeOptions
     {
-        PreviewId = "preview_01K4",
-    },
-    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+        RenewalDate = JsonConvert.DeserializeObject<DateTimeOffset>("\"2026-10-15T00:00:00Z\"")!,
+        PreviewToken = JsonConvert.DeserializeObject<string?>("\"subprev_portal_renewal_991\"")!,
+    }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```

@@ -30,6 +30,8 @@ namespace SellApp
         [JsonProperty("totals", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("totals")]
         public SearchOrdersResponseValue200ApplicationJsonPropertyDataItemPropertyTotals Totals { get; set; } = default!;
+
+        /// <summary>The coupon this order was sold with, or null. A subscription's renewal and plan-change orders carry null, even while the subscription still bills a discounted price, so a coupon's `limit` counts a subscription once, at signup.</summary>
         [JsonProperty("coupon_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("coupon_id")]
         public long? CouponId { get; set; }

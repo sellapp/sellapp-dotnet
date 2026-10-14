@@ -129,7 +129,7 @@ namespace SellApp
 
         /// <summary>Update a product variant with PUT</summary>
         /// <remarks>
-        /// Update a product variant using the PUT compatibility method. Fields remain partial for backward compatibility. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update a product variant using the PUT compatibility method. Fields remain partial for backward compatibility. Bundle products only support one-time pricing. Adding the bundle deliverable type to a subscription variant is refused with a `422` carrying that sentence on `deliverable.types`. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="product">The product path parameter.</param>
         /// <param name="variant">The variant path parameter.</param>
@@ -160,7 +160,7 @@ namespace SellApp
 
         /// <summary>Update a product variant</summary>
         /// <remarks>
-        /// Updates a product variant's details. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Updates a product variant's details. Bundle products only support one-time pricing. Adding the bundle deliverable type to a subscription variant is refused with a `422` carrying that sentence on `deliverable.types`. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="product">The product path parameter.</param>
         /// <param name="variant">The variant path parameter.</param>
@@ -191,31 +191,32 @@ namespace SellApp
 
         /// <summary>Delete a product variant</summary>
         /// <remarks>
-        /// Deletes a product variant. This will permanently delete the product variant and all of its details, including the sensitive deliverables, will no longer be retrievable. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Soft-delete a variant in the authenticated store. Variants referenced by non-terminal subscriptions cannot be deleted. Send expected_updated_at from the latest variant response to reject a stale deletion with 422. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="product">The product path parameter.</param>
         /// <param name="variant">The variant path parameter.</param>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(string product, string variant, ProductVariantsDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "deleteProductVariant", false);
-            await base.DeleteAsync($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}", null, requestOptions, cancellationToken);
+            await this.DeleteAsync($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<object?>> DeleteWithResponseAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<object?>> DeleteWithResponseAsync(string product, string variant, ProductVariantsDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            await this.DeleteAsync(product, variant, requestOptions, cancellationToken);
+            await this.DeleteAsync(product, variant, options, requestOptions, cancellationToken);
             return capture.Wrap<object?>(null);
         }
 
         /// <summary>Compatibility wrapper for <see cref="DeleteAsync"/>.</summary>
-        public virtual Task Delete(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task Delete(string product, string variant, ProductVariantsDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.DeleteAsync(product, variant, requestOptions, cancellationToken);
+            return this.DeleteAsync(product, variant, options, requestOptions, cancellationToken);
         }
 
         /// <summary>Search product variants</summary>

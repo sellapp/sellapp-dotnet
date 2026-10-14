@@ -2,6 +2,7 @@
 
 namespace SellApp
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
@@ -10,32 +11,37 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyData
     {
+
+        /// <summary>The subscription action ID.</summary>
         [JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("id")]
         public long Id { get; set; }
-        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("status")]
-        public string Status { get; set; } = default!;
-        [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("subscription_id")]
+
+        /// <summary>The SellApp subscription ID the action belongs to.</summary>
+        [JsonProperty("subscription_id", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("subscription_id")]
-        public string? SubscriptionId { get; set; }
-        [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("customer_id")]
-        [STJS.JsonPropertyName("customer_id")]
-        public string? CustomerId { get; set; }
-        [JsonProperty("provider_subscription_id", Required = Newtonsoft.Json.Required.AllowNull)]
-        [STJS.JsonPropertyName("provider_subscription_id")]
-        public string? ProviderSubscriptionId { get; set; }
-        [JsonProperty("provider_customer_id", Required = Newtonsoft.Json.Required.AllowNull)]
-        [STJS.JsonPropertyName("provider_customer_id")]
-        public string? ProviderCustomerId { get; set; }
-        [JsonProperty("customer", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("customer")]
-        public UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataPropertyCustomer Customer { get; set; } = default!;
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
+        public long SubscriptionId { get; set; }
+        [JsonProperty("action", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("action")]
+        public UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataAction Action { get; set; }
+
+        /// <summary>`pending` means the provider or the customer still has to finish the action.</summary>
+        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("status")]
+        public UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataStatus Status { get; set; }
+        [JsonProperty("customer_message", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("customer_message")]
+        public string? CustomerMessage { get; set; }
+
+        /// <summary>Where to send the customer to finish the action, such as a payment method update or a plan change they approve or pay for with the provider. `null` when nothing is left to do.</summary>
+        [JsonProperty("redirect_url", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("redirect_url")]
+        public string? RedirectUrl { get; set; }
+        [JsonProperty("created_at", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("created_at")]
+        public DateTimeOffset? CreatedAt { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

@@ -7,5 +7,7 @@
   "product_variants": null,
   "limit": null,
   "expires_at": null,
-  "minimum_amount": null
+  "minimum_amount": null,
+  "applies_to": null,
+  "subscription_payments": null
 }

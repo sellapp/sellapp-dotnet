@@ -1,4 +1,28 @@
 {
-  "search": "test_search",
-  "status": "test_status"
+  "filters": [
+    {
+      "field": "test_field",
+      "operator": "test_operator",
+      "value": {},
+      "type": "and",
+      "nested": [
+        {}
+      ]
+    }
+  ],
+  "sort": [
+    {
+      "field": "test_field",
+      "direction": "asc"
+    }
+  ],
+  "search": {
+    "value": "test_value",
+    "case_sensitive": true
+  },
+  "includes": [
+    {
+      "relation": "test_relation"
+    }
+  ]
 }

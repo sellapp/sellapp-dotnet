@@ -2,6 +2,7 @@
 
 namespace SellApp
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
@@ -13,29 +14,112 @@ namespace SellApp
         [JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("id")]
         public long Id { get; set; }
-        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("status")]
-        public string Status { get; set; } = default!;
+
+        /// <summary>The original order linked to this subscription, resolved from its first invoice line.</summary>
+        [JsonProperty("invoice_id", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("invoice_id")]
+        public long? InvoiceId { get; set; }
+
+        /// <summary>The billing provider, such as `stripe`, `paypal`, `razorpay`, or `internal` for a subscription the store bills in house.</summary>
+        [JsonProperty("provider", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("provider")]
+        public string? Provider { get; set; }
+
+        /// <summary>Deprecated alias of provider_subscription_id.</summary>
         [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("subscription_id")]
+        [JsonProperty("subscription_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("subscription_id")]
         public string? SubscriptionId { get; set; }
+
+        /// <summary>Deprecated alias of provider_customer_id.</summary>
         [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("customer_id")]
+        [JsonProperty("customer_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("customer_id")]
         public string? CustomerId { get; set; }
+
+        /// <summary>The provider subscription identifier, or null for a subscription the store bills in house.</summary>
         [JsonProperty("provider_subscription_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("provider_subscription_id")]
         public string? ProviderSubscriptionId { get; set; }
+
+        /// <summary>The provider customer identifier, or null for a subscription the store bills in house.</summary>
         [JsonProperty("provider_customer_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("provider_customer_id")]
         public string? ProviderCustomerId { get; set; }
-        [JsonProperty("customer", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("customer", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("customer")]
-        public GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer Customer { get; set; } = default!;
-        [JsonProperty("product_variant_id")]
+        public GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer? Customer { get; set; }
+        [JsonProperty("customer_email", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("customer_email")]
+        public string? CustomerEmail { get; set; }
+        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("status")]
+        public GetSubscriptionResponseValue200ApplicationJsonPropertyDataStatus Status { get; set; }
+        [JsonProperty("current_period_start", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("current_period_start")]
+        public DateTimeOffset? CurrentPeriodStart { get; set; }
+        [JsonProperty("current_period_end", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("current_period_end")]
+        public DateTimeOffset? CurrentPeriodEnd { get; set; }
+
+        /// <summary>When the trial the subscription started with ends, or `null` when it started without one. It keeps its value after the trial is over.</summary>
+        [JsonProperty("trial_ends_at")]
+        [STJS.JsonPropertyName("trial_ends_at")]
+        public DateTimeOffset? TrialEndsAt { get; set; }
+        [JsonProperty("cancel_at_period_end", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("cancel_at_period_end")]
+        public bool CancelAtPeriodEnd { get; set; }
+        [JsonProperty("cancellation_in_progress", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("cancellation_in_progress")]
+        public bool CancellationInProgress { get; set; }
+        [JsonProperty("store_id", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_id")]
+        public long? StoreId { get; set; }
+        [JsonProperty("product_variant_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("product_variant_id")]
         public long? ProductVariantId { get; set; }
+
+        /// <summary>The variant the current period bills on. Falls back to product_variant_id while the subscription still bills its original plan.</summary>
+        [JsonProperty("current_plan_variant_id")]
+        [STJS.JsonPropertyName("current_plan_variant_id")]
+        public long? CurrentPlanVariantId { get; set; }
+
+        /// <summary>Whether a subscription the store bills in house renews itself from the customer wallet.</summary>
+        [JsonProperty("auto_renew")]
+        [STJS.JsonPropertyName("auto_renew")]
+        public bool? AutoRenew { get; set; }
+
+        /// <summary>When the subscription was paused, or `null` when it is not paused.</summary>
+        [JsonProperty("paused_at")]
+        [STJS.JsonPropertyName("paused_at")]
+        public DateTimeOffset? PausedAt { get; set; }
+
+        /// <summary>When a paused subscription resumes automatically, or `null` when no resume date was set.</summary>
+        [JsonProperty("pause_resumes_at")]
+        [STJS.JsonPropertyName("pause_resumes_at")]
+        public DateTimeOffset? PauseResumesAt { get; set; }
+
+        /// <summary>When the subscription was cancelled immediately, or `null` when it was not.</summary>
+        [JsonProperty("canceled_immediately_at")]
+        [STJS.JsonPropertyName("canceled_immediately_at")]
+        public DateTimeOffset? CanceledImmediatelyAt { get; set; }
+
+        /// <summary>When the customer last updated the payment method behind the subscription.</summary>
+        [JsonProperty("payment_method_updated_at")]
+        [STJS.JsonPropertyName("payment_method_updated_at")]
+        public DateTimeOffset? PaymentMethodUpdatedAt { get; set; }
+
+        /// <summary>When the customer last started a lifecycle action, from the customer portal or through a store integration acting for them on a plan change or payment method update. Seller and SellApp actions don't change it.</summary>
+        [JsonProperty("last_customer_action_at")]
+        [STJS.JsonPropertyName("last_customer_action_at")]
+        public DateTimeOffset? LastCustomerActionAt { get; set; }
+        [JsonProperty("created_at", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("created_at")]
+        public DateTimeOffset CreatedAt { get; set; }
+        [JsonProperty("updated_at", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("updated_at")]
+        public DateTimeOffset UpdatedAt { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

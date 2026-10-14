@@ -12,7 +12,13 @@ namespace SellApp
     {
         [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("data")]
-        public List<ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItem> Data { get; set; } = default!;
+        public List<CustomerPortalSubscription> Data { get; set; } = default!;
+        [JsonProperty("links", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("links")]
+        public PaginationLinks Links { get; set; } = default!;
+        [JsonProperty("meta", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("meta")]
+        public PaginationMeta Meta { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

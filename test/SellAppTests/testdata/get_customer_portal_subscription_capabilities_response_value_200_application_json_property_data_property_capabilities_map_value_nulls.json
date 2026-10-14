@@ -1,4 +1,5 @@
 {
-  "available": true,
-  "reason": null
+  "status": "available",
+  "customer_reason": null,
+  "seller_reason": null
 }

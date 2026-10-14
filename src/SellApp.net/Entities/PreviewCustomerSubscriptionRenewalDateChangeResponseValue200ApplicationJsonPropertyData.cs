@@ -2,6 +2,7 @@
 
 namespace SellApp
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
@@ -10,32 +11,20 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyData
     {
-        [JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("id")]
-        public long Id { get; set; }
-        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("status")]
-        public string Status { get; set; } = default!;
-        [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("subscription_id")]
-        [STJS.JsonPropertyName("subscription_id")]
-        public string? SubscriptionId { get; set; }
-        [System.Obsolete("This field is deprecated.")]
-        [JsonProperty("customer_id")]
-        [STJS.JsonPropertyName("customer_id")]
-        public string? CustomerId { get; set; }
-        [JsonProperty("provider_subscription_id", Required = Newtonsoft.Json.Required.AllowNull)]
-        [STJS.JsonPropertyName("provider_subscription_id")]
-        public string? ProviderSubscriptionId { get; set; }
-        [JsonProperty("provider_customer_id", Required = Newtonsoft.Json.Required.AllowNull)]
-        [STJS.JsonPropertyName("provider_customer_id")]
-        public string? ProviderCustomerId { get; set; }
-        [JsonProperty("customer", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("customer")]
-        public PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer Customer { get; set; } = default!;
-        [JsonProperty("product_variant_id")]
-        [STJS.JsonPropertyName("product_variant_id")]
-        public long? ProductVariantId { get; set; }
+
+        /// <summary>Send this back to the matching confirm route. A preview expires 30 minutes after it is created.</summary>
+        [JsonProperty("preview_token", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("preview_token")]
+        public string? PreviewToken { get; set; }
+        [JsonProperty("expires_at", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("expires_at")]
+        public DateTimeOffset? ExpiresAt { get; set; }
+        [JsonProperty("preview", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("preview")]
+        public PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyPreview Preview { get; set; } = default!;
+        [JsonProperty("customer_message", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("customer_message")]
+        public string? CustomerMessage { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

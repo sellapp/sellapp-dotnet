@@ -37,15 +37,19 @@ namespace SellApp
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications ProductCreated => new("product.created");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications ProductTrashed => new("product.trashed");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications ProductUpdated => new("product.updated");
+        public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionAction => new("subscription.action");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionCancelled => new("subscription.cancelled");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionCreated => new("subscription.created");
+        public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionPlanChangeNeedsAttention => new("subscription.plan_change_needs_attention");
+        public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionRenewalNeedsAttention => new("subscription.renewal_needs_attention");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionRenewed => new("subscription.renewed");
+        public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications SubscriptionSignupNeedsAttention => new("subscription.signup_needs_attention");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications TicketMessageCreated => new("ticket_message.created");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications VariantCreated => new("variant.created");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications VariantSoldOut => new("variant.sold_out");
         public static ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications VariantUpdated => new("variant.updated");
 
-        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.cancelled" or "subscription.created" or "subscription.renewed" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
+        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.action" or "subscription.cancelled" or "subscription.created" or "subscription.plan_change_needs_attention" or "subscription.renewal_needs_attention" or "subscription.renewed" or "subscription.signup_needs_attention" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
         public bool Equals(ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is ReplaceWebhookChannelResponseValue200ApplicationJsonPropertyDataAllowedNotifications other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

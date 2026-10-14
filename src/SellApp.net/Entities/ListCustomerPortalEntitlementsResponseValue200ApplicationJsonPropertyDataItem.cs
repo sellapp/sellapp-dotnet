@@ -18,6 +18,8 @@ namespace SellApp
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("kind")]
         public ListCustomerPortalEntitlementsResponseValue200ApplicationJsonPropertyDataItemKind Kind { get; set; }
+
+        /// <summary>Whether the customer has this access now. For `subscription_access`: `active` while the subscription is active, trialing, or past due, because a past-due subscription keeps access while its payment is collected; `suspended` while it is unpaid, paused, or on hold for an unpaid renewal, until it is paid or resumed; `revoked` once cancelled; `pending` while incomplete; `expired` when its first payment expired.</summary>
         [JsonProperty("state", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("state")]

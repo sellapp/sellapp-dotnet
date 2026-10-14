@@ -38,6 +38,32 @@ namespace SellApp
         [STJS.JsonPropertyName("max_redemptions")]
         [SellAppSchemaConstraints(Minimum = 1d)]
         public long? MaxRedemptions { get; set; }
+
+        /// <summary>`one_time` when the promotion discounts one-time purchases, or `subscriptions` when it discounts the first payments of a subscription plan.</summary>
+        [JsonProperty("applies_to", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("applies_to")]
+        public ReplacePromotionResponseValue200ApplicationJsonPropertyDataAppliesTo AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` promotion discounts, counting the signup payment as the first. Null on a `one_time` promotion.</summary>
+        [JsonProperty("subscription_payments", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("subscription_payments")]
+        public long? SubscriptionPayments { get; set; }
+
+        /// <summary>Whether the promotion reaches every product of its kind. A `one_time` promotion is always store-wide. A `subscriptions` promotion with `false` reaches only the products in `products`, limited to the plans in `product_variants`.</summary>
+        [JsonProperty("store_wide", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("store_wide")]
+        public bool StoreWide { get; set; }
+
+        /// <summary>Product IDs a narrowed subscription promotion reaches. Empty when the promotion is store-wide.</summary>
+        [JsonProperty("products", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("products")]
+        public List<long> Products { get; set; } = default!;
+
+        /// <summary>Subscription plan IDs the picked products are limited to. A picked product with none of its plans listed here takes every plan of that product, including plans added later. Empty when the promotion is store-wide.</summary>
+        [JsonProperty("product_variants", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("product_variants")]
+        public List<long> ProductVariants { get; set; } = default!;
         [JsonProperty("phases", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("phases")]
         public List<ReplacePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem> Phases { get; set; } = default!;

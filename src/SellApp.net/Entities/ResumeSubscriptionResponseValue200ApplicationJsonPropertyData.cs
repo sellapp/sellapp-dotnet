@@ -23,12 +23,26 @@ namespace SellApp
         [JsonProperty("action")]
         [STJS.JsonPropertyName("action")]
         public ResumeSubscriptionResponseValue200ApplicationJsonPropertyDataAction? Action { get; set; }
+
+        /// <summary>`pending` while the provider or the customer still has to respond, then `confirmed`, `failed`, `expired`, `dismissed`, or `force_resolved`.</summary>
         [JsonProperty("status")]
         [STJS.JsonPropertyName("status")]
         public ResumeSubscriptionResponseValue200ApplicationJsonPropertyDataStatus? Status { get; set; }
         [JsonProperty("provider")]
         [STJS.JsonPropertyName("provider")]
         public string? Provider { get; set; }
+
+        /// <summary>The order a plan change's proration was billed on. Only a subscription the store bills in house bills a proration as an order of its own, so this is null for every other provider, including one that prorated the change itself.</summary>
+        [JsonProperty("proration_order_id")]
+        [STJS.JsonPropertyName("proration_order_id")]
+        public long? ProrationOrderId { get; set; }
+
+        /// <summary>The seller-facing failure message, truncated to 255 characters. A dismissed action carries its dismissal note here instead.</summary>
+        [JsonProperty("error")]
+        [STJS.JsonPropertyName("error")]
+        public string? Error { get; set; }
+
+        /// <summary>The sentence SellApp shows the customer about this action, such as why it failed or that the seller dismissed it. SellApp writes it; the customer never types it. `null` when there is nothing to tell them.</summary>
         [JsonProperty("customer_message")]
         [STJS.JsonPropertyName("customer_message")]
         public string? CustomerMessage { get; set; }

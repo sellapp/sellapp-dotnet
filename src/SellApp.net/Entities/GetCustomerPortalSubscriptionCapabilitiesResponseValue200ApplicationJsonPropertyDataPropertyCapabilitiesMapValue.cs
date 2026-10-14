@@ -10,12 +10,16 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValue
     {
-        [JsonProperty("available", Required = Newtonsoft.Json.Required.Always)]
-        [STJS.JsonPropertyName("available")]
-        public bool Available { get; set; }
-        [JsonProperty("reason")]
-        [STJS.JsonPropertyName("reason")]
-        public string? Reason { get; set; }
+        [JsonProperty("status", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("status")]
+        public GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValueStatus Status { get; set; }
+        [JsonProperty("customer_reason", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("customer_reason")]
+        public string? CustomerReason { get; set; }
+        [JsonProperty("seller_reason", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("seller_reason")]
+        public string? SellerReason { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

@@ -11,7 +11,7 @@ Already know your way around? Jump to [configuration](https://github.com/sellapp
 The SDK requires .NET 8 or later. Install [`SellApp` from NuGet](https://www.nuget.org/packages/SellApp). From an existing project directory:
 
 ```sh
-dotnet add package SellApp --version 0.1.1
+dotnet add package SellApp --version 0.2.0
 ```
 
 For a new console application, create the project first:
@@ -19,7 +19,7 @@ For a new console application, create the project first:
 ```sh
 dotnet new console --name SellAppExample --framework net8.0
 cd SellAppExample
-dotnet add package SellApp --version 0.1.1
+dotnet add package SellApp --version 0.2.0
 ```
 
 ## Your first request

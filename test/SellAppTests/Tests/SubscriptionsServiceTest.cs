@@ -38,6 +38,56 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestListAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/list_sdk_list_subscriptions_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, fixture);
+            var result = await this.service.ListAsync(new SubscriptionsListOptions());
+            Assert.NotNull(result);
+            Assert.NotEmpty(result.Data);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/subscriptions");
+        }
+
+        [Fact]
+        public async Task TestListAsyncEmpty()
+        {
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
+            var result = await this.service.ListAsync(new SubscriptionsListOptions());
+            Assert.NotNull(result);
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task TestSearchAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/list_sdk_search_subscriptions_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, fixture);
+            var result = await this.service.SearchAsync(new SubscriptionsSearchOptions());
+            Assert.NotNull(result);
+            Assert.NotEmpty(result.Data);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/search");
+        }
+
+        [Fact]
+        public async Task TestSearchAsyncEmpty()
+        {
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
+            var result = await this.service.SearchAsync(new SubscriptionsSearchOptions());
+            Assert.NotNull(result);
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task TestGetAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_subscription_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions/test_productSubscription", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetAsync("test_productSubscription");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/subscriptions/test_productSubscription");
+        }
+
+        [Fact]
         public async Task TestGetCapabilitiesAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_get_subscription_capabilities_response_value_200_application_json.json");
@@ -70,6 +120,17 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestKeepAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_keep_subscription_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/keep", HttpStatusCode.OK, fixture);
+            var result = await this.service.KeepAsync("test_productSubscription", new SubscriptionsKeepOptions());
+            Assert.NotNull(result);
+            Assert.Equal("test_message", result.Message);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/keep");
+        }
+
+        [Fact]
         public async Task TestPauseAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_pause_subscription_response_value_200_application_json.json");
@@ -94,28 +155,37 @@ namespace SellAppTests
         [Fact]
         public async Task TestUpdatePaymentMethodAsync()
         {
-            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/update-payment-method", (HttpStatusCode)200, "\"test response\"", "application/json");
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_subscription_payment_method_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/update-payment-method", HttpStatusCode.OK, fixture);
             var result = await this.service.UpdatePaymentMethodAsync("test_productSubscription", new SubscriptionsUpdatePaymentMethodOptions());
-            Assert.Equal("test response", result);
+            Assert.NotNull(result);
+            Assert.Equal("test_message", result.Message);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/update-payment-method");
         }
 
         [Fact]
         public async Task TestPreviewPlanChangeAsync()
         {
-            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/preview", (HttpStatusCode)200, "\"test response\"", "application/json");
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_preview_subscription_plan_change_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/preview", HttpStatusCode.OK, fixture);
             var result = await this.service.PreviewPlanChangeAsync("test_productSubscription", Newtonsoft.Json.JsonConvert.DeserializeObject<SubscriptionsPreviewPlanChangeOptions>("{\"target_variant_id\":1}")!);
-            Assert.Equal("test response", result);
+            Assert.NotNull(result);
+            Assert.Equal("test_message", result.Message);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/preview");
         }
 
         [Fact]
         public async Task TestConfirmPlanChangeAsync()
         {
-            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/confirm", (HttpStatusCode)200, "\"test response\"", "application/json");
-            var result = await this.service.ConfirmPlanChangeAsync("test_productSubscription", Newtonsoft.Json.JsonConvert.DeserializeObject<SubscriptionsConfirmPlanChangeOptions>("{\"target_variant_id\":1,\"preview_token\":\"test_preview_token\"}")!);
-            Assert.Equal("test response", result);
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_confirm_subscription_plan_change_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/confirm", HttpStatusCode.OK, fixture);
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<SubscriptionsConfirmPlanChangeOptions>("{\"target_variant_id\":1,\"preview_token\":\"test_preview_token\"}")!;
+            options.PreviewToken = "test_preview_token";
+            var result = await this.service.ConfirmPlanChangeAsync("test_productSubscription", options);
+            Assert.NotNull(result);
+            Assert.Equal("test_message", result.Message);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/test_productSubscription/actions/change-plan/confirm");
+            await this.httpMock.AssertRequestBodyContainsAsync("preview_token", "test_preview_token");
         }
 
         [Fact]
@@ -141,65 +211,15 @@ namespace SellAppTests
         }
 
         [Fact]
-        public async Task TestListAsync()
-        {
-            var fixture = System.IO.File.ReadAllText("testdata/list_list_subscriptions_response_value_200_application_json_property_data_item.json");
-            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, fixture);
-            var result = await this.service.ListAsync();
-            Assert.NotNull(result);
-            Assert.NotEmpty(result.Data);
-            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/subscriptions");
-        }
-
-        [Fact]
-        public async Task TestListAsyncEmpty()
-        {
-            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
-            var result = await this.service.ListAsync();
-            Assert.NotNull(result);
-            Assert.Empty(result.Data);
-        }
-
-        [Fact]
-        public async Task TestSearchAsync()
-        {
-            var fixture = System.IO.File.ReadAllText("testdata/list_search_subscriptions_response_value_200_application_json_property_data_item.json");
-            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, fixture);
-            var result = await this.service.SearchAsync(new SubscriptionsSearchOptions());
-            Assert.NotNull(result);
-            Assert.NotEmpty(result.Data);
-            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/subscriptions/search");
-        }
-
-        [Fact]
-        public async Task TestSearchAsyncEmpty()
-        {
-            this.httpMock.MockResponse(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
-            var result = await this.service.SearchAsync(new SubscriptionsSearchOptions());
-            Assert.NotNull(result);
-            Assert.Empty(result.Data);
-        }
-
-        [Fact]
-        public async Task TestGetAsync()
-        {
-            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_subscription_response_value_200_application_json.json");
-            this.httpMock.MockResponse(HttpMethod.Get, "/v2/subscriptions/test_productSubscription", HttpStatusCode.OK, fixture);
-            var result = await this.service.GetAsync("test_productSubscription");
-            Assert.NotNull(result);
-            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/subscriptions/test_productSubscription");
-        }
-
-        [Fact]
         public async Task TestListAutoPagingAsync()
         {
-            var fixture = System.IO.File.ReadAllText("testdata/list_subscriptions_response_value_200_application_json_property_data_item.json");
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_list_subscriptions_response_value_200_application_json.json");
             var page1 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":\"cursor_123\"}}";
             var page2 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":null}}";
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, new[] { page1, page2 });
 
-            var items = new List<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListAutoPagingAsync())
+            var items = new List<SdkListSubscriptionsResponseValue200ApplicationJson>();
+            await foreach (var item in this.service.ListAutoPagingAsync(new SubscriptionsListOptions()))
             {
                 items.Add(item);
             }
@@ -213,8 +233,8 @@ namespace SellAppTests
             var empty = "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}";
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/subscriptions", HttpStatusCode.OK, new[] { empty });
 
-            var items = new List<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListAutoPagingAsync())
+            var items = new List<SdkListSubscriptionsResponseValue200ApplicationJson>();
+            await foreach (var item in this.service.ListAutoPagingAsync(new SubscriptionsListOptions()))
             {
                 items.Add(item);
             }
@@ -225,12 +245,12 @@ namespace SellAppTests
         [Fact]
         public async Task TestSearchAutoPagingAsync()
         {
-            var fixture = System.IO.File.ReadAllText("testdata/search_subscriptions_response_value_200_application_json_property_data_item.json");
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_search_subscriptions_response_value_200_application_json.json");
             var page1 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":\"cursor_123\"}}";
             var page2 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":null}}";
             this.httpMock.MockSequentialResponses(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, new[] { page1, page2 });
 
-            var items = new List<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>();
+            var items = new List<SdkSearchSubscriptionsResponseValue200ApplicationJson>();
             await foreach (var item in this.service.SearchAutoPagingAsync(new SubscriptionsSearchOptions()))
             {
                 items.Add(item);
@@ -245,7 +265,7 @@ namespace SellAppTests
             var empty = "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}";
             this.httpMock.MockSequentialResponses(HttpMethod.Post, "/v2/subscriptions/search", HttpStatusCode.OK, new[] { empty });
 
-            var items = new List<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>();
+            var items = new List<SdkSearchSubscriptionsResponseValue200ApplicationJson>();
             await foreach (var item in this.service.SearchAutoPagingAsync(new SubscriptionsSearchOptions()))
             {
                 items.Add(item);

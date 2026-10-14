@@ -37,15 +37,19 @@ namespace SellApp
         public static Event ProductCreated => new("product.created");
         public static Event ProductTrashed => new("product.trashed");
         public static Event ProductUpdated => new("product.updated");
+        public static Event SubscriptionAction => new("subscription.action");
         public static Event SubscriptionCancelled => new("subscription.cancelled");
         public static Event SubscriptionCreated => new("subscription.created");
+        public static Event SubscriptionPlanChangeNeedsAttention => new("subscription.plan_change_needs_attention");
+        public static Event SubscriptionRenewalNeedsAttention => new("subscription.renewal_needs_attention");
         public static Event SubscriptionRenewed => new("subscription.renewed");
+        public static Event SubscriptionSignupNeedsAttention => new("subscription.signup_needs_attention");
         public static Event TicketMessageCreated => new("ticket_message.created");
         public static Event VariantCreated => new("variant.created");
         public static Event VariantSoldOut => new("variant.sold_out");
         public static Event VariantUpdated => new("variant.updated");
 
-        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.cancelled" or "subscription.created" or "subscription.renewed" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
+        public bool IsKnown => Value is "booking.cancelled" or "booking.rescheduled" or "cash_app.payment_requires_attention" or "charge.completed" or "charge.created" or "charge.disputed" or "charge.partial_paid" or "charge.review" or "feedback.created" or "order.completed" or "order.created" or "order.disputed" or "order.manual_payment_completed" or "order.paid" or "order.partial_paid" or "product.created" or "product.trashed" or "product.updated" or "subscription.action" or "subscription.cancelled" or "subscription.created" or "subscription.plan_change_needs_attention" or "subscription.renewal_needs_attention" or "subscription.renewed" or "subscription.signup_needs_attention" or "ticket_message.created" or "variant.created" or "variant.sold_out" or "variant.updated";
         public bool Equals(Event other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is Event other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

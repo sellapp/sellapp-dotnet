@@ -334,13 +334,14 @@ Delete a product variant
 [API reference](https://sell.app/docs/api/product-variants/delete-a-product-variant) · Effect: **consequential**
 
 ```csharp
-public virtual async Task DeleteAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task DeleteAsync(string product, string variant, ProductVariantsDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product | `string` | Yes |
 | variant | `string` | Yes |
+| options | `ProductVariantsDeleteOptions` | Yes |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -360,7 +361,10 @@ var client = new SellAppClient(new SellAppOptions
 
 await client.ProductVariants.DeleteAsync(
     "1",
-    "2"
+    "2",
+    new ProductVariantsDeleteOptions
+    {
+    }
 );
 Console.WriteLine("Request completed.");
 ```

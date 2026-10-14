@@ -148,8 +148,12 @@
     "SOL_USDT",
     "SOL_USDC"
   ],
+  "custom_payment_method_ids": [
+    "00000000000000000000000000"
+  ],
   "other_settings": {
     "quantity_increments": 1
   },
-  "expected_updated_at": "2023-01-01T00:00:00.000Z"
+  "expected_updated_at": "2023-01-01T00:00:00.000Z",
+  "stock": 1
 }

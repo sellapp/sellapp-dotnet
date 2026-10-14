@@ -80,11 +80,21 @@ namespace SellAppTests
         [Fact]
         public async Task TestListSubscriptionsAsync()
         {
-            var fixture = System.IO.File.ReadAllText("testdata/sdk_list_customer_portal_subscriptions_response_value_200_application_json.json");
+            var fixture = System.IO.File.ReadAllText("testdata/list_customer_portal_subscription.json");
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/customer-portal/subscriptions", HttpStatusCode.OK, fixture);
             var result = await this.service.ListSubscriptionsAsync();
             Assert.NotNull(result);
+            Assert.NotEmpty(result.Data);
             this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/customer-portal/subscriptions");
+        }
+
+        [Fact]
+        public async Task TestListSubscriptionsAsyncEmpty()
+        {
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/customer-portal/subscriptions", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
+            var result = await this.service.ListSubscriptionsAsync();
+            Assert.NotNull(result);
+            Assert.Empty(result.Data);
         }
 
         [Fact]
@@ -152,7 +162,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_resume_customer_subscription_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/resume", HttpStatusCode.OK, fixture);
-            var result = await this.service.ResumeSubscriptionAsync("test_productSubscription", new CustomerPortalResumeSubscriptionOptions());
+            var result = await this.service.ResumeSubscriptionAsync("test_productSubscription");
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/resume");
         }
@@ -172,7 +182,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_preview_customer_subscription_plan_change_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-plan/preview", HttpStatusCode.OK, fixture);
-            var result = await this.service.PreviewSubscriptionPlanChangeAsync("test_productSubscription", new CustomerPortalPreviewSubscriptionPlanChangeOptions());
+            var result = await this.service.PreviewSubscriptionPlanChangeAsync("test_productSubscription", Newtonsoft.Json.JsonConvert.DeserializeObject<CustomerPortalPreviewSubscriptionPlanChangeOptions>("{\"target_variant_id\":1}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-plan/preview");
         }
@@ -182,9 +192,12 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_confirm_customer_subscription_plan_change_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-plan/confirm", HttpStatusCode.OK, fixture);
-            var result = await this.service.ConfirmSubscriptionPlanChangeAsync("test_productSubscription", new CustomerPortalConfirmSubscriptionPlanChangeOptions());
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<CustomerPortalConfirmSubscriptionPlanChangeOptions>("{\"target_variant_id\":1,\"preview_token\":\"test_preview_token\"}")!;
+            options.PreviewToken = "test_preview_token";
+            var result = await this.service.ConfirmSubscriptionPlanChangeAsync("test_productSubscription", options);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-plan/confirm");
+            await this.httpMock.AssertRequestBodyContainsAsync("preview_token", "test_preview_token");
         }
 
         [Fact]
@@ -192,7 +205,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_preview_customer_subscription_renewal_date_change_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-renewal-date/preview", HttpStatusCode.OK, fixture);
-            var result = await this.service.PreviewSubscriptionRenewalDateChangeAsync("test_productSubscription", new CustomerPortalPreviewSubscriptionRenewalDateChangeOptions());
+            var result = await this.service.PreviewSubscriptionRenewalDateChangeAsync("test_productSubscription", Newtonsoft.Json.JsonConvert.DeserializeObject<CustomerPortalPreviewSubscriptionRenewalDateChangeOptions>("{\"renewal_date\":\"2023-01-01T00:00:00.000Z\"}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-renewal-date/preview");
         }
@@ -202,7 +215,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_confirm_customer_subscription_renewal_date_change_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-renewal-date/confirm", HttpStatusCode.OK, fixture);
-            var result = await this.service.ConfirmSubscriptionRenewalDateChangeAsync("test_productSubscription", new CustomerPortalConfirmSubscriptionRenewalDateChangeOptions());
+            var result = await this.service.ConfirmSubscriptionRenewalDateChangeAsync("test_productSubscription", Newtonsoft.Json.JsonConvert.DeserializeObject<CustomerPortalConfirmSubscriptionRenewalDateChangeOptions>("{\"renewal_date\":\"2023-01-01T00:00:00.000Z\"}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/customer-portal/subscriptions/test_productSubscription/actions/change-renewal-date/confirm");
         }
@@ -232,6 +245,38 @@ namespace SellAppTests
 
             var items = new List<CustomerPortalOrder>();
             await foreach (var item in this.service.ListOrdersAutoPagingAsync())
+            {
+                items.Add(item);
+            }
+
+            Assert.Empty(items);
+        }
+
+        [Fact]
+        public async Task TestListSubscriptionsAutoPagingAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/customer_portal_subscription.json");
+            var page1 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":\"cursor_123\"}}";
+            var page2 = "{\"data\":[" + fixture + "],\"list_metadata\":{\"before\":null,\"after\":null}}";
+            this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/customer-portal/subscriptions", HttpStatusCode.OK, new[] { page1, page2 });
+
+            var items = new List<CustomerPortalSubscription>();
+            await foreach (var item in this.service.ListSubscriptionsAutoPagingAsync())
+            {
+                items.Add(item);
+            }
+
+            Assert.Equal(2, items.Count);
+        }
+
+        [Fact]
+        public async Task TestListSubscriptionsAutoPagingAsyncEmpty()
+        {
+            var empty = "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}";
+            this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/customer-portal/subscriptions", HttpStatusCode.OK, new[] { empty });
+
+            var items = new List<CustomerPortalSubscription>();
+            await foreach (var item in this.service.ListSubscriptionsAutoPagingAsync())
             {
                 items.Add(item);
             }

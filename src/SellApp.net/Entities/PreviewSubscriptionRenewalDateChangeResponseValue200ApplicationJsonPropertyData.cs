@@ -11,6 +11,8 @@ namespace SellApp
     [SellAppModelSchema(true)]
     public class PreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyData
     {
+
+        /// <summary>The token the matching confirmation must send back. Previews expire 30 minutes after they are created.</summary>
         [JsonProperty("preview_token")]
         [STJS.JsonPropertyName("preview_token")]
         public string? PreviewToken { get; set; }

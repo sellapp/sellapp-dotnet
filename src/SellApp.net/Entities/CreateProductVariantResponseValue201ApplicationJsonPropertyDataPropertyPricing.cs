@@ -22,6 +22,9 @@ namespace SellApp
         [JsonProperty("price", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("price")]
         public CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyPrice Price { get; set; } = default!;
+        [JsonProperty("trial")]
+        [STJS.JsonPropertyName("trial")]
+        public CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrial? Trial { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

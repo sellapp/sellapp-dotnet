@@ -32,10 +32,17 @@ namespace SellApp
         [JsonProperty("bulk_discount")]
         [STJS.JsonPropertyName("bulk_discount")]
         public List<CreateAddOnDraftRequestApplicationJsonPropertyVariantPropertyBulkDiscountItem>? BulkDiscount { get; set; }
+
+        /// <summary>Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.</summary>
         [JsonProperty("payment_methods", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("payment_methods")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<CreateAddOnDraftRequestApplicationJsonPropertyVariantPaymentMethods> PaymentMethods { get; set; } = default!;
+
+        /// <summary>Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.</summary>
+        [JsonProperty("custom_payment_method_ids")]
+        [STJS.JsonPropertyName("custom_payment_method_ids")]
+        public List<string>? CustomPaymentMethodIds { get; set; }
         [JsonProperty("other_settings")]
         [STJS.JsonPropertyName("other_settings")]
         public CreateAddOnDraftRequestApplicationJsonPropertyVariantPropertyOtherSettings? OtherSettings { get; set; }

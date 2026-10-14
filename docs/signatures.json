@@ -2053,7 +2053,7 @@
     "operationId": "deleteProductVariant",
     "resource": "product_variants",
     "method": "DeleteAsync",
-    "nativeSignature": "public virtual async Task DeleteAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task DeleteAsync(string product, string variant, ProductVariantsDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "DeleteAsync",
@@ -2067,6 +2067,12 @@
           {
             "name": "variant",
             "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductVariantsDeleteOptions",
             "optional": false,
             "passingStyle": "named"
           },
@@ -2520,6 +2526,108 @@
     "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
   },
   {
+    "operationId": "listSubscriptions",
+    "resource": "subscriptions",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>> ListAsync(SubscriptionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SubscriptionsListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<SdkListSubscriptionsResponseValue200ApplicationJson>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+  },
+  {
+    "operationId": "searchSubscriptions",
+    "resource": "subscriptions",
+    "method": "SearchAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "SearchAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SubscriptionsSearchOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<SdkSearchSubscriptionsResponseValue200ApplicationJson>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+  },
+  {
+    "operationId": "getSubscription",
+    "resource": "subscriptions",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "productSubscription",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSubscriptionResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+  },
+  {
     "operationId": "getSubscriptionCapabilities",
     "resource": "subscriptions",
     "method": "GetCapabilitiesAsync",
@@ -2634,6 +2742,46 @@
     "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
   },
   {
+    "operationId": "keepSubscription",
+    "resource": "subscriptions",
+    "method": "KeepAsync",
+    "nativeSignature": "public virtual async Task<SdkKeepSubscriptionResponseValue200ApplicationJson> KeepAsync(string productSubscription, SubscriptionsKeepOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "KeepAsync",
+        "params": [
+          {
+            "name": "productSubscription",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SubscriptionsKeepOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkKeepSubscriptionResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+  },
+  {
     "operationId": "pauseSubscription",
     "resource": "subscriptions",
     "method": "PauseAsync",
@@ -2717,7 +2865,7 @@
     "operationId": "updateSubscriptionPaymentMethod",
     "resource": "subscriptions",
     "method": "UpdatePaymentMethodAsync",
-    "nativeSignature": "public virtual async Task<string> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson> UpdatePaymentMethodAsync(string productSubscription, SubscriptionsUpdatePaymentMethodOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "UpdatePaymentMethodAsync",
@@ -2747,7 +2895,7 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<string>",
+        "returnType": "Task<SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson>",
         "async": true
       }
     ],
@@ -2757,7 +2905,7 @@
     "operationId": "previewSubscriptionPlanChange",
     "resource": "subscriptions",
     "method": "PreviewPlanChangeAsync",
-    "nativeSignature": "public virtual async Task<string> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson> PreviewPlanChangeAsync(string productSubscription, SubscriptionsPreviewPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "PreviewPlanChangeAsync",
@@ -2787,7 +2935,7 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<string>",
+        "returnType": "Task<SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson>",
         "async": true
       }
     ],
@@ -2797,7 +2945,7 @@
     "operationId": "confirmSubscriptionPlanChange",
     "resource": "subscriptions",
     "method": "ConfirmPlanChangeAsync",
-    "nativeSignature": "public virtual async Task<string> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson> ConfirmPlanChangeAsync(string productSubscription, SubscriptionsConfirmPlanChangeOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ConfirmPlanChangeAsync",
@@ -2827,7 +2975,7 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<string>",
+        "returnType": "Task<SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson>",
         "async": true
       }
     ],
@@ -2914,45 +3062,23 @@
     "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
   },
   {
-    "operationId": "listSubscriptions",
-    "resource": "subscriptions",
+    "operationId": "listSubscriptionActions",
+    "resource": "subscriptions_actions",
     "method": "ListAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<SdkListSubscriptionActionsResponseValue200ApplicationJson>> ListAsync(string productSubscription, SubscriptionsActionsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListAsync",
         "params": [
           {
-            "name": "requestOptions",
-            "type": "RequestOptions?",
-            "optional": true,
+            "name": "productSubscription",
+            "type": "string",
+            "optional": false,
             "passingStyle": "named"
           },
-          {
-            "name": "cancellationToken",
-            "type": "CancellationToken",
-            "optional": true,
-            "passingStyle": "named"
-          }
-        ],
-        "returnType": "Task<SellAppList<ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>",
-        "async": true
-      }
-    ],
-    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
-  },
-  {
-    "operationId": "searchSubscriptions",
-    "resource": "subscriptions",
-    "method": "SearchAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>> SearchAsync(SubscriptionsSearchOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
-    "signatures": [
-      {
-        "name": "SearchAsync",
-        "params": [
           {
             "name": "options",
-            "type": "SubscriptionsSearchOptions?",
+            "type": "SubscriptionsActionsListOptions?",
             "optional": true,
             "passingStyle": "named"
           },
@@ -2969,23 +3095,29 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<SellAppList<SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem>>",
+        "returnType": "Task<SellAppList<SdkListSubscriptionActionsResponseValue200ApplicationJson>>",
         "async": true
       }
     ],
-    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+    "sourceFile": "src/SellApp.net/Services/SubscriptionsActions/SubscriptionsActionsService.cs"
   },
   {
-    "operationId": "getSubscription",
-    "resource": "subscriptions",
+    "operationId": "getSubscriptionAction",
+    "resource": "subscriptions_actions",
     "method": "GetAsync",
-    "nativeSignature": "public virtual async Task<SdkGetSubscriptionResponseValue200ApplicationJson> GetAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SdkGetSubscriptionActionResponseValue200ApplicationJson> GetAsync(string productSubscription, string action, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "GetAsync",
         "params": [
           {
             "name": "productSubscription",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "action",
             "type": "string",
             "optional": false,
             "passingStyle": "named"
@@ -3003,11 +3135,57 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<SdkGetSubscriptionResponseValue200ApplicationJson>",
+        "returnType": "Task<SdkGetSubscriptionActionResponseValue200ApplicationJson>",
         "async": true
       }
     ],
-    "sourceFile": "src/SellApp.net/Services/Subscriptions/SubscriptionsService.cs"
+    "sourceFile": "src/SellApp.net/Services/SubscriptionsActions/SubscriptionsActionsService.cs"
+  },
+  {
+    "operationId": "dismissSubscriptionAction",
+    "resource": "subscriptions_actions",
+    "method": "DismissAsync",
+    "nativeSignature": "public virtual async Task<SdkDismissSubscriptionActionResponseValue200ApplicationJson> DismissAsync(string productSubscription, string action, SubscriptionsActionsDismissOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DismissAsync",
+        "params": [
+          {
+            "name": "productSubscription",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SubscriptionsActionsDismissOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkDismissSubscriptionActionResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SubscriptionsActions/SubscriptionsActionsService.cs"
   },
   {
     "operationId": "listAppointments",
@@ -11991,7 +12169,7 @@
     "operationId": "listCustomerPortalSubscriptions",
     "resource": "customer_portal",
     "method": "ListSubscriptionsAsync",
-    "nativeSignature": "public virtual async Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<CustomerPortalSubscription>> ListSubscriptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListSubscriptionsAsync",
@@ -12009,7 +12187,7 @@
             "passingStyle": "named"
           }
         ],
-        "returnType": "Task<SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson>",
+        "returnType": "Task<SellAppList<CustomerPortalSubscription>>",
         "async": true
       }
     ],
@@ -12235,7 +12413,7 @@
     "operationId": "resumeCustomerSubscription",
     "resource": "customer_portal",
     "method": "ResumeSubscriptionAsync",
-    "nativeSignature": "public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, CustomerPortalResumeSubscriptionOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SdkResumeCustomerSubscriptionResponseValue200ApplicationJson> ResumeSubscriptionAsync(string productSubscription, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ResumeSubscriptionAsync",
@@ -12243,12 +12421,6 @@
           {
             "name": "productSubscription",
             "type": "string",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "options",
-            "type": "CustomerPortalResumeSubscriptionOptions",
             "optional": false,
             "passingStyle": "named"
           },

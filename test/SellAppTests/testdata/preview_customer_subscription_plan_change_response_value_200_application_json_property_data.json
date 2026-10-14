@@ -1,17 +1,12 @@
 {
-  "id": 1,
-  "status": "test_status",
-  "subscription_id": "subscription_id_01234",
-  "customer_id": "customer_id_01234",
-  "provider_subscription_id": "provider_subscription_id_01234",
-  "provider_customer_id": "provider_customer_id_01234",
-  "customer": {
-    "id": 1,
-    "email": "test@example.com",
-    "external_id": "external_id_01234",
-    "name": "Test",
-    "locale": "en",
-    "metadata": {}
+  "preview_token": "test_preview_token",
+  "expires_at": "2023-01-01T00:00:00.000Z",
+  "preview": {
+    "provider": "provider_01234",
+    "payment_required": true,
+    "renewal_date": "2023-01-01T00:00:00.000Z",
+    "amount_due": 1,
+    "discount_warning": "test_discount_warning"
   },
-  "product_variant_id": 1
+  "customer_message": "test_customer_message"
 }

@@ -43,7 +43,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkCreateCouponRequestApplicationJsonType Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string> Discount { get; set; } = default!;
@@ -52,13 +52,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Every variant must belong to a selected product. Products without listed variants remain eligible on all variants.</summary>
+        /// <summary>Optional variant restrictions. Every variant must belong to a selected product. Products without listed variants remain eligible on all variants. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -73,10 +73,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkCreateCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
     }
 
@@ -109,7 +120,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkReplaceCouponRequestApplicationJsonType? Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount")]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string>? Discount { get; set; }
@@ -118,13 +129,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool? StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products.</summary>
+        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -139,10 +150,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkReplaceCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
         /// <summary>Include soft-deleted resources in the result.</summary>
         [JsonProperty("with_trashed")]
@@ -169,7 +191,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkUpdateCouponRequestApplicationJsonType? Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount")]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string>? Discount { get; set; }
@@ -178,13 +200,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool? StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products.</summary>
+        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -199,10 +221,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkUpdateCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
         /// <summary>Include soft-deleted resources in the result.</summary>
         [JsonProperty("with_trashed")]
@@ -350,7 +383,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkV2CreateCouponRequestApplicationJsonType Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string> Discount { get; set; } = default!;
@@ -359,13 +392,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Every variant must belong to a selected product. Products without listed variants remain eligible on all variants.</summary>
+        /// <summary>Optional variant restrictions. Every variant must belong to a selected product. Products without listed variants remain eligible on all variants. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -380,10 +413,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkV2CreateCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
     }
 
@@ -448,7 +492,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkV2ReplaceCouponRequestApplicationJsonType? Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount")]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string>? Discount { get; set; }
@@ -457,13 +501,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool? StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products.</summary>
+        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -478,10 +522,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkV2ReplaceCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
         /// <summary>Include soft-deleted resources in the result.</summary>
         [JsonProperty("with_trashed")]
@@ -508,7 +563,7 @@ namespace SellApp
         [STJS.JsonPropertyName("type")]
         public SdkV2UpdateCouponRequestApplicationJsonType? Type { get; set; }
 
-        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit.</summary>
+        /// <summary>A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.</summary>
         [JsonProperty("discount")]
         [STJS.JsonPropertyName("discount")]
         public OneOf.OneOf<double, string>? Discount { get; set; }
@@ -517,13 +572,13 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool? StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
         [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
-        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products.</summary>
+        /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
         [JsonProperty("product_variants")]
         [STJS.JsonPropertyName("product_variants")]
         public List<long>? ProductVariants { get; set; }
@@ -538,10 +593,21 @@ namespace SellApp
         [STJS.JsonPropertyName("expires_at")]
         public DateTimeOffset? ExpiresAt { get; set; }
 
-        /// <summary>A decimal minimum order amount in the store currency's major unit, or null for no minimum.</summary>
+        /// <summary>A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.</summary>
         [JsonProperty("minimum_amount")]
         [STJS.JsonPropertyName("minimum_amount")]
         public OneOf.OneOf<double, string>? MinimumAmount { get; set; }
+
+        /// <summary>What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.</summary>
+        [JsonProperty("applies_to")]
+        [STJS.JsonPropertyName("applies_to")]
+        public SdkV2UpdateCouponRequestApplicationJsonAppliesTo? AppliesTo { get; set; }
+
+        /// <summary>How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.</summary>
+        [JsonProperty("subscription_payments")]
+        [STJS.JsonPropertyName("subscription_payments")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
+        public long? SubscriptionPayments { get; set; }
 
         /// <summary>Include soft-deleted resources in the result.</summary>
         [JsonProperty("with_trashed")]
