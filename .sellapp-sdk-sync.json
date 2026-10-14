@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "dotnet",
   "repository": "sellapp/sellapp-dotnet",
-  "sourceSha": "2a8fd1a82c3091e60f332257fe4460785b0c6e9a",
-  "specSha256": "aea767326d7193deffe5004a5751f7e8f59e40b037636c8fc29b936699dfff2e",
+  "sourceSha": "5bfb944881c821f7c8b0af0e254d6f9bd16c0806",
+  "specSha256": "22a0f17c1c7099fa036382e9f037daa5b7e273d57605163d22042e03f964f1c8",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "cc058d477353b5d90e8be96c19e3416ea6d9de35c8cd1c6cd6f2aea2be5ba209",
-  "contentDigest": "624aaa18f966866aad6814978def01a3795e2813b4abea0b3199ae9057b9d3ae",
+  "treeDigest": "08eaa0778b63ac8c1254279694f37a1dfd4c53b55c359ceb7800eca6e9266109",
+  "contentDigest": "d53cd66b50bdd97770d37cf716aa4e3561f804893e8e886cfd514ec7a26a6209",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -57,7 +57,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "07915ebc17bab991ad17e07aae82591a63fbc8787348bd18feec60740b17f2f8"
+      "sha256": "81531dc19693822fcada169755f6d753bd2dcd241f668c621a28d4aafa9d8dcb"
     },
     {
       "path": "SellApp.sln",
@@ -72,7 +72,7 @@
     {
       "path": "docs/migration.md",
       "mode": "100644",
-      "sha256": "d2152af699fb26ebea01160423ee170c0d2516d1100b8188a4e583956b20528d"
+      "sha256": "fc66a4951d15ce6a3455cd4aac9a310b3f8db00af0c07ef4567bdb83c3f54bea"
     },
     {
       "path": "docs/operation-examples.json",
@@ -482,7 +482,7 @@
     {
       "path": "examples/Onboarding/Onboarding.csproj",
       "mode": "100644",
-      "sha256": "46bf9407f7a5a947e6356eaf41fcf865bd64adea5b2301c35838dae248b1f94a"
+      "sha256": "70dba916e1887ab16c039fb28a8f4f9fa35224e22d531f86348bfef70db574e3"
     },
     {
       "path": "examples/Onboarding/Program.cs",
@@ -497,12 +497,12 @@
     {
       "path": "examples/check-package.mjs",
       "mode": "100644",
-      "sha256": "83d154bd80a037de1d5afde3d1b525a7909b3ef9cf41a7bc5ca96d3b820e3c9f"
+      "sha256": "ce2a51662628feea40355aea9997bdbca289f7b06751402bbcff067601b8fdfc"
     },
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "1e69f61b3bf2cb0072a463612aeb5205c7cc74eba144498c2fa12b540c11abe8"
+      "sha256": "963984ce00374aa87194e0e9aa07194802a17b75e25c3d928d5942e8ec592386"
     },
     {
       "path": "src/SellApp.net/Client/Errors.cs",
@@ -522,7 +522,7 @@
     {
       "path": "src/SellApp.net/Client/SellAppClient.cs",
       "mode": "100644",
-      "sha256": "b489b467bd9084c9490477ed1a0fc19e6cdf6c1b57d250bfe6cb5c56345cf548"
+      "sha256": "a1ac02cd1f34ad9161131ef631e5a1658e9a48c4938af9d2b61097a1d2f798c6"
     },
     {
       "path": "src/SellApp.net/Client/SellAppOptions.cs",
@@ -15607,7 +15607,7 @@
     {
       "path": "src/SellApp.net/SellApp.net.csproj",
       "mode": "100644",
-      "sha256": "239ea98385ba1b637f1cb48f1bbc38a70184883020d50bc3edfdc725f80a794b"
+      "sha256": "f7a5575bb1ecfd896a71c66eb0de1ed01fa89b6c4fa6e2a5b372298cb1e4b431"
     },
     {
       "path": "src/SellApp.net/Services/Account/AccountService.cs",
@@ -16212,12 +16212,12 @@
     {
       "path": "src/SellApp.net/Services/SubscriptionsActions/SubscriptionsActionsService.cs",
       "mode": "100644",
-      "sha256": "be5acb3fd3826c07051f73fe5b4d0185d080dd06c2c6da9bebb1530f71a1c4bc"
+      "sha256": "c11efe77d55b3256f8ac3ae52cbe9f9474b83a67143a3a991d4706e2f78c14a8"
     },
     {
       "path": "src/SellApp.net/Services/SubscriptionsActions/_interfaces/SubscriptionsActionsOptions.cs",
       "mode": "100644",
-      "sha256": "526c15d801ae45c8d21b0a6ee7518c9c9afd9181879d6ce058ebe5dff8da01e2"
+      "sha256": "ddaadd48774152e85b2bb466108d1f3cb1e4ef054bbe28695558797c9054c8d1"
     },
     {
       "path": "src/SellApp.net/Services/Tickets/TicketsService.cs",

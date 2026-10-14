@@ -98,7 +98,7 @@ namespace SellApp
 
         /// <summary>Dismiss a subscription action</summary>
         /// <remarks>
-        /// Dismiss a pending lifecycle action that the provider left unresolved, which frees the subscription for its next change. Only a pending action can be dismissed, and the required `note` is stored on the action as its `error` so the decision stays on the record. An action in any other state returns `422` with the refusal sentence under `errors.subscription`, while a missing or over-long `note` returns an ordinary field error. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Dismiss a pending lifecycle action that the provider left unresolved, which frees the subscription for its next change. Only a pending action can be dismissed, and the required `note` is stored on the action as its `error` so the decision stays on the record. An action in any other state returns `422` with the refusal sentence under `errors.subscription`, while a missing or over-long `note` returns an ordinary field error. This operation does not replay completed dismissals: idempotency keys are ignored. After a lost response, retrieve the action before repeating the request; an already-dismissed action returns `422`. Requires the `invoice` Sanctum ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="productSubscription">The productSubscription path parameter.</param>
         /// <param name="action">The action path parameter.</param>
@@ -108,7 +108,7 @@ namespace SellApp
         /// <returns>The <see cref="SdkDismissSubscriptionActionResponseValue200ApplicationJson"/> result.</returns>
         public virtual async Task<SdkDismissSubscriptionActionResponseValue200ApplicationJson> DismissAsync(string productSubscription, string action, SubscriptionsActionsDismissOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            requestOptions = RequestOptions.ForOperation(requestOptions, "dismissSubscriptionAction", true);
+            requestOptions = RequestOptions.ForOperation(requestOptions, "dismissSubscriptionAction", false);
             return await this.PostAsync<SdkDismissSubscriptionActionResponseValue200ApplicationJson>($"/v2/subscriptions/{Uri.EscapeDataString(productSubscription)}/actions/{Uri.EscapeDataString(action)}/dismiss", options, requestOptions, cancellationToken);
         }
 

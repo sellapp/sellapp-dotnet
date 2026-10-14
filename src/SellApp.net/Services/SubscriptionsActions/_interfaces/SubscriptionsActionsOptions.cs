@@ -28,7 +28,8 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class SubscriptionsActionsDismissOptions : BaseOptions
     {
-        /// <summary>Optional idempotency key. You may also send this as the Idempotency-Key header.</summary>
+        /// <summary>Accepted for compatibility but ignored by this operation. Retrieve the action after an uncertain response; repeating a completed dismissal returns 422.</summary>
+        [System.Obsolete("This field is deprecated.")]
         [JsonProperty("idempotency_key")]
         [STJS.JsonPropertyName("idempotency_key")]
         [SellAppSchemaConstraints(MaxLength = 128)]

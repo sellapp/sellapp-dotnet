@@ -129,7 +129,7 @@ public partial class SellAppClient : IDisposable
         new("POST", "/v2/subscriptions/{productSubscription}/actions/change-renewal-date/confirm", false, true, true, false, false, false, false, true, true, "", false, false, true, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
         new("GET", "/v2/subscriptions/{productSubscription}/actions", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
         new("GET", "/v2/subscriptions/{productSubscription}/actions/{action}", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
-        new("POST", "/v2/subscriptions/{productSubscription}/actions/{action}/dismiss", false, true, true, false, false, false, false, true, true, "", false, false, true, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
+        new("POST", "/v2/subscriptions/{productSubscription}/actions/{action}/dismiss", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
         new("GET", "/v2/bookings", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
         new("POST", "/v2/bookings/search", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
         new("GET", "/v2/bookings/{booking}", false, true, true, false, false, false, false, true, true, "", false, false, false, "[[{\"schemeName\":\"bearerAuth\",\"scopes\":[]}],[{\"schemeName\":\"oauthAccessToken\",\"scopes\":[\"admin\"]},{\"schemeName\":\"storeAuth\",\"scopes\":[]}]]", []),
@@ -617,7 +617,7 @@ public partial class SellAppClient : IDisposable
         }
         if (contract.Server.Length > 0) path = (customBase ? baseAddress!.GetLeftPart(UriPartial.Authority) : contract.Server).TrimEnd('/') + "/" + path;
         var message = new HttpRequestMessage(request.Method, new Uri(baseAddress, path));
-        message.Headers.UserAgent.ParseAdd("sellapp-dotnet/0.2.0");
+        message.Headers.UserAgent.ParseAdd("sellapp-dotnet/0.2.1");
         if (!string.IsNullOrWhiteSpace(request.RequestOptions?.IdempotencyKey)) message.Headers.Add("Idempotency-Key", request.RequestOptions.IdempotencyKey);
         if (request.RequestOptions?.Headers is not null) foreach (var header in request.RequestOptions.Headers) message.Headers.TryAddWithoutValidation(header.Key, header.Value);
         message.Headers.Remove("Authorization"); message.Headers.Remove("X-STORE"); message.Headers.Remove("Cookie");
