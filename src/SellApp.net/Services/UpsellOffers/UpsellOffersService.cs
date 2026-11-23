@@ -26,7 +26,7 @@ namespace SellApp
 
         /// <summary>List upsell offers</summary>
         /// <remarks>
-        /// List the authenticated store's ordered post-purchase offers. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List the authenticated store's ordered post-purchase offers. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -66,7 +66,7 @@ namespace SellApp
 
         /// <summary>Create an upsell offer</summary>
         /// <remarks>
-        /// Create an ordered post-purchase offer. Every product and variant ID is checked against the selected store and expected parent product. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Create an ordered post-purchase offer. Every product and variant ID is checked against the selected store and expected parent product. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -95,7 +95,7 @@ namespace SellApp
 
         /// <summary>Search upsell offers</summary>
         /// <remarks>
-        /// Search offer names and descriptions and compose supported filters and sort instructions. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search offer names and descriptions and compose supported filters and sort instructions. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -135,7 +135,7 @@ namespace SellApp
 
         /// <summary>Retrieve an upsell offer</summary>
         /// <remarks>
-        /// Retrieve one store-scoped upsell offer and its ordered target items. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Retrieve one store-scoped upsell offer and its ordered target items. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="upsellOffer">The upsellOffer path parameter.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -164,7 +164,7 @@ namespace SellApp
 
         /// <summary>Update an upsell offer</summary>
         /// <remarks>
-        /// Update supplied fields. When items are supplied, they replace the complete ordered target-item set. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update supplied fields. When items are supplied, they replace the complete ordered target-item set. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="upsellOffer">The upsellOffer path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -194,7 +194,7 @@ namespace SellApp
 
         /// <summary>Update an upsell offer</summary>
         /// <remarks>
-        /// Update supplied fields. When items are supplied, they replace the complete ordered target-item set. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update supplied fields. When items are supplied, they replace the complete ordered target-item set. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="upsellOffer">The upsellOffer path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -224,7 +224,7 @@ namespace SellApp
 
         /// <summary>Delete an upsell offer</summary>
         /// <remarks>
-        /// Soft-delete an upsell offer while preserving checkout and reporting attribution. Requires a Sanctum token with the `upsell` ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Soft-delete an upsell offer while preserving checkout and reporting attribution. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="upsellOffer">The upsellOffer path parameter.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -248,6 +248,36 @@ namespace SellApp
         public virtual Task Delete(string upsellOffer, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.DeleteAsync(upsellOffer, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve upsell offer performance</summary>
+        /// <remarks>
+        /// Report how an upsell offer has performed over its whole life: how often customers saw it, started its checkout, and bought it, and the revenue those purchases brought. An offer from another store returns `404`, and so does a deleted one unless you send `with_trashed=true`. Requires the `upsell` API-key ability and the Upsells role for the store selected by `X-STORE`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="upsellOffer">The upsell offer ID.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson> GetPerformanceAsync(string upsellOffer, UpsellOffersGetPerformanceOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getUpsellOfferPerformance", false);
+            return await this.GetAsync<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson>($"/v2/upsell-offers/{Uri.EscapeDataString(upsellOffer)}/performance", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson>> GetPerformanceWithResponseAsync(string upsellOffer, UpsellOffersGetPerformanceOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetPerformanceAsync(upsellOffer, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetPerformanceAsync"/>.</summary>
+        public virtual Task<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson> GetPerformance(string upsellOffer, UpsellOffersGetPerformanceOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetPerformanceAsync(upsellOffer, options, requestOptions, cancellationToken);
         }
     }
 }

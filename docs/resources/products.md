@@ -411,8 +411,11 @@ var client = new SellAppClient(new SellAppOptions
 
 var result = await client.Products.SearchAsync(new ProductsSearchOptions
     {
-        Filters = JsonConvert.DeserializeObject<List<SearchProductsRequestApplicationJsonPropertyFiltersItem>>("[{\"field\":\"id\",\"operator\":\"=\",\"value\":1}]")!,
-        Sort = JsonConvert.DeserializeObject<List<SearchProductsRequestApplicationJsonPropertySortItem>>("[{\"field\":\"created_at\",\"direction\":\"desc\"}]")!,
+        Search = JsonConvert.DeserializeObject<SearchProductsRequestApplicationJsonPropertySearch>("{\"value\":\"launch\"}")!,
+        MaxPrice = JsonConvert.DeserializeObject<long?>("2500")!,
+        Stock = JsonConvert.DeserializeObject<Stock?>("\"in_stock\"")!,
+        Visibility = JsonConvert.DeserializeObject<List<SdkSearchProductsRequestApplicationJsonVisibility>>("[\"PUBLIC\"]")!,
+        HasSales = JsonConvert.DeserializeObject<bool?>("true")!,
     });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
@@ -613,6 +616,189 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## PublishAsync
+
+Publish a product
+
+[API reference](https://sell.app/docs/api/products/publish-a-product) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkPublishProductResponseValue200ApplicationJson> PublishAsync(string product, ProductsPublishOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| product | `string` | Yes |
+| options | `ProductsPublishOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkPublishProductResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Products.PublishAsync(
+    "1",
+    new ProductsPublishOptions
+    {
+        VariantIds = JsonConvert.DeserializeObject<List<long>?>("[2]")!,
+    }
+);
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## DuplicateAsync
+
+Duplicate a product
+
+[API reference](https://sell.app/docs/api/products/duplicate-a-product) · Effect: **write**
+
+```csharp
+public virtual async Task<SdkDuplicateProductResponseValue201ApplicationJson> DuplicateAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| product | `string` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkDuplicateProductResponseValue201ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Products.DuplicateAsync("1");
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## MoveAsync
+
+Move a product
+
+[API reference](https://sell.app/docs/api/products/move-a-product) · Effect: **write**
+
+```csharp
+public virtual async Task<SdkMoveProductResponseValue200ApplicationJson> MoveAsync(string product, ProductsMoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| product | `string` | Yes |
+| options | `ProductsMoveOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkMoveProductResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Products.MoveAsync(
+    "1",
+    new ProductsMoveOptions
+    {
+        Position = 1,
+        ExpectedPosition = JsonConvert.DeserializeObject<long?>("3")!,
+    }
+);
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

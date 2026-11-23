@@ -60,6 +60,11 @@ namespace SellApp
         [STJS.JsonPropertyName("product")]
         public BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyProduct Product { get; set; } = default!;
 
+        /// <summary>`true` while the variant is a draft that customers cannot buy. Listing, searching, and retrieving variants leave drafts out unless you send `with_drafts` or `only_drafts`.</summary>
+        [JsonProperty("is_draft", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("is_draft")]
+        public bool IsDraft { get; set; }
+
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]
         [STJS.JsonExtensionData]

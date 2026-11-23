@@ -24,5 +24,8 @@
     {
       "relation": "test_relation"
     }
-  ]
+  ],
+  "waiting_on": "store",
+  "reason": "test_reason",
+  "customer_email": "test@example.com"
 }

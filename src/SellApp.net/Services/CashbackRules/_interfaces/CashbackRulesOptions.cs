@@ -81,4 +81,22 @@ namespace SellApp
         public List<long>? ProductIds { get; set; }
 
     }
+
+    /// <summary>Request options for <see cref="CashbackRulesService.QuoteAsync"/>: Quote a cashback rule</summary>
+    [SellAppModelSchema(false)]
+    public class CashbackRulesQuoteOptions : BaseOptions
+    {
+        /// <summary>The product to quote. Leave it out to quote the store-wide rule.</summary>
+        [JsonProperty("product_id")]
+        [STJS.JsonPropertyName("product_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? ProductId { get; set; }
+
+        /// <summary>The purchase amount to quote, in integer USD cents.</summary>
+        [JsonProperty("purchase_cents")]
+        [STJS.JsonPropertyName("purchase_cents")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? PurchaseCents { get; set; }
+
+    }
 }

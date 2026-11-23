@@ -85,6 +85,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestQuoteAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_quote_wallet_bonus_tier_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/wallet-bonus-tiers/quote", HttpStatusCode.OK, fixture);
+            var result = await this.service.QuoteAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<WalletBonusTiersQuoteOptions>("{\"top_up_cents\":20000}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/wallet-bonus-tiers/quote");
+        }
+
+        [Fact]
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");

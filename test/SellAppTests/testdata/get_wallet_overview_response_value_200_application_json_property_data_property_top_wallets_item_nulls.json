@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "customer_id": 1,
+  "customer_email": null,
+  "status": "active",
+  "balance_cents": 1,
+  "available_cents": 1,
+  "held_cents": 1,
+  "last_activity_at": null
+}

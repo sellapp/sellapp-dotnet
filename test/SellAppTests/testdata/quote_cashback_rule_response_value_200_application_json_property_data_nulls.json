@@ -1,0 +1,8 @@
+{
+  "product_id": null,
+  "purchase_cents": null,
+  "eligible": true,
+  "cashback_cents": null,
+  "reason": "test_reason",
+  "matching_rule": null
+}

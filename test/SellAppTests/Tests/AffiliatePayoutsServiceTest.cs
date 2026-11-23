@@ -77,6 +77,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestMarkPaidAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_mark_affiliate_payouts_paid_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/affiliate-payouts/mark-paid", HttpStatusCode.OK, fixture);
+            var result = await this.service.MarkPaidAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<AffiliatePayoutsMarkPaidOptions>("{\"payout_ids\":[1],\"expected_total_usd_cents\":1}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/affiliate-payouts/mark-paid");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_affiliate_payouts_response_value_200_application_json_property_data_item.json");

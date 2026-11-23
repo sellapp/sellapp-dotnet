@@ -47,6 +47,16 @@ namespace SellApp
         /// <summary>Gets the <see cref="ProductsService"/> for products API operations.</summary>
         public virtual ProductsService Products => this.products ??= new ProductsService(this);
 
+        private ProductsFeaturedVariantService productsFeaturedVariant;
+
+        /// <summary>Gets the <see cref="ProductsFeaturedVariantService"/> for products featured variant API operations.</summary>
+        public virtual ProductsFeaturedVariantService ProductsFeaturedVariant => this.productsFeaturedVariant ??= new ProductsFeaturedVariantService(this);
+
+        private ProductsSimilarProductsService productsSimilarProducts;
+
+        /// <summary>Gets the <see cref="ProductsSimilarProductsService"/> for products similar products API operations.</summary>
+        public virtual ProductsSimilarProductsService ProductsSimilarProducts => this.productsSimilarProducts ??= new ProductsSimilarProductsService(this);
+
         private ProductVariantsService productVariants;
 
         /// <summary>Gets the <see cref="ProductVariantsService"/> for product variants API operations.</summary>
@@ -61,6 +71,16 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="ProductVariantsBookingService"/> for product variants booking API operations.</summary>
         public virtual ProductVariantsBookingService ProductVariantsBooking => this.productVariantsBooking ??= new ProductVariantsBookingService(this);
+
+        private ProductVariantsSubscriptionSettingsService productVariantsSubscriptionSettings;
+
+        /// <summary>Gets the <see cref="ProductVariantsSubscriptionSettingsService"/> for product variants subscription settings API operations.</summary>
+        public virtual ProductVariantsSubscriptionSettingsService ProductVariantsSubscriptionSettings => this.productVariantsSubscriptionSettings ??= new ProductVariantsSubscriptionSettingsService(this);
+
+        private ProductVariantsCommunityAccessService productVariantsCommunityAccess;
+
+        /// <summary>Gets the <see cref="ProductVariantsCommunityAccessService"/> for product variants community access API operations.</summary>
+        public virtual ProductVariantsCommunityAccessService ProductVariantsCommunityAccess => this.productVariantsCommunityAccess ??= new ProductVariantsCommunityAccessService(this);
 
         private SubscriptionsService subscriptions;
 
@@ -86,6 +106,11 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="BundleItemsService"/> for bundle items API operations.</summary>
         public virtual BundleItemsService BundleItems => this.bundleItems ??= new BundleItemsService(this);
+
+        private VariantDeliverablesService variantDeliverables;
+
+        /// <summary>Gets the <see cref="VariantDeliverablesService"/> for variant deliverables API operations.</summary>
+        public virtual VariantDeliverablesService VariantDeliverables => this.variantDeliverables ??= new VariantDeliverablesService(this);
 
         private PromotionsService promotions;
 
@@ -127,6 +152,26 @@ namespace SellApp
         /// <summary>Gets the <see cref="WebhookChannelsService"/> for webhook channels API operations.</summary>
         public virtual WebhookChannelsService WebhookChannels => this.webhookChannels ??= new WebhookChannelsService(this);
 
+        private SupportReplyTemplatesService supportReplyTemplates;
+
+        /// <summary>Gets the <see cref="SupportReplyTemplatesService"/> for support reply templates API operations.</summary>
+        public virtual SupportReplyTemplatesService SupportReplyTemplates => this.supportReplyTemplates ??= new SupportReplyTemplatesService(this);
+
+        private SupportReasonsService supportReasons;
+
+        /// <summary>Gets the <see cref="SupportReasonsService"/> for support reasons API operations.</summary>
+        public virtual SupportReasonsService SupportReasons => this.supportReasons ??= new SupportReasonsService(this);
+
+        private SupportAutomationRulesService supportAutomationRules;
+
+        /// <summary>Gets the <see cref="SupportAutomationRulesService"/> for support automation rules API operations.</summary>
+        public virtual SupportAutomationRulesService SupportAutomationRules => this.supportAutomationRules ??= new SupportAutomationRulesService(this);
+
+        private SupportAutomationSettingsService supportAutomationSettings;
+
+        /// <summary>Gets the <see cref="SupportAutomationSettingsService"/> for support automation settings API operations.</summary>
+        public virtual SupportAutomationSettingsService SupportAutomationSettings => this.supportAutomationSettings ??= new SupportAutomationSettingsService(this);
+
         private CustomersService customers;
 
         /// <summary>Gets the <see cref="CustomersService"/> for customers API operations.</summary>
@@ -146,11 +191,6 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="OrdersLineItemsService"/> for orders line items API operations.</summary>
         public virtual OrdersLineItemsService OrdersLineItems => this.ordersLineItems ??= new OrdersLineItemsService(this);
-
-        private VariantDeliverablesService variantDeliverables;
-
-        /// <summary>Gets the <see cref="VariantDeliverablesService"/> for variant deliverables API operations.</summary>
-        public virtual VariantDeliverablesService VariantDeliverables => this.variantDeliverables ??= new VariantDeliverablesService(this);
 
         private VariantDeliverableFilesService variantDeliverableFiles;
 
@@ -197,6 +237,16 @@ namespace SellApp
         /// <summary>Gets the <see cref="CommunityConnectionsService"/> for community connections API operations.</summary>
         public virtual CommunityConnectionsService CommunityConnections => this.communityConnections ??= new CommunityConnectionsService(this);
 
+        private CommunityConnectionsServersService communityConnectionsServers;
+
+        /// <summary>Gets the <see cref="CommunityConnectionsServersService"/> for community connections servers API operations.</summary>
+        public virtual CommunityConnectionsServersService CommunityConnectionsServers => this.communityConnectionsServers ??= new CommunityConnectionsServersService(this);
+
+        private CommunityConnectionsSlackService communityConnectionsSlack;
+
+        /// <summary>Gets the <see cref="CommunityConnectionsSlackService"/> for community connections slack API operations.</summary>
+        public virtual CommunityConnectionsSlackService CommunityConnectionsSlack => this.communityConnectionsSlack ??= new CommunityConnectionsSlackService(this);
+
         private WalletSettingsService walletSettings;
 
         /// <summary>Gets the <see cref="WalletSettingsService"/> for wallet settings API operations.</summary>
@@ -211,6 +261,16 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="WalletTransactionsService"/> for wallet transactions API operations.</summary>
         public virtual WalletTransactionsService WalletTransactions => this.walletTransactions ??= new WalletTransactionsService(this);
+
+        private WalletLedgerService walletLedger;
+
+        /// <summary>Gets the <see cref="WalletLedgerService"/> for wallet ledger API operations.</summary>
+        public virtual WalletLedgerService WalletLedger => this.walletLedger ??= new WalletLedgerService(this);
+
+        private WalletOverviewService walletOverview;
+
+        /// <summary>Gets the <see cref="WalletOverviewService"/> for wallet overview API operations.</summary>
+        public virtual WalletOverviewService WalletOverview => this.walletOverview ??= new WalletOverviewService(this);
 
         private WalletTopupsService walletTopups;
 
@@ -242,10 +302,20 @@ namespace SellApp
         /// <summary>Gets the <see cref="CoursesLessonsService"/> for courses lessons API operations.</summary>
         public virtual CoursesLessonsService CoursesLessons => this.coursesLessons ??= new CoursesLessonsService(this);
 
+        private CheckoutFieldTemplatesService checkoutFieldTemplates;
+
+        /// <summary>Gets the <see cref="CheckoutFieldTemplatesService"/> for checkout field templates API operations.</summary>
+        public virtual CheckoutFieldTemplatesService CheckoutFieldTemplates => this.checkoutFieldTemplates ??= new CheckoutFieldTemplatesService(this);
+
         private PaymentMethodsService paymentMethods;
 
         /// <summary>Gets the <see cref="PaymentMethodsService"/> for payment methods API operations.</summary>
         public virtual PaymentMethodsService PaymentMethods => this.paymentMethods ??= new PaymentMethodsService(this);
+
+        private PaymentMethodsModifierService paymentMethodsModifier;
+
+        /// <summary>Gets the <see cref="PaymentMethodsModifierService"/> for payment methods modifier API operations.</summary>
+        public virtual PaymentMethodsModifierService PaymentMethodsModifier => this.paymentMethodsModifier ??= new PaymentMethodsModifierService(this);
 
         private PaymentMethodsCustomService paymentMethodsCustom;
 
@@ -257,6 +327,16 @@ namespace SellApp
         /// <summary>Gets the <see cref="StoreSettingsService"/> for store settings API operations.</summary>
         public virtual StoreSettingsService StoreSettings => this.storeSettings ??= new StoreSettingsService(this);
 
+        private StoreSenderEmailService storeSenderEmail;
+
+        /// <summary>Gets the <see cref="StoreSenderEmailService"/> for store sender email API operations.</summary>
+        public virtual StoreSenderEmailService StoreSenderEmail => this.storeSenderEmail ??= new StoreSenderEmailService(this);
+
+        private StoreIntegrationsService storeIntegrations;
+
+        /// <summary>Gets the <see cref="StoreIntegrationsService"/> for store integrations API operations.</summary>
+        public virtual StoreIntegrationsService StoreIntegrations => this.storeIntegrations ??= new StoreIntegrationsService(this);
+
         private StoreNotificationChannelsService storeNotificationChannels;
 
         /// <summary>Gets the <see cref="StoreNotificationChannelsService"/> for store notification channels API operations.</summary>
@@ -266,6 +346,11 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="StoreCustomDomainsService"/> for store custom domains API operations.</summary>
         public virtual StoreCustomDomainsService StoreCustomDomains => this.storeCustomDomains ??= new StoreCustomDomainsService(this);
+
+        private NotificationsService notifications;
+
+        /// <summary>Gets the <see cref="NotificationsService"/> for notifications API operations.</summary>
+        public virtual NotificationsService Notifications => this.notifications ??= new NotificationsService(this);
 
         private CreditsProductsService creditsProducts;
 
@@ -291,6 +376,16 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="AffiliatesService"/> for affiliates API operations.</summary>
         public virtual AffiliatesService Affiliates => this.affiliates ??= new AffiliatesService(this);
+
+        private AffiliatesProductsService affiliatesProducts;
+
+        /// <summary>Gets the <see cref="AffiliatesProductsService"/> for affiliates products API operations.</summary>
+        public virtual AffiliatesProductsService AffiliatesProducts => this.affiliatesProducts ??= new AffiliatesProductsService(this);
+
+        private AffiliatesCouponService affiliatesCoupon;
+
+        /// <summary>Gets the <see cref="AffiliatesCouponService"/> for affiliates coupon API operations.</summary>
+        public virtual AffiliatesCouponService AffiliatesCoupon => this.affiliatesCoupon ??= new AffiliatesCouponService(this);
 
         private AffiliateReferralsService affiliateReferrals;
 
@@ -386,6 +481,16 @@ namespace SellApp
 
         /// <summary>Gets the <see cref="TicketsMessagesService"/> for tickets messages API operations.</summary>
         public virtual TicketsMessagesService TicketsMessages => this.ticketsMessages ??= new TicketsMessagesService(this);
+
+        private TicketsWalletRefundsService ticketsWalletRefunds;
+
+        /// <summary>Gets the <see cref="TicketsWalletRefundsService"/> for tickets wallet refunds API operations.</summary>
+        public virtual TicketsWalletRefundsService TicketsWalletRefunds => this.ticketsWalletRefunds ??= new TicketsWalletRefundsService(this);
+
+        private TicketsAnalyticsService ticketsAnalytics;
+
+        /// <summary>Gets the <see cref="TicketsAnalyticsService"/> for tickets analytics API operations.</summary>
+        public virtual TicketsAnalyticsService TicketsAnalytics => this.ticketsAnalytics ??= new TicketsAnalyticsService(this);
 
         private OAuthService oAuth;
 

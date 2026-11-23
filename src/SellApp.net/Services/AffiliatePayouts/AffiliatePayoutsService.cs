@@ -26,7 +26,7 @@ namespace SellApp
 
         /// <summary>List affiliate payouts</summary>
         /// <remarks>
-        /// List merchant-managed affiliate payout records. These record commission payments arranged by the merchant; SellApp does not transfer or hold the funds. Requires the `affiliate` credential ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List merchant-managed affiliate payout records, newest first, 15 per page by default. These record commission payments arranged by the merchant; SellApp does not transfer or hold the funds. Requires the `affiliate` credential ability. A `status` or `payout_method` value the API does not know returns `422`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -150,6 +150,35 @@ namespace SellApp
         public virtual Task<SdkUpdateAffiliatePayoutStatusResponseValue200ApplicationJson> Update(string payout, AffiliatePayoutsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.UpdateAsync(payout, options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Mark affiliate payouts paid</summary>
+        /// <remarks>
+        /// Record up to 20 due affiliate payouts as paid in one request, after you have paid the affiliates yourself. No money moves: SellApp only records the payment. Each payout marked paid also marks its referrals paid and emails that affiliate that the payout was paid. Send the payout IDs and `expected_total_usd_cents`, the sum of their `amount_usd_cents` as you read them, in integer USD cents (`4250` means $42.50). Every payout is checked first, and nothing changes when one of them is unknown in your store, is not `due`, or has referrals that no longer add up to it or can no longer be paid (`422` on `payout_ids`, one message per payout), or when the amounts add up to another total (`422` on `expected_total_usd_cents`). Then each payout is marked in the order sent, and `data` reports one `outcome` per payout: `paid`, `skipped`, or `failed`. A payout that changes between the check and its turn is skipped or fails without affecting the others. Requires the `affiliate` and `affiliate:payout` API-key abilities, and the staff member who owns the key needs the affiliate and affiliate payout permissions. There is no idempotency key, but sending the same batch again is refused with `422` on `payout_ids`, because those payouts are no longer due, so nobody is emailed twice. After a lost response, list the payouts with `GET /v2/affiliate-payouts?status=due` and send only those still due, with their new total. The emails cannot be taken back; to reopen a payout recorded by mistake, set it back to `due` with `PATCH /v2/affiliate-payouts/{payout}/status`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson> MarkPaidAsync(AffiliatePayoutsMarkPaidOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "markAffiliatePayoutsPaid", false);
+            return await this.PostAsync<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson>("/v2/affiliate-payouts/mark-paid", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson>> MarkPaidWithResponseAsync(AffiliatePayoutsMarkPaidOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.MarkPaidAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="MarkPaidAsync"/>.</summary>
+        public virtual Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson> MarkPaid(AffiliatePayoutsMarkPaidOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.MarkPaidAsync(options, requestOptions, cancellationToken);
         }
     }
 }

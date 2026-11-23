@@ -54,40 +54,42 @@ namespace SellApp
 
         /// <summary>List webhook deliveries</summary>
         /// <remarks>
-        /// Destination origin only; response bodies are redacted and capped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List your store's outbound webhook deliveries, newest first, 25 per page by default. Each delivery shows only the destination origin; response bodies are redacted and capped. Filter by `event_type` or `status`; both must match exactly, and a value that matches nothing returns an empty page rather than an error. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>A page of <see cref="ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listWebhookDeliveries", false);
-            return await this.GetAsync<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>>("/v2/webhook-deliveries", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>>("/v2/webhook-deliveries", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>>> ListDeliveriesWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>>> ListDeliveriesWithResponseAsync(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.ListDeliveriesAsync(requestOptions, cancellationToken);
+            var value = await this.ListDeliveriesAsync(options, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="ListDeliveriesAsync"/>.</summary>
-        public virtual Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveries(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveries(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.ListDeliveriesAsync(requestOptions, cancellationToken);
+            return this.ListDeliveriesAsync(options, requestOptions, cancellationToken);
         }
 
         /// <summary>Auto-paging variant of <see cref="ListDeliveriesAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async sequence of <see cref="ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem> ListDeliveriesAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerable<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem> ListDeliveriesAutoPagingAsync(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listWebhookDeliveries", false);
-            return base.ListAutoPagingAsync<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/webhook-deliveries", null, requestOptions, cancellationToken);
+            return base.ListAutoPagingAsync<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/webhook-deliveries", options, requestOptions, cancellationToken);
         }
 
         /// <summary>Retrieve a webhook delivery</summary>

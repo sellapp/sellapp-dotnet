@@ -47,6 +47,19 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestCreateAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_create_course_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/courses", HttpStatusCode.OK, fixture);
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<CoursesCreateOptions>("{\"title\":\"test_title\"}")!;
+            options.Title = "test_title";
+            var result = await this.service.CreateAsync(options);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/courses");
+            await this.httpMock.AssertRequestBodyContainsAsync("title", "test_title");
+        }
+
+        [Fact]
         public async Task TestSearchAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_sdk_search_courses_response_value_200_application_json.json");
@@ -94,6 +107,21 @@ namespace SellAppTests
             var result = await this.service.UpdateAsync("test_course", new CoursesUpdateOptions());
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/courses/test_course");
+        }
+
+        [Fact]
+        public async Task TestGetStudentSummaryAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_course_student_summary_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/course-students", HttpStatusCode.OK, fixture);
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<CoursesGetStudentSummaryOptions>("{\"start_date\":\"2026-08-01\",\"end_date\":\"2026-08-31\"}")!;
+            options.StartDate = "2026-08-01";
+            options.EndDate = "2026-08-31";
+            var result = await this.service.GetStudentSummaryAsync(options);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/course-students");
+            this.httpMock.AssertQueryParam("start_date", "2026-08-01");
+            this.httpMock.AssertQueryParam("end_date", "2026-08-31");
         }
 
         [Fact]

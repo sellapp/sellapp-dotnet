@@ -115,7 +115,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_create_order_replacement_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/orders/test_order/replacements", HttpStatusCode.OK, fixture);
-            var result = await this.service.CreateReplacementAsync("test_order", Newtonsoft.Json.JsonConvert.DeserializeObject<OrdersCreateReplacementOptions>("{\"product_variants\":{}}")!);
+            var result = await this.service.CreateReplacementAsync("test_order", Newtonsoft.Json.JsonConvert.DeserializeObject<OrdersCreateReplacementOptions>("{\"product_variants\":1}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/orders/test_order/replacements");
         }
@@ -158,6 +158,16 @@ namespace SellAppTests
             var result = await this.service.SendFulfillmentNotificationsAsync("test_order", new OrdersSendFulfillmentNotificationsOptions());
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/orders/test_order/fulfillment-notifications");
+        }
+
+        [Fact]
+        public async Task TestRegenerateTelegramInviteAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_regenerate_order_telegram_invite_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/orders/test_order/telegram-invites", HttpStatusCode.OK, fixture);
+            var result = await this.service.RegenerateTelegramInviteAsync("test_order", new OrdersRegenerateTelegramInviteOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/orders/test_order/telegram-invites");
         }
 
         [Fact]

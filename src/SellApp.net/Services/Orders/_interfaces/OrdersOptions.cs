@@ -103,6 +103,11 @@ namespace SellApp
         [STJS.JsonPropertyName("expected_status")]
         public ExpectedStatus? ExpectedStatus { get; set; }
 
+        /// <summary>Send `true` to confirm that the store received the payment for this order outside SellApp, which can release purchased products to the customer. `true` is accepted only with `status: COMPLETED` (otherwise `422` on `payment_received`) and requires `expected_status` (otherwise `422` on `expected_status`). `false` is accepted with any status and changes nothing.</summary>
+        [JsonProperty("payment_received")]
+        [STJS.JsonPropertyName("payment_received")]
+        public bool? PaymentReceived { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="OrdersService.CreateCheckoutAsync"/>: Create order checkout</summary>
@@ -122,7 +127,7 @@ namespace SellApp
     {
         [JsonProperty("product_variants", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("product_variants")]
-        public CreateOrderReplacementRequestApplicationJsonPropertyProductVariants ProductVariants { get; set; } = default!;
+        public OneOf.OneOf<long, List<long>, CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3> ProductVariants { get; set; } = default!;
 
     }
 
@@ -130,11 +135,17 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class OrdersCreateRefundOptions : BaseOptions
     {
-        /// <summary>Decimal major-unit amount in the order currency, positive and no greater than remaining balance. Precision follows that currency. Omission/null/empty requests the full remaining balance.</summary>
+        /// <summary>Decimal major-unit amount in the order's `totals.refund_currency`, positive and no greater than remaining balance. Precision follows that currency. Omission/null/empty requests the full remaining balance.</summary>
         [JsonProperty("amount")]
         [STJS.JsonPropertyName("amount")]
         [SellAppSchemaConstraints(MaxLength = 32)]
         public string? Amount { get; set; }
+
+        /// <summary>The refunded total you expect, in integer minor units of the order's `totals.refund_currency`, which can differ from the order currency: `500` means $5.00 in USD. Read it from `totals.refunded_total_cents` on the order and send it unchanged; it is `0` before the first refund. After a refund, `data.order.totals.refunded_total_cents` in the response is the value to send with the next one. With this field, the refund goes out only while the refunded total still equals it and no other refund on the order is pending. Omit it or send null to refund without the check.</summary>
+        [JsonProperty("expected_refunded_total_cents")]
+        [STJS.JsonPropertyName("expected_refunded_total_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? ExpectedRefundedTotalCents { get; set; }
 
     }
 
@@ -154,7 +165,7 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class OrdersRetryDynamicDeliveryOptions : BaseOptions
     {
-        /// <summary>Delivered product record ID, not a catalog product or order line-item ID. The public order-deliverables response does not currently expose this ID; obtain it from an authorized integration context before requesting a retry.</summary>
+        /// <summary>Delivered product record ID, not a catalog product or order line-item ID. Read it from `delivered_product_id` in `GET /v2/orders/{order}/deliverables`.</summary>
         [JsonProperty("delivered_product_id", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("delivered_product_id")]
         [SellAppSchemaConstraints(Minimum = 1d)]
@@ -176,6 +187,18 @@ namespace SellApp
         [STJS.JsonPropertyName("product_variant_ids")]
         [SellAppSchemaConstraints(MinItems = 1, UniqueItems = true)]
         public List<long>? ProductVariantIds { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="OrdersService.RegenerateTelegramInviteAsync"/>: Create a Telegram invite link</summary>
+    [SellAppModelSchema(false)]
+    public class OrdersRegenerateTelegramInviteOptions : BaseOptions
+    {
+        /// <summary>The purchased product variant whose Telegram access needs a new link, as in `line_items[].product_variant_id`. Required only when the order grants Telegram access for more than one product.</summary>
+        [JsonProperty("variant_id")]
+        [STJS.JsonPropertyName("variant_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? VariantId { get; set; }
 
     }
 

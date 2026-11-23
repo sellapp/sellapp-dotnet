@@ -1,0 +1,10 @@
+{
+  "type": "test_type",
+  "code": "test_code",
+  "message": "test_message",
+  "status": 1,
+  "param": null,
+  "request_id": "00000000-0000-0000-0000-000000000000",
+  "docs_url": null,
+  "fallback": null
+}

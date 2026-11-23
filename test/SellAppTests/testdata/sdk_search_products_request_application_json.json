@@ -17,12 +17,23 @@
     }
   ],
   "search": {
-    "value": "test_value",
-    "case_sensitive": true
+    "value": "test_value"
   },
   "includes": [
     {
-      "relation": "test_relation"
+      "relation": "variants"
     }
-  ]
+  ],
+  "min_price": 1,
+  "max_price": 1,
+  "stock": "in_stock",
+  "visibility": [
+    "PUBLIC",
+    "ON_HOLD",
+    "HIDDEN",
+    "PRIVATE"
+  ],
+  "has_sales": true,
+  "with_drafts": true,
+  "only_drafts": true
 }

@@ -17,6 +17,29 @@ namespace SellApp
         [SellAppSchemaConstraints(Minimum = 1d)]
         public long? Page { get; set; }
 
+        /// <summary>Keep charges in this status: `PENDING`, `REVERSED`, `PARTIAL`, `VOIDED`, `REFUNDED`, `PAID`, `COMPLETED`, `DISPUTING`, or `REVIEW`. `FAILED` is not accepted, because failed charges are never listed.</summary>
+        [JsonProperty("status")]
+        [STJS.JsonPropertyName("status")]
+        public ChargesStatus? Status { get; set; }
+
+        /// <summary>Keep charges whose customer email contains this text.</summary>
+        [JsonProperty("customer_email")]
+        [STJS.JsonPropertyName("customer_email")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? CustomerEmail { get; set; }
+
+        /// <summary>Keep charges created on or after this moment. A date such as `2026-08-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.</summary>
+        [JsonProperty("created_after")]
+        [STJS.JsonPropertyName("created_after")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CreatedAfter { get; set; }
+
+        /// <summary>Keep charges created on or before this moment. A date such as `2026-08-31` runs to the last second of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.</summary>
+        [JsonProperty("created_before")]
+        [STJS.JsonPropertyName("created_before")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CreatedBefore { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="ChargesService.CreateAsync"/>: Create a charge</summary>
@@ -99,6 +122,27 @@ namespace SellApp
         [JsonProperty("coupon_code")]
         [STJS.JsonPropertyName("coupon_code")]
         public string? CouponCode { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="ChargesService.GetSummaryAsync"/>: Retrieve the charge summary</summary>
+    [SellAppModelSchema(false)]
+    public class ChargesGetSummaryOptions : BaseOptions
+    {
+        /// <summary>A named range in the store's time zone: `today`, `yesterday`, `this_week`, `last_week`, `this_month`, `last_month`, `last_7_days`, `last_30_days` (the default), or `all_time`. `this_week`, `this_month`, and the `last_*_days` presets end today. `all_time` starts on the day the store was created or took its first order, whichever is earlier. Ignored when `start_date` or `end_date` is sent.</summary>
+        [JsonProperty("preset")]
+        [STJS.JsonPropertyName("preset")]
+        public ChargesPreset? Preset { get; set; }
+
+        /// <summary>First day of the range, `YYYY-MM-DD`, in the store's time zone. Inclusive. Sent without `end_date`, the range runs to the end of today.</summary>
+        [JsonProperty("start_date")]
+        [STJS.JsonPropertyName("start_date")]
+        public string? StartDate { get; set; }
+
+        /// <summary>Last day of the range, `YYYY-MM-DD`, in the store's time zone. Inclusive. Sent without `start_date`, the range starts on the day the store was created or took its first order, whichever is earlier.</summary>
+        [JsonProperty("end_date")]
+        [STJS.JsonPropertyName("end_date")]
+        public string? EndDate { get; set; }
 
     }
 }

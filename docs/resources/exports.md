@@ -9,11 +9,12 @@ List exports
 [API reference](https://sell.app/docs/api/exports) · Effect: **read**
 
 ```csharp
-public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| options | `ExportsListOptions?` | No |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -31,7 +32,9 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-var result = await client.Exports.ListAsync();
+var result = await client.Exports.ListAsync(new ExportsListOptions
+    {
+    });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "type": null,
+  "message": "test_message",
+  "seen": true,
+  "subject_type": null,
+  "subject_id": null,
+  "dashboard_url": null,
+  "created_at": null
+}

@@ -1,0 +1,6 @@
+{
+  "max_pause_days": null,
+  "min_active_days_between_pauses": null,
+  "max_pauses_per_period": null,
+  "requires_resume_date": null
+}

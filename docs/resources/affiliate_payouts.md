@@ -238,3 +238,63 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## MarkPaidAsync
+
+Mark affiliate payouts paid
+
+[API reference](https://sell.app/docs/api/affiliates/mark-payouts-paid) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson> MarkPaidAsync(AffiliatePayoutsMarkPaidOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `AffiliatePayoutsMarkPaidOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.AffiliatePayouts.MarkPaidAsync(new AffiliatePayoutsMarkPaidOptions
+    {
+        PayoutIds = JsonConvert.DeserializeObject<List<long>>("[91,92]")!,
+        ExpectedTotalUsdCents = 4250,
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+

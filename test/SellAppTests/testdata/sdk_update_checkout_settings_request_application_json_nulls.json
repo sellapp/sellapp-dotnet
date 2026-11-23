@@ -1,0 +1,14 @@
+{
+  "shopping_cart_enabled": null,
+  "customer_email_required": null,
+  "allow_vpn_purchases": null,
+  "blacklist_on_dispute": null,
+  "minimum_spend": null,
+  "billing_descriptor": null,
+  "attempts_per_customer": null,
+  "attempts_per_ip": null,
+  "attempts_per_email": null,
+  "attempts_per_fingerprint": null,
+  "rate_limit_window_seconds": null,
+  "crypto": null
+}

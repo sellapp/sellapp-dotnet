@@ -20,17 +20,211 @@ public sealed class OneOf<TFirst, TSecond>
     public static implicit operator OneOf<TFirst, TSecond>(TSecond value) => new(value!);
 }
 
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird>(TThird value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth>(TFourth value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth, TFifth>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth>(TFourth value) => new(value!);
+    public bool IsFifth => Value is TFifth;
+    public TFifth AsFifth => IsFifth ? (TFifth)Value : throw new InvalidOperationException("The union does not hold its fifth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth>(TFifth value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TFourth value) => new(value!);
+    public bool IsFifth => Value is TFifth;
+    public TFifth AsFifth => IsFifth ? (TFifth)Value : throw new InvalidOperationException("The union does not hold its fifth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TFifth value) => new(value!);
+    public bool IsSixth => Value is TSixth;
+    public TSixth AsSixth => IsSixth ? (TSixth)Value : throw new InvalidOperationException("The union does not hold its sixth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth>(TSixth value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TFourth value) => new(value!);
+    public bool IsFifth => Value is TFifth;
+    public TFifth AsFifth => IsFifth ? (TFifth)Value : throw new InvalidOperationException("The union does not hold its fifth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TFifth value) => new(value!);
+    public bool IsSixth => Value is TSixth;
+    public TSixth AsSixth => IsSixth ? (TSixth)Value : throw new InvalidOperationException("The union does not hold its sixth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TSixth value) => new(value!);
+    public bool IsSeventh => Value is TSeventh;
+    public TSeventh AsSeventh => IsSeventh ? (TSeventh)Value : throw new InvalidOperationException("The union does not hold its seventh value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(TSeventh value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TFourth value) => new(value!);
+    public bool IsFifth => Value is TFifth;
+    public TFifth AsFifth => IsFifth ? (TFifth)Value : throw new InvalidOperationException("The union does not hold its fifth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TFifth value) => new(value!);
+    public bool IsSixth => Value is TSixth;
+    public TSixth AsSixth => IsSixth ? (TSixth)Value : throw new InvalidOperationException("The union does not hold its sixth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TSixth value) => new(value!);
+    public bool IsSeventh => Value is TSeventh;
+    public TSeventh AsSeventh => IsSeventh ? (TSeventh)Value : throw new InvalidOperationException("The union does not hold its seventh value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TSeventh value) => new(value!);
+    public bool IsEighth => Value is TEighth;
+    public TEighth AsEighth => IsEighth ? (TEighth)Value : throw new InvalidOperationException("The union does not hold its eighth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth>(TEighth value) => new(value!);
+}
+
+[JsonConverter(typeof(OneOfNewtonsoftConverter))]
+public sealed class OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>
+{
+    public OneOf(object value) => Value = value;
+    public object Value { get; }
+    public bool IsFirst => Value is TFirst;
+    public TFirst AsFirst => IsFirst ? (TFirst)Value : throw new InvalidOperationException("The union does not hold its first value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TFirst value) => new(value!);
+    public bool IsSecond => Value is TSecond;
+    public TSecond AsSecond => IsSecond ? (TSecond)Value : throw new InvalidOperationException("The union does not hold its second value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TSecond value) => new(value!);
+    public bool IsThird => Value is TThird;
+    public TThird AsThird => IsThird ? (TThird)Value : throw new InvalidOperationException("The union does not hold its third value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TThird value) => new(value!);
+    public bool IsFourth => Value is TFourth;
+    public TFourth AsFourth => IsFourth ? (TFourth)Value : throw new InvalidOperationException("The union does not hold its fourth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TFourth value) => new(value!);
+    public bool IsFifth => Value is TFifth;
+    public TFifth AsFifth => IsFifth ? (TFifth)Value : throw new InvalidOperationException("The union does not hold its fifth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TFifth value) => new(value!);
+    public bool IsSixth => Value is TSixth;
+    public TSixth AsSixth => IsSixth ? (TSixth)Value : throw new InvalidOperationException("The union does not hold its sixth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TSixth value) => new(value!);
+    public bool IsSeventh => Value is TSeventh;
+    public TSeventh AsSeventh => IsSeventh ? (TSeventh)Value : throw new InvalidOperationException("The union does not hold its seventh value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TSeventh value) => new(value!);
+    public bool IsEighth => Value is TEighth;
+    public TEighth AsEighth => IsEighth ? (TEighth)Value : throw new InvalidOperationException("The union does not hold its eighth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TEighth value) => new(value!);
+    public bool IsNinth => Value is TNinth;
+    public TNinth AsNinth => IsNinth ? (TNinth)Value : throw new InvalidOperationException("The union does not hold its ninth value.");
+    public static implicit operator OneOf<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth>(TNinth value) => new(value!);
+}
+
 public sealed class OneOfNewtonsoftConverter : JsonConverter
 {
+    private static readonly HashSet<System.Type> SupportedTypes = new()
+    {
+        typeof(OneOf<,>), typeof(OneOf<,,>), typeof(OneOf<,,,>), typeof(OneOf<,,,,>), typeof(OneOf<,,,,,>), typeof(OneOf<,,,,,,>), typeof(OneOf<,,,,,,,>), typeof(OneOf<,,,,,,,,>)
+    };
+
     public override bool CanConvert(System.Type objectType) =>
-        objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(OneOf<,>);
+        objectType.IsGenericType && SupportedTypes.Contains(objectType.GetGenericTypeDefinition());
 
     public override object? ReadJson(JsonReader reader, System.Type objectType, object? existingValue, JsonSerializer serializer)
     {
         var token = JToken.Load(reader);
+        if (token.Type == JTokenType.Null) return null;
         var variants = objectType.GetGenericArguments();
         foreach (var variant in variants)
         {
+            var kind = System.Type.GetTypeCode(Nullable.GetUnderlyingType(variant) ?? variant);
+            // Json.NET coerces numbers and booleans to strings. Select by JSON
+            // kind first so mixed metadata keeps its original wire value type.
+            if (kind == TypeCode.String && token.Type is not (JTokenType.String or JTokenType.Date)) continue;
+            if (kind == TypeCode.Boolean && token.Type != JTokenType.Boolean) continue;
+            if (kind is TypeCode.Byte or TypeCode.SByte or TypeCode.Int16 or TypeCode.UInt16 or TypeCode.Int32 or TypeCode.UInt32 or TypeCode.Int64 or TypeCode.UInt64)
+            {
+                if (token.Type != JTokenType.Integer) continue;
+            }
+            if (kind is TypeCode.Single or TypeCode.Double or TypeCode.Decimal)
+            {
+                if (token.Type is not (JTokenType.Integer or JTokenType.Float)) continue;
+            }
             try
             {
                 var value = token.ToObject(variant, serializer);

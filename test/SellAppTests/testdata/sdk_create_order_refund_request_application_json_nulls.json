@@ -1,3 +1,4 @@
 {
-  "amount": null
+  "amount": null,
+  "expected_refunded_total_cents": null
 }

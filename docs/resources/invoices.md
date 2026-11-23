@@ -510,7 +510,7 @@ var result = await client.Invoices.IssueReplacementAsync(
     "1",
     new InvoicesIssueReplacementOptions
     {
-        ProductVariants = JsonConvert.DeserializeObject<IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants>("[117214]")!,
+        ProductVariants = JsonConvert.DeserializeObject<OneOf.OneOf<long, List<long>>>("[117214]")!,
     }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
@@ -638,6 +638,7 @@ var result = await client.Invoices.CreateRefundAsync(
     new InvoicesCreateRefundOptions
     {
         Amount = JsonConvert.DeserializeObject<string?>("\"12.50\"")!,
+        ExpectedRefundedTotalCents = JsonConvert.DeserializeObject<long?>("0")!,
     }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));

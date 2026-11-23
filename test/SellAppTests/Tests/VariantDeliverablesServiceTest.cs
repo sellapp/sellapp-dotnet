@@ -27,6 +27,26 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestPreviewAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_preview_variant_buyer_notification_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/products/test_product/variants/test_variant/deliverable/buyer-notification", HttpStatusCode.OK, fixture);
+            var result = await this.service.PreviewAsync("test_product", "test_variant");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/products/test_product/variants/test_variant/deliverable/buyer-notification");
+        }
+
+        [Fact]
+        public async Task TestNotifyAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_notify_variant_buyers_response_value_202_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/deliverable/buyer-notification", HttpStatusCode.OK, fixture);
+            var result = await this.service.NotifyAsync("test_product", "test_variant");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/deliverable/buyer-notification");
+        }
+
+        [Fact]
         public async Task TestGetAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_get_variant_deliverable_configuration_response_value_200_application_json.json");
@@ -50,35 +70,35 @@ namespace SellAppTests
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");
-            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.GetAsync("test_product", "test_variant"));
+            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.PreviewAsync("test_product", "test_variant"));
         }
 
         [Fact]
         public async Task TestError404()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.NotFound, "{\"code\":\"not_found\",\"message\":\"Not Found\"}");
-            await Assert.ThrowsAsync<NotFoundException>(() => this.service.GetAsync("test_product", "test_variant"));
+            await Assert.ThrowsAsync<NotFoundException>(() => this.service.PreviewAsync("test_product", "test_variant"));
         }
 
         [Fact]
         public async Task TestError422()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)422, "{\"code\":\"unprocessable_entity\",\"message\":\"Unprocessable\"}");
-            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.GetAsync("test_product", "test_variant"));
+            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.PreviewAsync("test_product", "test_variant"));
         }
 
         [Fact]
         public async Task TestError429()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)429, "{\"code\":\"too_many_requests\",\"message\":\"Too Many Requests\"}");
-            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.GetAsync("test_product", "test_variant"));
+            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.PreviewAsync("test_product", "test_variant"));
         }
 
         [Fact]
         public async Task TestError500()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.InternalServerError, "{\"code\":\"server_error\",\"message\":\"Server Error\"}");
-            await Assert.ThrowsAsync<ServerException>(() => this.service.GetAsync("test_product", "test_variant"));
+            await Assert.ThrowsAsync<ServerException>(() => this.service.PreviewAsync("test_product", "test_variant"));
         }
     }
 }

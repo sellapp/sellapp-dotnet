@@ -94,7 +94,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_blacklist.json");
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/blacklists", HttpStatusCode.OK, fixture);
-            var result = await this.service.V2ListBlacklistsAsync();
+            var result = await this.service.V2ListBlacklistsAsync(new BlacklistsV2ListBlacklistsOptions());
             Assert.NotNull(result);
             Assert.NotEmpty(result.Data);
             this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/blacklists");
@@ -104,7 +104,7 @@ namespace SellAppTests
         public async Task TestV2ListBlacklistsAsyncEmpty()
         {
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/blacklists", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
-            var result = await this.service.V2ListBlacklistsAsync();
+            var result = await this.service.V2ListBlacklistsAsync(new BlacklistsV2ListBlacklistsOptions());
             Assert.NotNull(result);
             Assert.Empty(result.Data);
         }
@@ -203,7 +203,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/blacklists", HttpStatusCode.OK, new[] { page1, page2 });
 
             var items = new List<Blacklist>();
-            await foreach (var item in this.service.V2ListBlacklistsAutoPagingAsync())
+            await foreach (var item in this.service.V2ListBlacklistsAutoPagingAsync(new BlacklistsV2ListBlacklistsOptions()))
             {
                 items.Add(item);
             }
@@ -218,7 +218,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/blacklists", HttpStatusCode.OK, new[] { empty });
 
             var items = new List<Blacklist>();
-            await foreach (var item in this.service.V2ListBlacklistsAutoPagingAsync())
+            await foreach (var item in this.service.V2ListBlacklistsAutoPagingAsync(new BlacklistsV2ListBlacklistsOptions()))
             {
                 items.Add(item);
             }

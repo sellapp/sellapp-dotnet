@@ -69,6 +69,26 @@ namespace SellApp
         [STJS.JsonPropertyName("url")]
         public string Url { get; set; } = default!;
 
+        /// <summary>The lowest and highest price among the product's published variants, formatted for display with the currency symbol: `$19.99`, or `$9.99 - $19.99` when the prices differ. Null when no published variant has a price.</summary>
+        [JsonProperty("price_range", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("price_range")]
+        public string? PriceRange { get; set; }
+
+        /// <summary>Units left across the product's published variants, or null when any of them has unlimited stock.</summary>
+        [JsonProperty("stock", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("stock")]
+        public long? Stock { get; set; }
+
+        /// <summary>How many purchase line items of the product have status `COMPLETED`. Pending or refunded ones do not count.</summary>
+        [JsonProperty("sales", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("sales")]
+        public long Sales { get; set; }
+
+        /// <summary>`true` when none of the product's published variants can be bought: none has unlimited stock or at least its minimum purchase quantity left. Also `true` for a product without published variants.</summary>
+        [JsonProperty("sold_out", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("sold_out")]
+        public bool SoldOut { get; set; }
+
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]
         [STJS.JsonExtensionData]

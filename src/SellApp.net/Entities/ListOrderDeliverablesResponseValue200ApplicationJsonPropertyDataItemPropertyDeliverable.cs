@@ -15,7 +15,7 @@ namespace SellApp
         public List<string> Types { get; set; } = default!;
         [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("data")]
-        public ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData Data { get; set; } = default!;
+        public OneOf.OneOf<ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1, List<object>> Data { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

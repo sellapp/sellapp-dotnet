@@ -225,5 +225,493 @@ namespace SellApp
         {
             return this.UpdateMarketingAsync(options, requestOptions, cancellationToken);
         }
+
+        /// <summary>Retrieve checkout settings</summary>
+        /// <remarks>
+        /// Get your store's checkout settings: the shopping cart, whether checkout asks for an email, fraud controls, the minimum order total, the billing descriptor, the checkout rate limits, and the crypto checkout values when the store takes crypto through SellApp's crypto processor. The response body can be sent back to `PUT /v2/store/settings/checkout` unchanged. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetCheckoutSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetCheckoutSettingsResponseValue200ApplicationJson> GetCheckoutAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getCheckoutSettings", false);
+            return await this.GetAsync<SdkGetCheckoutSettingsResponseValue200ApplicationJson>("/v2/store/settings/checkout", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetCheckoutSettingsResponseValue200ApplicationJson>> GetCheckoutWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetCheckoutAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetCheckoutAsync"/>.</summary>
+        public virtual Task<SdkGetCheckoutSettingsResponseValue200ApplicationJson> GetCheckout(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetCheckoutAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update checkout settings</summary>
+        /// <remarks>
+        /// Replace all eleven checkout settings. Every field except `crypto` is required; send `null` to remove a nullable one. A missing field returns `422` and nothing is saved. The body of `GET /v2/store/settings/checkout`, including `crypto`, can be sent back unchanged. Sending the same body again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplaceCheckoutSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson> ReplaceCheckoutAsync(StoreSettingsReplaceCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replaceCheckoutSettings", false);
+            return await this.PutAsync<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson>("/v2/store/settings/checkout", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson>> ReplaceCheckoutWithResponseAsync(StoreSettingsReplaceCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplaceCheckoutAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplaceCheckoutAsync"/>.</summary>
+        public virtual Task<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson> ReplaceCheckout(StoreSettingsReplaceCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplaceCheckoutAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update checkout settings</summary>
+        /// <remarks>
+        /// Change only the checkout settings you send and keep the others, including one someone else saved while your request was in flight. Send `null` to remove `minimum_spend`, `billing_descriptor`, `attempts_per_ip`, `attempts_per_email` or `attempts_per_fingerprint`. `crypto` is read-only here; change it with `PATCH /v2/store/settings/checkout/crypto`. A refused value returns `422` on the field name of this endpoint, such as `rate_limit_window_seconds`, and nothing is saved. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdateCheckoutSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson> UpdateCheckoutAsync(StoreSettingsUpdateCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updateCheckoutSettings", false);
+            return await this.PatchAsync<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson>("/v2/store/settings/checkout", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson>> UpdateCheckoutWithResponseAsync(StoreSettingsUpdateCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdateCheckoutAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdateCheckoutAsync"/>.</summary>
+        public virtual Task<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson> UpdateCheckout(StoreSettingsUpdateCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdateCheckoutAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve tax settings</summary>
+        /// <remarks>
+        /// Get whether checkout collects VAT, whether your prices include it, and whether checkout asks for billing details. The response body can be sent back to `PUT /v2/store/settings/taxes` unchanged. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetTaxSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetTaxSettingsResponseValue200ApplicationJson> GetTaxesAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getTaxSettings", false);
+            return await this.GetAsync<SdkGetTaxSettingsResponseValue200ApplicationJson>("/v2/store/settings/taxes", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetTaxSettingsResponseValue200ApplicationJson>> GetTaxesWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetTaxesAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetTaxesAsync"/>.</summary>
+        public virtual Task<SdkGetTaxSettingsResponseValue200ApplicationJson> GetTaxes(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetTaxesAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update tax settings</summary>
+        /// <remarks>
+        /// Replace all three tax settings; every field is required. A missing field returns `422` and nothing is saved. `vat_enabled: true` while Stripe Tax is on returns `422` on `vat_enabled` and saves nothing: turn Stripe Tax off in the dashboard first. When Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on also turns Stripe Tax off. Sending the same body again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplaceTaxSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplaceTaxSettingsResponseValue200ApplicationJson> ReplaceTaxesAsync(StoreSettingsReplaceTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replaceTaxSettings", false);
+            return await this.PutAsync<SdkReplaceTaxSettingsResponseValue200ApplicationJson>("/v2/store/settings/taxes", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplaceTaxSettingsResponseValue200ApplicationJson>> ReplaceTaxesWithResponseAsync(StoreSettingsReplaceTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplaceTaxesAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplaceTaxesAsync"/>.</summary>
+        public virtual Task<SdkReplaceTaxSettingsResponseValue200ApplicationJson> ReplaceTaxes(StoreSettingsReplaceTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplaceTaxesAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update tax settings</summary>
+        /// <remarks>
+        /// Change only the tax settings you send and keep the others. Turning VAT off also turns VAT-inclusive pricing off. Asking for VAT-inclusive pricing while VAT stays off returns `422` on `vat_inclusive_pricing` and saves nothing. Turning VAT on while Stripe Tax is on returns `422` on `vat_enabled` and saves nothing: turn Stripe Tax off in the dashboard first. When Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on also turns Stripe Tax off. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdateTaxSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateTaxSettingsResponseValue200ApplicationJson> UpdateTaxesAsync(StoreSettingsUpdateTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updateTaxSettings", false);
+            return await this.PatchAsync<SdkUpdateTaxSettingsResponseValue200ApplicationJson>("/v2/store/settings/taxes", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdateTaxSettingsResponseValue200ApplicationJson>> UpdateTaxesWithResponseAsync(StoreSettingsUpdateTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdateTaxesAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdateTaxesAsync"/>.</summary>
+        public virtual Task<SdkUpdateTaxSettingsResponseValue200ApplicationJson> UpdateTaxes(StoreSettingsUpdateTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdateTaxesAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve customer email settings</summary>
+        /// <remarks>
+        /// Get which automatic emails your customers get: the delivery email after they pay, and the email asking them to pay when a subscription payment cannot be collected. The address these emails come from is managed with `/v2/store/settings/sender-email`. The response body can be sent back to `PUT /v2/store/settings/customer-emails` unchanged. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetCustomerEmailSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson> GetCustomerEmailsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getCustomerEmailSettings", false);
+            return await this.GetAsync<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson>("/v2/store/settings/customer-emails", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson>> GetCustomerEmailsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetCustomerEmailsAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetCustomerEmailsAsync"/>.</summary>
+        public virtual Task<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson> GetCustomerEmails(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetCustomerEmailsAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update customer email settings</summary>
+        /// <remarks>
+        /// Set both customer emails; both fields are required. A missing field returns `422` and nothing is saved. Sending the same body again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson> ReplaceCustomerEmailsAsync(StoreSettingsReplaceCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replaceCustomerEmailSettings", false);
+            return await this.PutAsync<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson>("/v2/store/settings/customer-emails", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson>> ReplaceCustomerEmailsWithResponseAsync(StoreSettingsReplaceCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplaceCustomerEmailsAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplaceCustomerEmailsAsync"/>.</summary>
+        public virtual Task<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson> ReplaceCustomerEmails(StoreSettingsReplaceCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplaceCustomerEmailsAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update customer email settings</summary>
+        /// <remarks>
+        /// Turn the customer emails you send on or off and keep the other one. Takes effect for emails sent after the change. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson> UpdateCustomerEmailsAsync(StoreSettingsUpdateCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updateCustomerEmailSettings", false);
+            return await this.PatchAsync<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson>("/v2/store/settings/customer-emails", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson>> UpdateCustomerEmailsWithResponseAsync(StoreSettingsUpdateCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdateCustomerEmailsAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdateCustomerEmailsAsync"/>.</summary>
+        public virtual Task<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson> UpdateCustomerEmails(StoreSettingsUpdateCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdateCustomerEmailsAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve store alert settings</summary>
+        /// <remarks>
+        /// Get whether the store owner gets an email for each sale. Other alerts go to notification channels (`/v2/store/notification-channels`) and to the dashboard notifications (`/v2/notifications`). The response body can be sent back to `PUT /v2/store/settings/store-alerts` unchanged. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetStoreAlertSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetStoreAlertSettingsResponseValue200ApplicationJson> GetAlertsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getStoreAlertSettings", false);
+            return await this.GetAsync<SdkGetStoreAlertSettingsResponseValue200ApplicationJson>("/v2/store/settings/store-alerts", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetStoreAlertSettingsResponseValue200ApplicationJson>> GetAlertsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetAlertsAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetAlertsAsync"/>.</summary>
+        public virtual Task<SdkGetStoreAlertSettingsResponseValue200ApplicationJson> GetAlerts(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetAlertsAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update store alert settings</summary>
+        /// <remarks>
+        /// Set the sale emails to the store owner; `sale_emails_enabled` is required. Sending the same body again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson> ReplaceAlertsAsync(StoreSettingsReplaceAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replaceStoreAlertSettings", false);
+            return await this.PutAsync<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson>("/v2/store/settings/store-alerts", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson>> ReplaceAlertsWithResponseAsync(StoreSettingsReplaceAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplaceAlertsAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplaceAlertsAsync"/>.</summary>
+        public virtual Task<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson> ReplaceAlerts(StoreSettingsReplaceAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplaceAlertsAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update store alert settings</summary>
+        /// <remarks>
+        /// Turn the sale emails to the store owner on or off. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson> UpdateAlertsAsync(StoreSettingsUpdateAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updateStoreAlertSettings", false);
+            return await this.PatchAsync<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson>("/v2/store/settings/store-alerts", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson>> UpdateAlertsWithResponseAsync(StoreSettingsUpdateAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdateAlertsAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdateAlertsAsync"/>.</summary>
+        public virtual Task<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson> UpdateAlerts(StoreSettingsUpdateAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdateAlertsAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve personalization settings</summary>
+        /// <remarks>
+        /// Get the details customers see from your store: the support and Trustpilot addresses, the sender name and custom sender email of customer emails, the business details printed on invoices, and the Back button link of product and checkout pages. The response body can be sent back to `PUT /v2/store/settings/personalization` unchanged. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetPersonalizationSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetPersonalizationSettingsResponseValue200ApplicationJson> GetPersonalizationAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getPersonalizationSettings", false);
+            return await this.GetAsync<SdkGetPersonalizationSettingsResponseValue200ApplicationJson>("/v2/store/settings/personalization", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetPersonalizationSettingsResponseValue200ApplicationJson>> GetPersonalizationWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetPersonalizationAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetPersonalizationAsync"/>.</summary>
+        public virtual Task<SdkGetPersonalizationSettingsResponseValue200ApplicationJson> GetPersonalization(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetPersonalizationAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update personalization settings</summary>
+        /// <remarks>
+        /// Replace every personalization setting. All fields except `sender_email` are required; send `null` to remove one. A missing field returns `422` and nothing is saved. The body of `GET /v2/store/settings/personalization`, including `sender_email`, can be sent back unchanged. Sending the same body again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplacePersonalizationSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson> ReplacePersonalizationAsync(StoreSettingsReplacePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replacePersonalizationSettings", false);
+            return await this.PutAsync<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson>("/v2/store/settings/personalization", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson>> ReplacePersonalizationWithResponseAsync(StoreSettingsReplacePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplacePersonalizationAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplacePersonalizationAsync"/>.</summary>
+        public virtual Task<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson> ReplacePersonalization(StoreSettingsReplacePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplacePersonalizationAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update personalization settings</summary>
+        /// <remarks>
+        /// Change only the personalization settings you send and keep the others. Send `null` to remove one. A request with no field this endpoint knows returns `200` with the current settings and saves nothing. A return link needs both `back_link_label` and `back_link_url`: a change that leaves one empty returns `422` on that field. `sender_email` is read-only here. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson> UpdatePersonalizationAsync(StoreSettingsUpdatePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updatePersonalizationSettings", false);
+            return await this.PatchAsync<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson>("/v2/store/settings/personalization", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson>> UpdatePersonalizationWithResponseAsync(StoreSettingsUpdatePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdatePersonalizationAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdatePersonalizationAsync"/>.</summary>
+        public virtual Task<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson> UpdatePersonalization(StoreSettingsUpdatePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdatePersonalizationAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update crypto checkout settings</summary>
+        /// <remarks>
+        /// Replace both crypto checkout values, for a store that takes crypto through SellApp's crypto processor; `underpaid_percentage` and `minimum_confirmations` are required. SellApp sends the changed values to the crypto processor and saves them only once it accepts them; an unchanged value is not sent. Returns the checkout settings with the new `crypto` values. `422` on `crypto` when the store does not take crypto through SellApp's crypto processor, or when the processor refuses the values; nothing is saved then. `422` on `underpaid_percentage` or `minimum_confirmations` for a value out of range. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson> ReplaceCryptoCheckoutAsync(StoreSettingsReplaceCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "replaceCryptoCheckoutSettings", false);
+            return await this.PutAsync<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson>("/v2/store/settings/checkout/crypto", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson>> ReplaceCryptoCheckoutWithResponseAsync(StoreSettingsReplaceCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReplaceCryptoCheckoutAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReplaceCryptoCheckoutAsync"/>.</summary>
+        public virtual Task<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson> ReplaceCryptoCheckout(StoreSettingsReplaceCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReplaceCryptoCheckoutAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update crypto checkout settings</summary>
+        /// <remarks>
+        /// Change the crypto checkout values you send, for a store that takes crypto through SellApp's crypto processor. SellApp sends the changed values to the crypto processor and saves them only once it accepts them; an unchanged value is not sent. Returns the checkout settings with the new `crypto` values. `422` on `crypto` when the store does not take crypto through SellApp's crypto processor, or when the processor refuses the values; nothing is saved then. `422` on `underpaid_percentage` or `minimum_confirmations` for a value out of range. Sending the same change again is safe. Requires the `store` API-key ability and the `store` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson> UpdateCryptoCheckoutAsync(StoreSettingsUpdateCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "updateCryptoCheckoutSettings", false);
+            return await this.PatchAsync<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson>("/v2/store/settings/checkout/crypto", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson>> UpdateCryptoCheckoutWithResponseAsync(StoreSettingsUpdateCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.UpdateCryptoCheckoutAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="UpdateCryptoCheckoutAsync"/>.</summary>
+        public virtual Task<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson> UpdateCryptoCheckout(StoreSettingsUpdateCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.UpdateCryptoCheckoutAsync(options, requestOptions, cancellationToken);
+        }
     }
 }

@@ -154,6 +154,7 @@ var result = await client.Wallet.AdjustAsync(
         AmountCents = 2500,
         IdempotencyKey = "wallet-adjustment-01992a65",
         Note = "Launch-day account credit",
+        ExpectedBalanceCents = 0,
     }
 );
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));

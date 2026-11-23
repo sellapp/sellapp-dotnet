@@ -187,7 +187,7 @@ namespace SellApp
 
         /// <summary>Search products within group</summary>
         /// <remarks>
-        /// Search the products in a group using JSON body filters, search terms, includes, and sort instructions. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search the products in a group using JSON body filters, search terms, includes, and sort instructions, 15 per page by default. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="group">The group path parameter.</param>
         /// <param name="options">Request options.</param>

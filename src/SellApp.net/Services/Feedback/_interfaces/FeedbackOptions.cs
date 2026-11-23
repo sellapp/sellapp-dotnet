@@ -61,6 +61,11 @@ namespace SellApp
         [SellAppSchemaConstraints(Minimum = 1d)]
         public long? Page { get; set; }
 
+        /// <summary>`replied`: feedback with a non-empty seller reply. `unreplied`: feedback without one. `all` (default): both. Any other value returns `422`.</summary>
+        [JsonProperty("reply_state")]
+        [STJS.JsonPropertyName("reply_state")]
+        public FeedbackReplyState? ReplyState { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="FeedbackService.V2SearchFeedbackAsync"/>: Search feedback</summary>
@@ -82,6 +87,17 @@ namespace SellApp
         [JsonProperty("includes")]
         [STJS.JsonPropertyName("includes")]
         public List<V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
+
+        /// <summary>`replied`: feedback with a non-empty seller reply. `unreplied`: feedback without one. `all` (default): both. Any other value returns `422`.</summary>
+        [JsonProperty("reply_state")]
+        [STJS.JsonPropertyName("reply_state")]
+        public ReplyState? ReplyState { get; set; }
+
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
 
     }
 

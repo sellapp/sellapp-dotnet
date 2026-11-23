@@ -80,6 +80,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestResendAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_resend_affiliate_invitation_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/affiliate-invitations/test_invitation/resend", HttpStatusCode.OK, fixture);
+            var result = await this.service.ResendAsync("test_invitation");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/affiliate-invitations/test_invitation/resend");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_pending_affiliate_invitations_response_value_200_application_json_property_data_item.json");

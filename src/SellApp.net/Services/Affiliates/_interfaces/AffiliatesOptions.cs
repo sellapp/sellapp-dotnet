@@ -22,6 +22,21 @@ namespace SellApp
         [SellAppSchemaConstraints(MaxLength = 255)]
         public string? Search { get; set; }
 
+        /// <summary>Send `true` to list only affiliates with custom per-product commission rates (see `GET /v2/affiliates/{affiliate}/products`). `false` lists everyone. Accepts `true`, `false`, `1`, or `0`.</summary>
+        [JsonProperty("custom_rates_only")]
+        [STJS.JsonPropertyName("custom_rates_only")]
+        public bool? CustomRatesOnly { get; set; }
+
+        /// <summary>List only affiliates who chose this payout method. Uppercase, as returned in `payout_method`.</summary>
+        [JsonProperty("payout_method")]
+        [STJS.JsonPropertyName("payout_method")]
+        public AffiliatesPayoutMethod? PayoutMethod { get; set; }
+
+        /// <summary>Send `-earnings` to list the affiliates who earned the most first: available, pending, and paid balances added together, largest first. Without it, or with any other value, the newest affiliates come first.</summary>
+        [JsonProperty("sort")]
+        [STJS.JsonPropertyName("sort")]
+        public string? Sort { get; set; }
+
         /// <summary>Page number to return.</summary>
         [JsonProperty("page")]
         [STJS.JsonPropertyName("page")]

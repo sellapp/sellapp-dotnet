@@ -338,4 +338,20 @@ namespace SellApp
         public List<RestorePromotionRequestApplicationJsonPropertyPhasesItem> Phases { get; set; } = default!;
 
     }
+
+    /// <summary>Request options for <see cref="PromotionsService.GetUsageAsync"/>: Retrieve promotion usage</summary>
+    [SellAppModelSchema(false)]
+    public class PromotionsGetUsageOptions : BaseOptions
+    {
+        /// <summary>Set to `true` to also find a deleted promotion.</summary>
+        [JsonProperty("with_trashed")]
+        [STJS.JsonPropertyName("with_trashed")]
+        public bool? WithTrashed { get; set; }
+
+        /// <summary>Set to `true` to find only a deleted promotion. Ignored when `with_trashed` is `true`.</summary>
+        [JsonProperty("only_trashed")]
+        [STJS.JsonPropertyName("only_trashed")]
+        public bool? OnlyTrashed { get; set; }
+
+    }
 }

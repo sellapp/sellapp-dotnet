@@ -155,4 +155,430 @@ namespace SellApp
         public UpdateMarketingSettingsRequestApplicationJsonPropertyAbandonedCart AbandonedCart { get; set; } = default!;
 
     }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplaceCheckoutAsync"/>: Update checkout settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplaceCheckoutOptions : BaseOptions
+    {
+        /// <summary>Whether customers can add several products to a cart and buy them in one checkout. `false` turns the storefront cart off.</summary>
+        [JsonProperty("shopping_cart_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("shopping_cart_enabled")]
+        public bool ShoppingCartEnabled { get; set; }
+
+        /// <summary>Whether checkout asks customers for an email address. With `false`, checkout does not ask, and delivery and payment emails cannot reach a customer who left none.</summary>
+        [JsonProperty("customer_email_required", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("customer_email_required")]
+        public bool CustomerEmailRequired { get; set; }
+
+        /// <summary>Whether customers who use a VPN or a proxy can buy.</summary>
+        [JsonProperty("allow_vpn_purchases", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("allow_vpn_purchases")]
+        public bool AllowVpnPurchases { get; set; }
+
+        /// <summary>Whether a customer's email address and IP address are added to your blacklist when they open a payment dispute.</summary>
+        [JsonProperty("blacklist_on_dispute", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("blacklist_on_dispute")]
+        public bool BlacklistOnDispute { get; set; }
+
+        /// <summary>The smallest order total, VAT included, that customers can check out with, as a decimal string in the order's currency: `"12.50"` on a USD order means $12.50. At least `1`; digits with an optional decimal part, no sign or exponent. Send `null` or `"0"` to remove the minimum; it then reads `null`.</summary>
+        [JsonProperty("minimum_spend", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("minimum_spend")]
+        [SellAppSchemaConstraints(Pattern = "^\\d+(\\.\\d+)?$")]
+        public string? MinimumSpend { get; set; }
+
+        /// <summary>The purchase name customers see while they check out, up to 20 characters. `null` uses the default, `SellApp Order`.</summary>
+        [JsonProperty("billing_descriptor", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("billing_descriptor")]
+        [SellAppSchemaConstraints(MaxLength = 20)]
+        public string? BillingDescriptor { get; set; }
+
+        /// <summary>How many checkout attempts one customer can make within the window, counted per IP address and email pair, or per checkout session fingerprint when checkout does not ask for an email. 1 to 100000; the default is `5`. This limit cannot be removed.</summary>
+        [JsonProperty("attempts_per_customer", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("attempts_per_customer")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long AttemptsPerCustomer { get; set; }
+
+        /// <summary>How many checkout attempts can come from one IP address within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_ip", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("attempts_per_ip")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerIp { get; set; }
+
+        /// <summary>How many checkout attempts can use one customer email address within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_email", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("attempts_per_email")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerEmail { get; set; }
+
+        /// <summary>How many checkout attempts can come from one checkout session fingerprint (a browser identifier) within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_fingerprint", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("attempts_per_fingerprint")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerFingerprint { get; set; }
+
+        /// <summary>How long each checkout limit counts attempts before allowing them again, in seconds: 60 (one minute) to 604800 (seven days). The default is `3600` (one hour). Attempts are counted per store.</summary>
+        [JsonProperty("rate_limit_window_seconds", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("rate_limit_window_seconds")]
+        [SellAppSchemaConstraints(Minimum = 60d, Maximum = 604800d)]
+        public long RateLimitWindowSeconds { get; set; }
+
+        [JsonProperty("crypto")]
+        [STJS.JsonPropertyName("crypto")]
+        public ReplaceCheckoutSettingsRequestApplicationJsonPropertyCrypto? Crypto { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdateCheckoutAsync"/>: Update checkout settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdateCheckoutOptions : BaseOptions
+    {
+        /// <summary>Whether customers can add several products to a cart and buy them in one checkout. `false` turns the storefront cart off.</summary>
+        [JsonProperty("shopping_cart_enabled")]
+        [STJS.JsonPropertyName("shopping_cart_enabled")]
+        public bool? ShoppingCartEnabled { get; set; }
+
+        /// <summary>Whether checkout asks customers for an email address. With `false`, checkout does not ask, and delivery and payment emails cannot reach a customer who left none.</summary>
+        [JsonProperty("customer_email_required")]
+        [STJS.JsonPropertyName("customer_email_required")]
+        public bool? CustomerEmailRequired { get; set; }
+
+        /// <summary>Whether customers who use a VPN or a proxy can buy.</summary>
+        [JsonProperty("allow_vpn_purchases")]
+        [STJS.JsonPropertyName("allow_vpn_purchases")]
+        public bool? AllowVpnPurchases { get; set; }
+
+        /// <summary>Whether a customer's email address and IP address are added to your blacklist when they open a payment dispute.</summary>
+        [JsonProperty("blacklist_on_dispute")]
+        [STJS.JsonPropertyName("blacklist_on_dispute")]
+        public bool? BlacklistOnDispute { get; set; }
+
+        /// <summary>The smallest order total, VAT included, that customers can check out with, as a decimal string in the order's currency: `"12.50"` on a USD order means $12.50. At least `1`; digits with an optional decimal part, no sign or exponent. Send `null` or `"0"` to remove the minimum; it then reads `null`.</summary>
+        [JsonProperty("minimum_spend")]
+        [STJS.JsonPropertyName("minimum_spend")]
+        [SellAppSchemaConstraints(Pattern = "^\\d+(\\.\\d+)?$")]
+        public string? MinimumSpend { get; set; }
+
+        /// <summary>The purchase name customers see while they check out, up to 20 characters. `null` uses the default, `SellApp Order`.</summary>
+        [JsonProperty("billing_descriptor")]
+        [STJS.JsonPropertyName("billing_descriptor")]
+        [SellAppSchemaConstraints(MaxLength = 20)]
+        public string? BillingDescriptor { get; set; }
+
+        /// <summary>How many checkout attempts one customer can make within the window, counted per IP address and email pair, or per checkout session fingerprint when checkout does not ask for an email. 1 to 100000; the default is `5`. This limit cannot be removed.</summary>
+        [JsonProperty("attempts_per_customer")]
+        [STJS.JsonPropertyName("attempts_per_customer")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerCustomer { get; set; }
+
+        /// <summary>How many checkout attempts can come from one IP address within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_ip")]
+        [STJS.JsonPropertyName("attempts_per_ip")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerIp { get; set; }
+
+        /// <summary>How many checkout attempts can use one customer email address within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_email")]
+        [STJS.JsonPropertyName("attempts_per_email")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerEmail { get; set; }
+
+        /// <summary>How many checkout attempts can come from one checkout session fingerprint (a browser identifier) within the window. 1 to 100000; `null` turns this limit off.</summary>
+        [JsonProperty("attempts_per_fingerprint")]
+        [STJS.JsonPropertyName("attempts_per_fingerprint")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 100000d)]
+        public long? AttemptsPerFingerprint { get; set; }
+
+        /// <summary>How long each checkout limit counts attempts before allowing them again, in seconds: 60 (one minute) to 604800 (seven days). The default is `3600` (one hour). Attempts are counted per store.</summary>
+        [JsonProperty("rate_limit_window_seconds")]
+        [STJS.JsonPropertyName("rate_limit_window_seconds")]
+        [SellAppSchemaConstraints(Minimum = 60d, Maximum = 604800d)]
+        public long? RateLimitWindowSeconds { get; set; }
+
+        [JsonProperty("crypto")]
+        [STJS.JsonPropertyName("crypto")]
+        public UpdateCheckoutSettingsRequestApplicationJsonPropertyCrypto? Crypto { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplaceTaxesAsync"/>: Update tax settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplaceTaxesOptions : BaseOptions
+    {
+        /// <summary>Whether checkout collects VAT from customers. VAT and Stripe Tax cannot both be on: turning VAT on while Stripe Tax is on returns `422` on `vat_enabled` with `Disable Stripe Tax before enabling Sell VAT.` and saves nothing. Turn Stripe Tax off in **Settings &gt; Taxes** in the dashboard first. If Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on succeeds and turns Stripe Tax off as well.</summary>
+        [JsonProperty("vat_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("vat_enabled")]
+        public bool VatEnabled { get; set; }
+
+        /// <summary>Whether your product prices already include VAT instead of VAT being added on top. Always `false` while VAT is off, and turning `vat_enabled` off turns it off too. `true` while VAT stays off returns `422` on `vat_inclusive_pricing`: send `"vat_enabled": true` in the same request.</summary>
+        [JsonProperty("vat_inclusive_pricing", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("vat_inclusive_pricing")]
+        public bool VatInclusivePricing { get; set; }
+
+        /// <summary>Whether checkout asks customers for their billing details.</summary>
+        [JsonProperty("collect_billing_details", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("collect_billing_details")]
+        public bool CollectBillingDetails { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdateTaxesAsync"/>: Update tax settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdateTaxesOptions : BaseOptions
+    {
+        /// <summary>Whether checkout collects VAT from customers. VAT and Stripe Tax cannot both be on: turning VAT on while Stripe Tax is on returns `422` on `vat_enabled` with `Disable Stripe Tax before enabling Sell VAT.` and saves nothing. Turn Stripe Tax off in **Settings &gt; Taxes** in the dashboard first. If Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on succeeds and turns Stripe Tax off as well.</summary>
+        [JsonProperty("vat_enabled")]
+        [STJS.JsonPropertyName("vat_enabled")]
+        public bool? VatEnabled { get; set; }
+
+        /// <summary>Whether your product prices already include VAT instead of VAT being added on top. Always `false` while VAT is off, and turning `vat_enabled` off turns it off too. `true` while VAT stays off returns `422` on `vat_inclusive_pricing`: send `"vat_enabled": true` in the same request.</summary>
+        [JsonProperty("vat_inclusive_pricing")]
+        [STJS.JsonPropertyName("vat_inclusive_pricing")]
+        public bool? VatInclusivePricing { get; set; }
+
+        /// <summary>Whether checkout asks customers for their billing details.</summary>
+        [JsonProperty("collect_billing_details")]
+        [STJS.JsonPropertyName("collect_billing_details")]
+        public bool? CollectBillingDetails { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplaceCustomerEmailsAsync"/>: Update customer email settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplaceCustomerEmailsOptions : BaseOptions
+    {
+        /// <summary>Whether customers automatically get an email with what they bought after paying. Turn it off when you deliver to customers yourself.</summary>
+        [JsonProperty("send_delivery_email", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("send_delivery_email")]
+        public bool SendDeliveryEmail { get; set; }
+
+        /// <summary>Whether customers get an email with a way to pay when your payment processor cannot collect a subscription payment. Turn it off when your processor already emails them.</summary>
+        [JsonProperty("send_payment_failure_email", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("send_payment_failure_email")]
+        public bool SendPaymentFailureEmail { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdateCustomerEmailsAsync"/>: Update customer email settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdateCustomerEmailsOptions : BaseOptions
+    {
+        /// <summary>Whether customers automatically get an email with what they bought after paying. Turn it off when you deliver to customers yourself.</summary>
+        [JsonProperty("send_delivery_email")]
+        [STJS.JsonPropertyName("send_delivery_email")]
+        public bool? SendDeliveryEmail { get; set; }
+
+        /// <summary>Whether customers get an email with a way to pay when your payment processor cannot collect a subscription payment. Turn it off when your processor already emails them.</summary>
+        [JsonProperty("send_payment_failure_email")]
+        [STJS.JsonPropertyName("send_payment_failure_email")]
+        public bool? SendPaymentFailureEmail { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplaceAlertsAsync"/>: Update store alert settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplaceAlertsOptions : BaseOptions
+    {
+        /// <summary>Whether the store owner gets an email for each sale.</summary>
+        [JsonProperty("sale_emails_enabled", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("sale_emails_enabled")]
+        public bool SaleEmailsEnabled { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdateAlertsAsync"/>: Update store alert settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdateAlertsOptions : BaseOptions
+    {
+        /// <summary>Whether the store owner gets an email for each sale.</summary>
+        [JsonProperty("sale_emails_enabled")]
+        [STJS.JsonPropertyName("sale_emails_enabled")]
+        public bool? SaleEmailsEnabled { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplacePersonalizationAsync"/>: Update personalization settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplacePersonalizationOptions : BaseOptions
+    {
+        /// <summary>The address customers can write to for support.</summary>
+        [JsonProperty("support_email", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("support_email")]
+        public string? SupportEmail { get; set; }
+
+        /// <summary>Your Trustpilot invitation address. It receives a blind copy of every delivery email, including the link to what the customer bought, so Trustpilot can invite the customer to leave a review.</summary>
+        [JsonProperty("trustpilot_email", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("trustpilot_email")]
+        public string? TrustpilotEmail { get; set; }
+
+        /// <summary>The name customer emails are sent from: letters, digits, spaces and `. - _ +`, up to 75 characters. It is used only while the store sends from its own verified sender email. A store without a custom sender email cannot keep one: sent with other changes it is ignored, and sent alone it returns `422` on `sender_name`.</summary>
+        [JsonProperty("sender_name", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("sender_name")]
+        [SellAppSchemaConstraints(MaxLength = 75, Pattern = "^[a-zA-Z0-9 .\\-_+]*$")]
+        public string? SenderName { get; set; }
+
+        /// <summary>The store's custom sender email, or `null` when it has none. Read-only here: send it back unchanged or leave it out. A different value returns `422` on `sender_email`; set it up or remove it with `/v2/store/settings/sender-email`.</summary>
+        [JsonProperty("sender_email")]
+        [STJS.JsonPropertyName("sender_email")]
+        public string? SenderEmail { get; set; }
+
+        /// <summary>Street address printed on invoices.</summary>
+        [JsonProperty("store_address", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_address")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreAddress { get; set; }
+
+        /// <summary>City printed on invoices.</summary>
+        [JsonProperty("store_city", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_city")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreCity { get; set; }
+
+        /// <summary>State or region printed on invoices.</summary>
+        [JsonProperty("store_state", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_state")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreState { get; set; }
+
+        /// <summary>Postal code printed on invoices.</summary>
+        [JsonProperty("store_zip", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_zip")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreZip { get; set; }
+
+        /// <summary>Country printed on invoices, as text.</summary>
+        [JsonProperty("store_country", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_country")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreCountry { get; set; }
+
+        /// <summary>Tax or VAT details printed on invoices, such as `VAT GB123456789`.</summary>
+        [JsonProperty("store_tax", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("store_tax")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreTax { get; set; }
+
+        /// <summary>Text of the Back button on product and checkout pages. A return link needs both a label and a URL: a change that leaves one of them empty returns `422` on the empty one. Send `null` for both to remove the link; the Back button then goes to the store's home page.</summary>
+        [JsonProperty("back_link_label", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("back_link_label")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? BackLinkLabel { get; set; }
+
+        /// <summary>Where the Back button on product and checkout pages goes, as a full URL. Needs `back_link_label`.</summary>
+        [JsonProperty("back_link_url", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("back_link_url")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? BackLinkUrl { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdatePersonalizationAsync"/>: Update personalization settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdatePersonalizationOptions : BaseOptions
+    {
+        /// <summary>The address customers can write to for support.</summary>
+        [JsonProperty("support_email")]
+        [STJS.JsonPropertyName("support_email")]
+        public string? SupportEmail { get; set; }
+
+        /// <summary>Your Trustpilot invitation address. It receives a blind copy of every delivery email, including the link to what the customer bought, so Trustpilot can invite the customer to leave a review.</summary>
+        [JsonProperty("trustpilot_email")]
+        [STJS.JsonPropertyName("trustpilot_email")]
+        public string? TrustpilotEmail { get; set; }
+
+        /// <summary>The name customer emails are sent from: letters, digits, spaces and `. - _ +`, up to 75 characters. It is used only while the store sends from its own verified sender email. A store without a custom sender email cannot keep one: sent with other changes it is ignored, and sent alone it returns `422` on `sender_name`.</summary>
+        [JsonProperty("sender_name")]
+        [STJS.JsonPropertyName("sender_name")]
+        [SellAppSchemaConstraints(MaxLength = 75, Pattern = "^[a-zA-Z0-9 .\\-_+]*$")]
+        public string? SenderName { get; set; }
+
+        /// <summary>The store's custom sender email, or `null` when it has none. Read-only here: send it back unchanged or leave it out. A different value returns `422` on `sender_email`; set it up or remove it with `/v2/store/settings/sender-email`.</summary>
+        [JsonProperty("sender_email")]
+        [STJS.JsonPropertyName("sender_email")]
+        public string? SenderEmail { get; set; }
+
+        /// <summary>Street address printed on invoices.</summary>
+        [JsonProperty("store_address")]
+        [STJS.JsonPropertyName("store_address")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreAddress { get; set; }
+
+        /// <summary>City printed on invoices.</summary>
+        [JsonProperty("store_city")]
+        [STJS.JsonPropertyName("store_city")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreCity { get; set; }
+
+        /// <summary>State or region printed on invoices.</summary>
+        [JsonProperty("store_state")]
+        [STJS.JsonPropertyName("store_state")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreState { get; set; }
+
+        /// <summary>Postal code printed on invoices.</summary>
+        [JsonProperty("store_zip")]
+        [STJS.JsonPropertyName("store_zip")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreZip { get; set; }
+
+        /// <summary>Country printed on invoices, as text.</summary>
+        [JsonProperty("store_country")]
+        [STJS.JsonPropertyName("store_country")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreCountry { get; set; }
+
+        /// <summary>Tax or VAT details printed on invoices, such as `VAT GB123456789`.</summary>
+        [JsonProperty("store_tax")]
+        [STJS.JsonPropertyName("store_tax")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? StoreTax { get; set; }
+
+        /// <summary>Text of the Back button on product and checkout pages. A return link needs both a label and a URL: a change that leaves one of them empty returns `422` on the empty one. Send `null` for both to remove the link; the Back button then goes to the store's home page.</summary>
+        [JsonProperty("back_link_label")]
+        [STJS.JsonPropertyName("back_link_label")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? BackLinkLabel { get; set; }
+
+        /// <summary>Where the Back button on product and checkout pages goes, as a full URL. Needs `back_link_label`.</summary>
+        [JsonProperty("back_link_url")]
+        [STJS.JsonPropertyName("back_link_url")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? BackLinkUrl { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.ReplaceCryptoCheckoutAsync"/>: Update crypto checkout settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsReplaceCryptoCheckoutOptions : BaseOptions
+    {
+        /// <summary>How far short of the amount due, in percent, a crypto payment can be and still count as paid: `2` accepts a payment up to 2% short. 0 to 100.</summary>
+        [JsonProperty("underpaid_percentage", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("underpaid_percentage")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 100d)]
+        public long UnderpaidPercentage { get; set; }
+
+        /// <summary>How many blockchain confirmations a crypto payment needs before the order is processed. 1 to 25.</summary>
+        [JsonProperty("minimum_confirmations", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("minimum_confirmations")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 25d)]
+        public long MinimumConfirmations { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="StoreSettingsService.UpdateCryptoCheckoutAsync"/>: Update crypto checkout settings</summary>
+    [SellAppModelSchema(false)]
+    public class StoreSettingsUpdateCryptoCheckoutOptions : BaseOptions
+    {
+        /// <summary>How far short of the amount due, in percent, a crypto payment can be and still count as paid: `2` accepts a payment up to 2% short. 0 to 100.</summary>
+        [JsonProperty("underpaid_percentage")]
+        [STJS.JsonPropertyName("underpaid_percentage")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 100d)]
+        public long? UnderpaidPercentage { get; set; }
+
+        /// <summary>How many blockchain confirmations a crypto payment needs before the order is processed. 1 to 25.</summary>
+        [JsonProperty("minimum_confirmations")]
+        [STJS.JsonPropertyName("minimum_confirmations")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 25d)]
+        public long? MinimumConfirmations { get; set; }
+
+    }
 }

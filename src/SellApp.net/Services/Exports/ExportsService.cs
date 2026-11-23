@@ -26,40 +26,42 @@ namespace SellApp
 
         /// <summary>List exports</summary>
         /// <remarks>
-        /// List permitted exports, 50 per page. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request. Sales, tax and customer reports require invoice store permission. Affiliate payout reports require affiliate and affiliate:payout permissions. The category selects the applicable permission checks; listing returns only authorized categories.
+        /// List permitted exports, newest first, 50 per page. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request. Sales, tax and customer reports require invoice store permission. Affiliate payout reports require affiliate and affiliate:payout permissions. The category selects the applicable permission checks; listing returns only authorized categories.
         /// </remarks>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>A page of <see cref="ListExportsResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listExports", false);
-            return await this.GetAsync<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/exports", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/exports", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.ListAsync(requestOptions, cancellationToken);
+            var value = await this.ListAsync(options, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="ListAsync"/>.</summary>
-        public virtual Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> List(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> List(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.ListAsync(requestOptions, cancellationToken);
+            return this.ListAsync(options, requestOptions, cancellationToken);
         }
 
         /// <summary>Auto-paging variant of <see cref="ListAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async sequence of <see cref="ListExportsResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<ListExportsResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerable<ListExportsResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listExports", false);
-            return base.ListAutoPagingAsync<ListExportsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/exports", null, requestOptions, cancellationToken);
+            return base.ListAutoPagingAsync<ListExportsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/exports", options, requestOptions, cancellationToken);
         }
 
         /// <summary>Create an export</summary>

@@ -9,11 +9,12 @@ List disputes
 [API reference](https://sell.app/docs/api/disputes) · Effect: **read**
 
 ```csharp
-public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| options | `DisputesListOptions?` | No |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -31,7 +32,9 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-var result = await client.Disputes.ListAsync();
+var result = await client.Disputes.ListAsync(new DisputesListOptions
+    {
+    });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

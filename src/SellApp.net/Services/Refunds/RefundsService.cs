@@ -26,40 +26,42 @@ namespace SellApp
 
         /// <summary>List refunds</summary>
         /// <remarks>
-        /// List refunds for orders and standalone charges in the selected store, one page at a time. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List refunds for orders and standalone charges in the selected store, newest first, 15 per page by default. Filter by `status`, `provider`, `source`, or the order or charge refunded; filters combine. To see every refund of one order, send `refundable_type=order` and `refundable_id` set to the order ID. A value outside a parameter's accepted values, a `limit` above 100, or a query parameter the endpoint does not take returns `422` on that parameter. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>A page of <see cref="ListRefundsResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listRefunds", false);
-            return await this.GetAsync<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/refunds", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>>("/v2/refunds", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.ListAsync(requestOptions, cancellationToken);
+            var value = await this.ListAsync(options, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="ListAsync"/>.</summary>
-        public virtual Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> List(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> List(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.ListAsync(requestOptions, cancellationToken);
+            return this.ListAsync(options, requestOptions, cancellationToken);
         }
 
         /// <summary>Auto-paging variant of <see cref="ListAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async sequence of <see cref="ListRefundsResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<ListRefundsResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerable<ListRefundsResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listRefunds", false);
-            return base.ListAutoPagingAsync<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/refunds", null, requestOptions, cancellationToken);
+            return base.ListAutoPagingAsync<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/refunds", options, requestOptions, cancellationToken);
         }
 
         /// <summary>Retrieve a refund</summary>

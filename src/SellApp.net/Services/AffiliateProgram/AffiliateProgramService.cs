@@ -54,7 +54,7 @@ namespace SellApp
 
         /// <summary>Replace affiliate program configuration</summary>
         /// <remarks>
-        /// Replace the complete affiliate-program configuration. The products array is authoritative: enabled entries replace existing store-level product restrictions, and every variant ID must belong to the authenticated store. Requires the `affiliate` token ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Replace the complete affiliate-program configuration. The products array is authoritative: enabled entries replace existing store-level product restrictions, and every variant ID must belong to the authenticated store. Requires the `affiliate` token ability, and the staff member who owns the key also needs the `store` permission, the same permission that changing the program in the dashboard requires. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -123,7 +123,7 @@ namespace SellApp
 
         /// <summary>Invite an affiliate</summary>
         /// <remarks>
-        /// Create a pending affiliate invitation and email a single-use onboarding link. Duplicate invitations are rejected and invites are rate limited per store. The affiliate program must be enabled. Requires the `affiliate` token ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Create a pending affiliate invitation and email a single-use onboarding link. Duplicate invitations are rejected and invites are rate limited per store. The affiliate program must be enabled. Requires the `affiliate` token ability, and the staff member who owns the key also needs the `store` permission, the same permission that inviting affiliates in the dashboard requires. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -148,6 +148,35 @@ namespace SellApp
         public virtual Task<SdkInviteAffiliateResponseValue201ApplicationJson> Invite(AffiliateProgramInviteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.InviteAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Resend an affiliate invitation</summary>
+        /// <remarks>
+        /// Email a pending affiliate invitation again, with a new sign-in link that expires after 6 hours, to the address it was created for. The invitation itself does not change: `invited_at` keeps the original date. Send no body. Requires the `affiliate` API-key ability, and the staff member who owns the key needs the affiliate and `store` permissions, the same as inviting an affiliate. Every refusal returns `422` on `invitation` and sends nothing: the invitation was already answered or is no longer pending, the affiliate program is not configured or turned off, the same invitation was sent within the last minute, your store reached its limit of 10 invitation emails per hour (new invitations and resends count together; the message says how many seconds to wait), or the email could not be sent. An invitation from another store returns `404`. Not safe to retry blindly: each successful call sends another email. A repeat within a minute is refused, so a quick retry after a lost response cannot send twice; after that, check with the invitee or wait for them to answer before sending again. If sending failed, wait a minute and try again. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="invitation">The invitation ID, as returned by `GET /v2/affiliate-invitations` or `POST /v2/affiliate-invitations`.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkResendAffiliateInvitationResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkResendAffiliateInvitationResponseValue200ApplicationJson> ResendAsync(string invitation, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "resendAffiliateInvitation", false);
+            return await this.PostAsync<SdkResendAffiliateInvitationResponseValue200ApplicationJson>($"/v2/affiliate-invitations/{Uri.EscapeDataString(invitation)}/resend", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkResendAffiliateInvitationResponseValue200ApplicationJson>> ResendWithResponseAsync(string invitation, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ResendAsync(invitation, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ResendAsync"/>.</summary>
+        public virtual Task<SdkResendAffiliateInvitationResponseValue200ApplicationJson> Resend(string invitation, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ResendAsync(invitation, requestOptions, cancellationToken);
         }
     }
 }

@@ -303,3 +303,70 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## CreateAsync
+
+Create a booking product
+
+[API reference](https://sell.app/docs/api/bookings/create-a-booking-product) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkCreateBookingProductResponseValue201ApplicationJson> CreateAsync(BookingsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `BookingsCreateOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkCreateBookingProductResponseValue201ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Bookings.CreateAsync(new BookingsCreateOptions
+    {
+        Title = "Strategy consultation",
+        Description = JsonConvert.DeserializeObject<string?>("\"<p>A private strategy session for your next launch.</p>\"")!,
+        VariantTitle = "60 minute session",
+        PriceCents = 2500,
+        Currency = JsonConvert.DeserializeObject<SdkCreateBookingProductRequestApplicationJsonCurrency>("\"USD\"")!,
+        PaymentMethods = JsonConvert.DeserializeObject<List<SdkCreateBookingProductRequestApplicationJsonPaymentMethods>>("[\"STRIPE\"]")!,
+        Timezone = "Europe/London",
+        DurationMinutes = 60,
+        Availability = JsonConvert.DeserializeObject<List<CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem>>("[{\"day\":1,\"enabled\":true,\"start\":\"09:00\",\"end\":\"12:00\"},{\"day\":3,\"enabled\":true,\"start\":\"13:00\",\"end\":\"17:00\"}]")!,
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+

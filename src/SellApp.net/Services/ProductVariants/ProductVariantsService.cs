@@ -221,7 +221,7 @@ namespace SellApp
 
         /// <summary>Search product variants</summary>
         /// <remarks>
-        /// Search a product's variants using JSON body filters, search terms, includes, and sort instructions. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search a product's variants using JSON body filters, search terms, includes, and sort instructions, 15 per page by default. Draft variants are left out unless you send `with_drafts` or `only_drafts`. Requires a token with the listing ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="product">The product path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -348,6 +348,96 @@ namespace SellApp
         public virtual Task BatchDelete(string product, ProductVariantsBatchDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.BatchDeleteAsync(product, options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Publish a product variant</summary>
+        /// <remarks>
+        /// Publish one draft option of a booking product so customers can book it. It is checked the way the booking editor checks it: a title, a description of at least 5 characters, finished booking settings, a price, and payment methods enabled for the store that can take its currency. On a published booking product the option can be booked straight away; a draft booking product still needs `POST /v2/products/{product}/publish`, which needs at least one published option when the product has several. Only booking options are published one at a time. A variant of any other kind of product returns `422` on `variant`: its variants are published with the product through `POST /v2/products/{product}/publish`. Requires the `listing` API-key ability and the `listing` permission in your team role. Safe to repeat: once the option is published, another call changes nothing and returns `422` with `This booking option is already published.` on `variant`. Every other refusal is also `422` on `variant`, with one sentence per thing the option still needs. A variant of another product, or a product of another store, returns `404`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="variant">The variant path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkPublishProductVariantResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkPublishProductVariantResponseValue200ApplicationJson> PublishAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "publishProductVariant", false);
+            return await this.PostAsync<SdkPublishProductVariantResponseValue200ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}/publish", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkPublishProductVariantResponseValue200ApplicationJson>> PublishWithResponseAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.PublishAsync(product, variant, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="PublishAsync"/>.</summary>
+        public virtual Task<SdkPublishProductVariantResponseValue200ApplicationJson> Publish(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.PublishAsync(product, variant, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Duplicate a product variant</summary>
+        /// <remarks>
+        /// Copy a variant of a normal product onto the same product and return the copy. The copy keeps every setting, the title, and the draft state, so a copy of a published variant is on sale straight away. Downloadable files and their folders are copied too. Serial codes and issued licence keys are not copied: a copy that delivers serial codes gets a stock of `0`, so it shows as sold out until you add codes. Subscription variants cannot be duplicated. Requires the `listing` API-key ability and the `listing` permission in your team role. Not safe to retry blindly: every call creates another variant. If a response is lost, list the product's variants, with `with_drafts=true` for a draft, before trying again. A variant of a bundle, add-on, credits product, booking product, or course returns `422` on `product`. A subscription variant returns `422` on `variant`. A variant of another product returns `404`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="variant">The variant path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkDuplicateProductVariantResponseValue201ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkDuplicateProductVariantResponseValue201ApplicationJson> DuplicateAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "duplicateProductVariant", false);
+            return await this.PostAsync<SdkDuplicateProductVariantResponseValue201ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}/duplicate", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkDuplicateProductVariantResponseValue201ApplicationJson>> DuplicateWithResponseAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.DuplicateAsync(product, variant, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="DuplicateAsync"/>.</summary>
+        public virtual Task<SdkDuplicateProductVariantResponseValue201ApplicationJson> Duplicate(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.DuplicateAsync(product, variant, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Reorder product variants</summary>
+        /// <remarks>
+        /// Set the order buyers see a normal product's published variants in, first to last. Send every published variant ID exactly once; draft variants are not part of the order and are refused. The response lists the product's published variants in their new order, without pagination. Requires the `listing` API-key ability and the `listing` permission in your team role. Safe to repeat: the same list gives the same order. A list that leaves out a published variant, or names a draft or a variant of another product, returns `422` on `variant_ids`; read the variants again and send the full list. An ID sent twice returns `422` on `variant_ids.{i}`. A listing that is not a normal product returns `422` on `product`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkReorderProductVariantsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkReorderProductVariantsResponseValue200ApplicationJson> ReorderAsync(string product, ProductVariantsReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "reorderProductVariants", false);
+            return await this.PutAsync<SdkReorderProductVariantsResponseValue200ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/variants/order", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkReorderProductVariantsResponseValue200ApplicationJson>> ReorderWithResponseAsync(string product, ProductVariantsReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ReorderAsync(product, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ReorderAsync"/>.</summary>
+        public virtual Task<SdkReorderProductVariantsResponseValue200ApplicationJson> Reorder(string product, ProductVariantsReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ReorderAsync(product, options, requestOptions, cancellationToken);
         }
     }
 }

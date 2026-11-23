@@ -2,7 +2,7 @@
   "data": {
     "id": "00000000-0000-0000-0000-000000000000",
     "source": {
-      "type": "product",
+      "type": "TOP_UP",
       "id": 1
     },
     "provider": "provider_01234",

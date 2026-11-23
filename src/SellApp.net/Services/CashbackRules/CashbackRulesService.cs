@@ -26,7 +26,7 @@ namespace SellApp
 
         /// <summary>List cashback rules</summary>
         /// <remarks>
-        /// List current and archived store records. Requires the `wallet` or `wallet:write` API ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List current and archived store records. Requires the `wallet` or `wallet:write` API-key ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -54,7 +54,7 @@ namespace SellApp
 
         /// <summary>Create a cashback rule</summary>
         /// <remarks>
-        /// Create a cashback rule. Requires the `wallet:write` API ability and the store wallet permission. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Create a cashback rule. Requires the `wallet:write` API-key ability and the wallet permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -83,7 +83,7 @@ namespace SellApp
 
         /// <summary>Update a cashback rule</summary>
         /// <remarks>
-        /// Update a cashback rule. Requires the `wallet:write` API ability and the store wallet permission. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update a cashback rule. Requires the `wallet:write` API-key ability and the wallet permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="cashbackRule">The cashbackRule path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -113,7 +113,7 @@ namespace SellApp
 
         /// <summary>Update a cashback rule</summary>
         /// <remarks>
-        /// Update a cashback rule. Requires the `wallet:write` API ability and the store wallet permission. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update a cashback rule. Requires the `wallet:write` API-key ability and the wallet permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="cashbackRule">The cashbackRule path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -143,7 +143,7 @@ namespace SellApp
 
         /// <summary>Archive a cashback rule</summary>
         /// <remarks>
-        /// Archive a cashback rule. Requires the `wallet:write` API ability and the store wallet permission. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Archive a cashback rule. Requires the `wallet:write` API-key ability and the wallet permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="cashbackRule">The cashbackRule path parameter.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -171,7 +171,7 @@ namespace SellApp
 
         /// <summary>Restore a cashback rule</summary>
         /// <remarks>
-        /// Restore a cashback rule. Requires the `wallet:write` API ability and the store wallet permission. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Restore a cashback rule. Requires the `wallet:write` API-key ability and the wallet permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="cashbackRule">The cashbackRule path parameter.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -196,6 +196,35 @@ namespace SellApp
         public virtual Task<SdkRestoreCashbackRuleResponseValue200ApplicationJson> Restore(string cashbackRule, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.RestoreAsync(cashbackRule, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Quote a cashback rule</summary>
+        /// <remarks>
+        /// See which cashback rule a purchase would earn right now, and how much it would add to the customer's wallet, without creating anything. Send `product_id` to check one product (a rule naming the product wins over the store-wide rule); leave it out to check only the store-wide rule. Add `purchase_cents` to get the cashback amount. Amounts are integer USD cents: `purchase_cents=10000` asks about a $100.00 purchase. Requires the `wallet` or `wallet:write` API-key ability and the wallet permission in your team role. A product that is not in your store returns `422` on `product_id`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkQuoteCashbackRuleResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkQuoteCashbackRuleResponseValue200ApplicationJson> QuoteAsync(CashbackRulesQuoteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "quoteCashbackRule", false);
+            return await this.GetAsync<SdkQuoteCashbackRuleResponseValue200ApplicationJson>("/v2/cashback-rules/quote", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkQuoteCashbackRuleResponseValue200ApplicationJson>> QuoteWithResponseAsync(CashbackRulesQuoteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.QuoteAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="QuoteAsync"/>.</summary>
+        public virtual Task<SdkQuoteCashbackRuleResponseValue200ApplicationJson> Quote(CashbackRulesQuoteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.QuoteAsync(options, requestOptions, cancellationToken);
         }
     }
 }

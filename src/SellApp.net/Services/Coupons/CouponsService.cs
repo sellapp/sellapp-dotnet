@@ -651,5 +651,34 @@ namespace SellApp
         {
             return this.V2BatchDeleteCouponsAsync(options, requestOptions, cancellationToken);
         }
+
+        /// <summary>Retrieve coupon usage</summary>
+        /// <remarks>
+        /// Count the completed orders that used a coupon, over the coupon's whole life. Only orders whose status is `COMPLETED` count; pending, failed, and refunded orders do not. A coupon from another store, a deleted coupon, and a coupon issued by a reward return `404`. Requires the `coupon` API-key ability and the coupon permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="coupon">The coupon ID.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkV2GetCouponUsageResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkV2GetCouponUsageResponseValue200ApplicationJson> V2GetCouponUsageAsync(string coupon, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "v2GetCouponUsage", false);
+            return await this.GetAsync<SdkV2GetCouponUsageResponseValue200ApplicationJson>($"/v2/coupons/{Uri.EscapeDataString(coupon)}/usage", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkV2GetCouponUsageResponseValue200ApplicationJson>> V2GetCouponUsageWithResponseAsync(string coupon, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.V2GetCouponUsageAsync(coupon, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="V2GetCouponUsageAsync"/>.</summary>
+        public virtual Task<SdkV2GetCouponUsageResponseValue200ApplicationJson> V2GetCouponUsage(string coupon, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.V2GetCouponUsageAsync(coupon, requestOptions, cancellationToken);
+        }
     }
 }

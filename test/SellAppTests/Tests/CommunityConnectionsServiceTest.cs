@@ -93,6 +93,26 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestListFailedGrantReasonsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_list_community_failed_grant_reasons_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/community-connections/failed-grant-reasons", HttpStatusCode.OK, fixture);
+            var result = await this.service.ListFailedGrantReasonsAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/community-connections/failed-grant-reasons");
+        }
+
+        [Fact]
+        public async Task TestSyncDiscordRolesAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_sync_discord_roles_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/community-connections/discord/sync-roles", HttpStatusCode.OK, fixture);
+            var result = await this.service.SyncDiscordRolesAsync(new CommunityConnectionsSyncDiscordRolesOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/community-connections/discord/sync-roles");
+        }
+
+        [Fact]
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");

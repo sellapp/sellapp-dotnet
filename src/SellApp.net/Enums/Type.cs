@@ -19,11 +19,20 @@ namespace SellApp
         public string Value { get; }
 
         public static Type Unknown => new("unknown");
-        public static Type Product => new("product");
-        public static Type Order => new("order");
+        public static Type TopUp => new("TOP_UP");
+        public static Type TopUpBonus => new("TOP_UP_BONUS");
+        public static Type Cashback => new("CASHBACK");
+        public static Type CashbackClawback => new("CASHBACK_CLAWBACK");
+        public static Type TopUpClawback => new("TOP_UP_CLAWBACK");
+        public static Type Reward => new("REWARD");
+        public static Type Refund => new("REFUND");
+        public static Type PurchaseDebit => new("PURCHASE_DEBIT");
+        public static Type ManualAdjustment => new("MANUAL_ADJUSTMENT");
+        public static Type Reversal => new("REVERSAL");
+        public static Type Expiration => new("EXPIRATION");
         public static Type Null => new("null");
 
-        public bool IsKnown => Value is "product" or "order" or "null";
+        public bool IsKnown => Value is "TOP_UP" or "TOP_UP_BONUS" or "CASHBACK" or "CASHBACK_CLAWBACK" or "TOP_UP_CLAWBACK" or "REWARD" or "REFUND" or "PURCHASE_DEBIT" or "MANUAL_ADJUSTMENT" or "REVERSAL" or "EXPIRATION" or "null";
         public bool Equals(Type other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is Type other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

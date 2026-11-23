@@ -53,7 +53,7 @@ namespace SellApp
         [STJS.JsonPropertyName("deleted_at")]
         public DateTimeOffset? DeletedAt { get; set; }
 
-        /// <summary>The maximum decimal discount in the store currency's major unit for percentage coupons. This field is managed from the dashboard and is read-only in the v1 Coupons API.</summary>
+        /// <summary>The most this percentage coupon takes off one order, as a decimal amount in the major unit of the order's currency, or null when the discount is not capped. Always null on an `AMOUNT` coupon.</summary>
         [JsonProperty("maximum_discount_amount", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("maximum_discount_amount")]
         public string? MaximumDiscountAmount { get; set; }

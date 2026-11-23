@@ -51,6 +51,23 @@ namespace SellApp
         [SellAppSchemaConstraints(Minimum = 1d)]
         public long? Page { get; set; }
 
+        /// <summary>`store`: the latest message is from the customer, so the ticket waits on you. `customer`: the latest message is yours. A ticket without messages matches neither.</summary>
+        [JsonProperty("waiting_on")]
+        [STJS.JsonPropertyName("waiting_on")]
+        public TicketsWaitingOn? WaitingOn { get; set; }
+
+        /// <summary>A ticket reason by its label (as tickets show it in `reason`), its key such as `platform:refund_request`, or its code; case does not matter. A reason the store does not have returns `422` on `reason`, listing the store's reasons.</summary>
+        [JsonProperty("reason")]
+        [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 150)]
+        public string? Reason { get; set; }
+
+        /// <summary>Part of the customer's email, case-insensitive. `%` and `_` match those characters literally.</summary>
+        [JsonProperty("customer_email")]
+        [STJS.JsonPropertyName("customer_email")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? CustomerEmail { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="TicketsService.V2SearchTicketsAsync"/>: Search tickets</summary>
@@ -73,6 +90,29 @@ namespace SellApp
         [STJS.JsonPropertyName("includes")]
         public List<V2SearchTicketsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
 
+        /// <summary>`store`: the latest message is from the customer, so the ticket waits on you. `customer`: the latest message is yours. A ticket without messages matches neither.</summary>
+        [JsonProperty("waiting_on")]
+        [STJS.JsonPropertyName("waiting_on")]
+        public WaitingOn? WaitingOn { get; set; }
+
+        /// <summary>A ticket reason by its label (as tickets show it in `reason`), its key such as `platform:refund_request`, or its code; case does not matter. A reason the store does not have returns `422` on `reason`, listing the store's reasons.</summary>
+        [JsonProperty("reason")]
+        [STJS.JsonPropertyName("reason")]
+        [SellAppSchemaConstraints(MaxLength = 150)]
+        public string? Reason { get; set; }
+
+        /// <summary>Part of the customer's email, case-insensitive. `%` and `_` match those characters literally.</summary>
+        [JsonProperty("customer_email")]
+        [STJS.JsonPropertyName("customer_email")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? CustomerEmail { get; set; }
+
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="TicketsService.UpdateAsync"/>: Close, reopen, or archive a ticket</summary>
@@ -86,6 +126,34 @@ namespace SellApp
         [JsonProperty("archived")]
         [STJS.JsonPropertyName("archived")]
         public bool? Archived { get; set; }
+
+        /// <summary>Why the ticket was closed: `refunded`, `refunded_partial` (partly refunded), `delivered`, `no_action`, `duplicate` or `other`. Only with `status` `CLOSED`.</summary>
+        [JsonProperty("outcome")]
+        [STJS.JsonPropertyName("outcome")]
+        public SdkUpdateTicketRequestApplicationJsonOutcome? Outcome { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="TicketsService.BatchUpdateAsync"/>: Update several tickets</summary>
+    [SellAppModelSchema(false)]
+    public class TicketsBatchUpdateOptions : BaseOptions
+    {
+        /// <summary>What to do with every listed ticket. `restore` takes a ticket out of the archive.</summary>
+        [JsonProperty("action", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
+        [STJS.JsonPropertyName("action")]
+        public SdkBatchUpdateTicketsRequestApplicationJsonAction Action { get; set; }
+
+        /// <summary>Why the ticket was closed: `refunded`, `refunded_partial` (partly refunded), `delivered`, `no_action`, `duplicate` or `other`. Required for `close` and refused for every other action.</summary>
+        [JsonProperty("outcome")]
+        [STJS.JsonPropertyName("outcome")]
+        public SdkBatchUpdateTicketsRequestApplicationJsonOutcome? Outcome { get; set; }
+
+        /// <summary>Between 1 and 50 different ticket IDs.</summary>
+        [JsonProperty("resources", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("resources")]
+        [SellAppSchemaConstraints(MinItems = 1, MaxItems = 50, UniqueItems = true)]
+        public List<long> Resources { get; set; } = default!;
 
     }
 }

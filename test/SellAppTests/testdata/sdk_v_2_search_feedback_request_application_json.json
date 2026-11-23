@@ -24,5 +24,6 @@
     {
       "relation": "test_relation"
     }
-  ]
+  ],
+  "reply_state": "all"
 }

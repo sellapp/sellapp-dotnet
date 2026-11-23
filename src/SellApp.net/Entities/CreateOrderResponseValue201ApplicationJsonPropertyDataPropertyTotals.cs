@@ -35,6 +35,17 @@ namespace SellApp
         [SellAppSchemaConstraints(Minimum = 0d)]
         public long? TotalUsdCents { get; set; }
 
+        /// <summary>The currency refunds on this order are made and counted in: the currency the payment was charged in, which can differ from the order currency. `null` when the payment method cannot be refunded through the API.</summary>
+        [JsonProperty("refund_currency", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("refund_currency")]
+        public string? RefundCurrency { get; set; }
+
+        /// <summary>The amount already refunded on this order, in integer minor units of `refund_currency`: `500` means $5.00 in USD. It is the exact figure a refund request compares `expected_refunded_total_cents` with, so send it back unchanged when you refund. `0` when nothing has been refunded.</summary>
+        [JsonProperty("refunded_total_cents", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("refunded_total_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long RefundedTotalCents { get; set; }
+
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]
         [STJS.JsonExtensionData]

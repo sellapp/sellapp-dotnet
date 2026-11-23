@@ -60,6 +60,29 @@ namespace SellApp
 
     }
 
+    /// <summary>Request options for <see cref="BlacklistsService.V2ListBlacklistsAsync"/>: List blacklist rules</summary>
+    [SellAppModelSchema(false)]
+    public class BlacklistsV2ListBlacklistsOptions : ListOptions
+    {
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
+        /// <summary>Text to look for in the blocked value or the description, matched literally and anywhere in the text, up to 255 characters.</summary>
+        [JsonProperty("search")]
+        [STJS.JsonPropertyName("search")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? Search { get; set; }
+
+        /// <summary>Return only rules of this type.</summary>
+        [JsonProperty("type")]
+        [STJS.JsonPropertyName("type")]
+        public BlacklistsType? Type { get; set; }
+
+    }
+
     /// <summary>Request options for <see cref="BlacklistsService.V2CreateBlacklistAsync"/>: Create a blacklist rule</summary>
     [SellAppModelSchema(false)]
     public class BlacklistsV2CreateBlacklistOptions : BaseOptions

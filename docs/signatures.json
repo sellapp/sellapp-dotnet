@@ -170,6 +170,40 @@
     "sourceFile": "src/SellApp.net/Services/Charges/ChargesService.cs"
   },
   {
+    "operationId": "getChargeSummary",
+    "resource": "charges",
+    "method": "GetSummaryAsync",
+    "nativeSignature": "public virtual async Task<SdkGetChargeSummaryResponseValue200ApplicationJson> GetSummaryAsync(ChargesGetSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetSummaryAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "ChargesGetSummaryOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetChargeSummaryResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Charges/ChargesService.cs"
+  },
+  {
     "operationId": "listGroups",
     "resource": "groups",
     "method": "ListAsync",
@@ -1832,6 +1866,268 @@
     "sourceFile": "src/SellApp.net/Services/Products/ProductsService.cs"
   },
   {
+    "operationId": "publishProduct",
+    "resource": "products",
+    "method": "PublishAsync",
+    "nativeSignature": "public virtual async Task<SdkPublishProductResponseValue200ApplicationJson> PublishAsync(string product, ProductsPublishOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "PublishAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductsPublishOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkPublishProductResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Products/ProductsService.cs"
+  },
+  {
+    "operationId": "duplicateProduct",
+    "resource": "products",
+    "method": "DuplicateAsync",
+    "nativeSignature": "public virtual async Task<SdkDuplicateProductResponseValue201ApplicationJson> DuplicateAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DuplicateAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkDuplicateProductResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Products/ProductsService.cs"
+  },
+  {
+    "operationId": "moveProduct",
+    "resource": "products",
+    "method": "MoveAsync",
+    "nativeSignature": "public virtual async Task<SdkMoveProductResponseValue200ApplicationJson> MoveAsync(string product, ProductsMoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "MoveAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductsMoveOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkMoveProductResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Products/ProductsService.cs"
+  },
+  {
+    "operationId": "getProductFeaturedVariant",
+    "resource": "products_featured_variant",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetProductFeaturedVariantResponseValue200ApplicationJson> GetAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetProductFeaturedVariantResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductsFeaturedVariant/ProductsFeaturedVariantService.cs"
+  },
+  {
+    "operationId": "replaceProductFeaturedVariant",
+    "resource": "products_featured_variant",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceProductFeaturedVariantResponseValue200ApplicationJson> ReplaceAsync(string product, ProductsFeaturedVariantReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductsFeaturedVariantReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceProductFeaturedVariantResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductsFeaturedVariant/ProductsFeaturedVariantService.cs"
+  },
+  {
+    "operationId": "listProductSimilarProducts",
+    "resource": "products_similar_products",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SdkListProductSimilarProductsResponseValue200ApplicationJson> ListAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkListProductSimilarProductsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductsSimilarProducts/ProductsSimilarProductsService.cs"
+  },
+  {
+    "operationId": "replaceProductSimilarProducts",
+    "resource": "products_similar_products",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceProductSimilarProductsResponseValue200ApplicationJson> ReplaceAsync(string product, ProductsSimilarProductsReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductsSimilarProductsReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceProductSimilarProductsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductsSimilarProducts/ProductsSimilarProductsService.cs"
+  },
+  {
     "operationId": "listProductVariants",
     "resource": "product_variants",
     "method": "ListAsync",
@@ -2484,6 +2780,258 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/ProductVariants/ProductVariantsService.cs"
+  },
+  {
+    "operationId": "publishProductVariant",
+    "resource": "product_variants",
+    "method": "PublishAsync",
+    "nativeSignature": "public virtual async Task<SdkPublishProductVariantResponseValue200ApplicationJson> PublishAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "PublishAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkPublishProductVariantResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariants/ProductVariantsService.cs"
+  },
+  {
+    "operationId": "duplicateProductVariant",
+    "resource": "product_variants",
+    "method": "DuplicateAsync",
+    "nativeSignature": "public virtual async Task<SdkDuplicateProductVariantResponseValue201ApplicationJson> DuplicateAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DuplicateAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkDuplicateProductVariantResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariants/ProductVariantsService.cs"
+  },
+  {
+    "operationId": "reorderProductVariants",
+    "resource": "product_variants",
+    "method": "ReorderAsync",
+    "nativeSignature": "public virtual async Task<SdkReorderProductVariantsResponseValue200ApplicationJson> ReorderAsync(string product, ProductVariantsReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReorderAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductVariantsReorderOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReorderProductVariantsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariants/ProductVariantsService.cs"
+  },
+  {
+    "operationId": "getVariantSubscriptionSettings",
+    "resource": "product_variants_subscription_settings",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetVariantSubscriptionSettingsResponseValue200ApplicationJson> GetAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetVariantSubscriptionSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariantsSubscriptionSettings/ProductVariantsSubscriptionSettingsService.cs"
+  },
+  {
+    "operationId": "updateVariantSubscriptionSettings",
+    "resource": "product_variants_subscription_settings",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateVariantSubscriptionSettingsResponseValue200ApplicationJson> UpdateAsync(string product, string variant, ProductVariantsSubscriptionSettingsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductVariantsSubscriptionSettingsUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateVariantSubscriptionSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariantsSubscriptionSettings/ProductVariantsSubscriptionSettingsService.cs"
+  },
+  {
+    "operationId": "replaceVariantCommunityAccess",
+    "resource": "product_variants_community_access",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceVariantCommunityAccessResponseValue200ApplicationJson> ReplaceAsync(string product, string variant, ProductVariantsCommunityAccessReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "ProductVariantsCommunityAccessReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceVariantCommunityAccessResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/ProductVariantsCommunityAccess/ProductVariantsCommunityAccessService.cs"
   },
   {
     "operationId": "cancelSubscription",
@@ -3570,6 +4118,40 @@
     "sourceFile": "src/SellApp.net/Services/BookingsCalendarEvents/BookingsCalendarEventsService.cs"
   },
   {
+    "operationId": "createBookingProduct",
+    "resource": "bookings",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateBookingProductResponseValue201ApplicationJson> CreateAsync(BookingsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "BookingsCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateBookingProductResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Bookings/BookingsService.cs"
+  },
+  {
     "operationId": "getBundleItem",
     "resource": "bundle_items",
     "method": "GetAsync",
@@ -3728,6 +4310,172 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/BundleItems/BundleItemsService.cs"
+  },
+  {
+    "operationId": "previewVariantBuyerNotification",
+    "resource": "variant_deliverables",
+    "method": "PreviewAsync",
+    "nativeSignature": "public virtual async Task<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson> PreviewAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "PreviewAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
+  },
+  {
+    "operationId": "notifyVariantBuyers",
+    "resource": "variant_deliverables",
+    "method": "NotifyAsync",
+    "nativeSignature": "public virtual async Task<SdkNotifyVariantBuyersResponseValue202ApplicationJson> NotifyAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "NotifyAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkNotifyVariantBuyersResponseValue202ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
+  },
+  {
+    "operationId": "getVariantDeliverableConfiguration",
+    "resource": "variant_deliverables",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetVariantDeliverableConfigurationResponseValue200ApplicationJson> GetAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetVariantDeliverableConfigurationResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
+  },
+  {
+    "operationId": "replaceVariantDeliverableConfiguration",
+    "resource": "variant_deliverables",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceVariantDeliverableConfigurationResponseValue200ApplicationJson> ReplaceAsync(string product, string variant, VariantDeliverablesReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "product",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "variant",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "VariantDeliverablesReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceVariantDeliverableConfigurationResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
   },
   {
     "operationId": "listPromotions",
@@ -4092,6 +4840,46 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/PromotionsPhases/PromotionsPhasesService.cs"
+  },
+  {
+    "operationId": "getPromotionUsage",
+    "resource": "promotions",
+    "method": "GetUsageAsync",
+    "nativeSignature": "public virtual async Task<SdkGetPromotionUsageResponseValue200ApplicationJson> GetUsageAsync(string promotion, PromotionsGetUsageOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetUsageAsync",
+        "params": [
+          {
+            "name": "promotion",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "PromotionsGetUsageOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetPromotionUsageResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Promotions/PromotionsService.cs"
   },
   {
     "operationId": "listAddOns",
@@ -5410,6 +6198,960 @@
     "sourceFile": "src/SellApp.net/Services/WebhookChannels/WebhookChannelsService.cs"
   },
   {
+    "operationId": "listSupportReplyTemplates",
+    "resource": "support_reply_templates",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<ListSupportReplyTemplatesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(SupportReplyTemplatesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<ListSupportReplyTemplatesResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "createSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateSupportReplyTemplateResponseValue201ApplicationJson> CreateAsync(SupportReplyTemplatesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateSupportReplyTemplateResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "getSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportReplyTemplateResponseValue200ApplicationJson> GetAsync(string supportReplyTemplate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "supportReplyTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportReplyTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "replaceSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceSupportReplyTemplateResponseValue200ApplicationJson> ReplaceAsync(string supportReplyTemplate, SupportReplyTemplatesReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "supportReplyTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceSupportReplyTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "updateSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateSupportReplyTemplateResponseValue200ApplicationJson> UpdateAsync(string supportReplyTemplate, SupportReplyTemplatesUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "supportReplyTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateSupportReplyTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "deleteSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "DeleteAsync",
+    "nativeSignature": "public virtual async Task DeleteAsync(string supportReplyTemplate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DeleteAsync",
+        "params": [
+          {
+            "name": "supportReplyTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "renderSupportReplyTemplate",
+    "resource": "support_reply_templates",
+    "method": "RenderAsync",
+    "nativeSignature": "public virtual async Task<SdkRenderSupportReplyTemplateResponseValue200ApplicationJson> RenderAsync(string supportReplyTemplate, SupportReplyTemplatesRenderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "RenderAsync",
+        "params": [
+          {
+            "name": "supportReplyTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesRenderOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkRenderSupportReplyTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "reorderSupportReplyTemplates",
+    "resource": "support_reply_templates",
+    "method": "ReorderAsync",
+    "nativeSignature": "public virtual async Task<SdkReorderSupportReplyTemplatesResponseValue200ApplicationJson> ReorderAsync(SupportReplyTemplatesReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReorderAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesReorderOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReorderSupportReplyTemplatesResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "getSupportReplyTemplateOptions",
+    "resource": "support_reply_templates",
+    "method": "GetOptionsAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportReplyTemplateOptionsResponseValue200ApplicationJson> GetOptionsAsync(SupportReplyTemplatesGetOptionsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetOptionsAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReplyTemplatesGetOptionsOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportReplyTemplateOptionsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReplyTemplates/SupportReplyTemplatesService.cs"
+  },
+  {
+    "operationId": "listSupportReasons",
+    "resource": "support_reasons",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<ListSupportReasonsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(SupportReasonsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReasonsListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<ListSupportReasonsResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "createSupportReason",
+    "resource": "support_reasons",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateSupportReasonResponseValue201ApplicationJson> CreateAsync(SupportReasonsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportReasonsCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateSupportReasonResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "getSupportReason",
+    "resource": "support_reasons",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportReasonResponseValue200ApplicationJson> GetAsync(string supportReason, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "supportReason",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportReasonResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "replaceSupportReason",
+    "resource": "support_reasons",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceSupportReasonResponseValue200ApplicationJson> ReplaceAsync(string supportReason, SupportReasonsReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "supportReason",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportReasonsReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceSupportReasonResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "updateSupportReason",
+    "resource": "support_reasons",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateSupportReasonResponseValue200ApplicationJson> UpdateAsync(string supportReason, SupportReasonsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "supportReason",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportReasonsUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateSupportReasonResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "deleteSupportReason",
+    "resource": "support_reasons",
+    "method": "DeleteAsync",
+    "nativeSignature": "public virtual async Task DeleteAsync(string supportReason, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DeleteAsync",
+        "params": [
+          {
+            "name": "supportReason",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "getSupportReasonOptions",
+    "resource": "support_reasons",
+    "method": "GetOptionsAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportReasonOptionsResponseValue200ApplicationJson> GetOptionsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetOptionsAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportReasonOptionsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportReasons/SupportReasonsService.cs"
+  },
+  {
+    "operationId": "listSupportAutomationRules",
+    "resource": "support_automation_rules",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<ListSupportAutomationRulesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(SupportAutomationRulesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<ListSupportAutomationRulesResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "createSupportAutomationRule",
+    "resource": "support_automation_rules",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateSupportAutomationRuleResponseValue201ApplicationJson> CreateAsync(SupportAutomationRulesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateSupportAutomationRuleResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "getSupportAutomationRule",
+    "resource": "support_automation_rules",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportAutomationRuleResponseValue200ApplicationJson> GetAsync(string supportAutomationRule, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "supportAutomationRule",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportAutomationRuleResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "replaceSupportAutomationRule",
+    "resource": "support_automation_rules",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceSupportAutomationRuleResponseValue200ApplicationJson> ReplaceAsync(string supportAutomationRule, SupportAutomationRulesReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "supportAutomationRule",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceSupportAutomationRuleResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "updateSupportAutomationRule",
+    "resource": "support_automation_rules",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateSupportAutomationRuleResponseValue200ApplicationJson> UpdateAsync(string supportAutomationRule, SupportAutomationRulesUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "supportAutomationRule",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateSupportAutomationRuleResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "updateSupportAutomationRuleState",
+    "resource": "support_automation_rules",
+    "method": "UpdateStateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateSupportAutomationRuleStateResponseValue200ApplicationJson> UpdateStateAsync(string supportAutomationRule, SupportAutomationRulesUpdateStateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateStateAsync",
+        "params": [
+          {
+            "name": "supportAutomationRule",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesUpdateStateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateSupportAutomationRuleStateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "reorderSupportAutomationRules",
+    "resource": "support_automation_rules",
+    "method": "ReorderAsync",
+    "nativeSignature": "public virtual async Task<SdkReorderSupportAutomationRulesResponseValue200ApplicationJson> ReorderAsync(SupportAutomationRulesReorderOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReorderAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesReorderOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReorderSupportAutomationRulesResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "dryRunSupportAutomationRules",
+    "resource": "support_automation_rules",
+    "method": "DryRunAsync",
+    "nativeSignature": "public virtual async Task<SdkDryRunSupportAutomationRulesResponseValue200ApplicationJson> DryRunAsync(SupportAutomationRulesDryRunOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DryRunAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationRulesDryRunOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkDryRunSupportAutomationRulesResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationRules/SupportAutomationRulesService.cs"
+  },
+  {
+    "operationId": "getSupportAutomationSettings",
+    "resource": "support_automation_settings",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportAutomationSettingsResponseValue200ApplicationJson> GetAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportAutomationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationSettings/SupportAutomationSettingsService.cs"
+  },
+  {
+    "operationId": "replaceSupportAutomationSettings",
+    "resource": "support_automation_settings",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceSupportAutomationSettingsResponseValue200ApplicationJson> ReplaceAsync(SupportAutomationSettingsReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationSettingsReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceSupportAutomationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationSettings/SupportAutomationSettingsService.cs"
+  },
+  {
+    "operationId": "updateSupportAutomationSettings",
+    "resource": "support_automation_settings",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateSupportAutomationSettingsResponseValue200ApplicationJson> UpdateAsync(SupportAutomationSettingsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "SupportAutomationSettingsUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateSupportAutomationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/SupportAutomationSettings/SupportAutomationSettingsService.cs"
+  },
+  {
     "operationId": "listCustomers",
     "resource": "customers",
     "method": "ListAsync",
@@ -6116,6 +7858,46 @@
     "sourceFile": "src/SellApp.net/Services/Orders/OrdersService.cs"
   },
   {
+    "operationId": "regenerateOrderTelegramInvite",
+    "resource": "orders",
+    "method": "RegenerateTelegramInviteAsync",
+    "nativeSignature": "public virtual async Task<SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson> RegenerateTelegramInviteAsync(string order, OrdersRegenerateTelegramInviteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "RegenerateTelegramInviteAsync",
+        "params": [
+          {
+            "name": "order",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "OrdersRegenerateTelegramInviteOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Orders/OrdersService.cs"
+  },
+  {
     "operationId": "listOrderDeliverables",
     "resource": "orders",
     "method": "ListDeliverablesAsync",
@@ -6444,92 +8226,6 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/OrdersLineItems/OrdersLineItemsService.cs"
-  },
-  {
-    "operationId": "getVariantDeliverableConfiguration",
-    "resource": "variant_deliverables",
-    "method": "GetAsync",
-    "nativeSignature": "public virtual async Task<SdkGetVariantDeliverableConfigurationResponseValue200ApplicationJson> GetAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
-    "signatures": [
-      {
-        "name": "GetAsync",
-        "params": [
-          {
-            "name": "product",
-            "type": "string",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "variant",
-            "type": "string",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "requestOptions",
-            "type": "RequestOptions?",
-            "optional": true,
-            "passingStyle": "named"
-          },
-          {
-            "name": "cancellationToken",
-            "type": "CancellationToken",
-            "optional": true,
-            "passingStyle": "named"
-          }
-        ],
-        "returnType": "Task<SdkGetVariantDeliverableConfigurationResponseValue200ApplicationJson>",
-        "async": true
-      }
-    ],
-    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
-  },
-  {
-    "operationId": "replaceVariantDeliverableConfiguration",
-    "resource": "variant_deliverables",
-    "method": "ReplaceAsync",
-    "nativeSignature": "public virtual async Task<SdkReplaceVariantDeliverableConfigurationResponseValue200ApplicationJson> ReplaceAsync(string product, string variant, VariantDeliverablesReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
-    "signatures": [
-      {
-        "name": "ReplaceAsync",
-        "params": [
-          {
-            "name": "product",
-            "type": "string",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "variant",
-            "type": "string",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "options",
-            "type": "VariantDeliverablesReplaceOptions",
-            "optional": false,
-            "passingStyle": "named"
-          },
-          {
-            "name": "requestOptions",
-            "type": "RequestOptions?",
-            "optional": true,
-            "passingStyle": "named"
-          },
-          {
-            "name": "cancellationToken",
-            "type": "CancellationToken",
-            "optional": true,
-            "passingStyle": "named"
-          }
-        ],
-        "returnType": "Task<SdkReplaceVariantDeliverableConfigurationResponseValue200ApplicationJson>",
-        "async": true
-      }
-    ],
-    "sourceFile": "src/SellApp.net/Services/VariantDeliverables/VariantDeliverablesService.cs"
   },
   {
     "operationId": "listVariantDeliverableFiles",
@@ -7462,6 +9158,40 @@
     "sourceFile": "src/SellApp.net/Services/AffiliateProgram/AffiliateProgramService.cs"
   },
   {
+    "operationId": "resendAffiliateInvitation",
+    "resource": "affiliate_program",
+    "method": "ResendAsync",
+    "nativeSignature": "public virtual async Task<SdkResendAffiliateInvitationResponseValue200ApplicationJson> ResendAsync(string invitation, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ResendAsync",
+        "params": [
+          {
+            "name": "invitation",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkResendAffiliateInvitationResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliateProgram/AffiliateProgramService.cs"
+  },
+  {
     "operationId": "listRewardRules",
     "resource": "reward_rules",
     "method": "ListAsync",
@@ -8280,6 +10010,46 @@
     "sourceFile": "src/SellApp.net/Services/UpsellOffers/UpsellOffersService.cs"
   },
   {
+    "operationId": "getUpsellOfferPerformance",
+    "resource": "upsell_offers",
+    "method": "GetPerformanceAsync",
+    "nativeSignature": "public virtual async Task<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson> GetPerformanceAsync(string upsellOffer, UpsellOffersGetPerformanceOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetPerformanceAsync",
+        "params": [
+          {
+            "name": "upsellOffer",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "UpsellOffersGetPerformanceOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/UpsellOffers/UpsellOffersService.cs"
+  },
+  {
     "operationId": "listCommunityConnections",
     "resource": "community_connections",
     "method": "ListAsync",
@@ -8496,6 +10266,250 @@
     "sourceFile": "src/SellApp.net/Services/CommunityConnections/CommunityConnectionsService.cs"
   },
   {
+    "operationId": "listCommunityFailedGrantReasons",
+    "resource": "community_connections",
+    "method": "ListFailedGrantReasonsAsync",
+    "nativeSignature": "public virtual async Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson> ListFailedGrantReasonsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListFailedGrantReasonsAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnections/CommunityConnectionsService.cs"
+  },
+  {
+    "operationId": "getCommunityServer",
+    "resource": "community_connections_servers",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetCommunityServerResponseValue200ApplicationJson> GetAsync(string platform, string server, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "platform",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "server",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetCommunityServerResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnectionsServers/CommunityConnectionsServersService.cs"
+  },
+  {
+    "operationId": "removeCommunityServer",
+    "resource": "community_connections_servers",
+    "method": "RemoveAsync",
+    "nativeSignature": "public virtual async Task RemoveAsync(string platform, string server, CommunityConnectionsServersRemoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "RemoveAsync",
+        "params": [
+          {
+            "name": "platform",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "server",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "CommunityConnectionsServersRemoveOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnectionsServers/CommunityConnectionsServersService.cs"
+  },
+  {
+    "operationId": "syncDiscordRoles",
+    "resource": "community_connections",
+    "method": "SyncDiscordRolesAsync",
+    "nativeSignature": "public virtual async Task<SdkSyncDiscordRolesResponseValue200ApplicationJson> SyncDiscordRolesAsync(CommunityConnectionsSyncDiscordRolesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "SyncDiscordRolesAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CommunityConnectionsSyncDiscordRolesOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkSyncDiscordRolesResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnections/CommunityConnectionsService.cs"
+  },
+  {
+    "operationId": "listSlackAvailableChannels",
+    "resource": "community_connections_slack",
+    "method": "ListChannelsAsync",
+    "nativeSignature": "public virtual async Task<SdkListSlackAvailableChannelsResponseValue200ApplicationJson> ListChannelsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListChannelsAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkListSlackAvailableChannelsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnectionsSlack/CommunityConnectionsSlackService.cs"
+  },
+  {
+    "operationId": "addSlackChannel",
+    "resource": "community_connections_slack",
+    "method": "AddChannelAsync",
+    "nativeSignature": "public virtual async Task<SdkAddSlackChannelResponseValue201ApplicationJson> AddChannelAsync(CommunityConnectionsSlackAddChannelOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "AddChannelAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CommunityConnectionsSlackAddChannelOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkAddSlackChannelResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnectionsSlack/CommunityConnectionsSlackService.cs"
+  },
+  {
+    "operationId": "replaceSlackWorkspaceInviteLink",
+    "resource": "community_connections_slack",
+    "method": "ReplaceInviteLinkAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceSlackWorkspaceInviteLinkResponseValue200ApplicationJson> ReplaceInviteLinkAsync(CommunityConnectionsSlackReplaceInviteLinkOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceInviteLinkAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CommunityConnectionsSlackReplaceInviteLinkOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceSlackWorkspaceInviteLinkResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CommunityConnectionsSlack/CommunityConnectionsSlackService.cs"
+  },
+  {
     "operationId": "getWalletSettings",
     "resource": "wallet_settings",
     "method": "GetAsync",
@@ -8704,6 +10718,120 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/Wallet/WalletService.cs"
+  },
+  {
+    "operationId": "reverseWalletTransaction",
+    "resource": "wallet_transactions",
+    "method": "ReverseAsync",
+    "nativeSignature": "public virtual async Task<SdkReverseWalletTransactionResponseValue201ApplicationJson> ReverseAsync(string customer, string transaction, WalletTransactionsReverseOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReverseAsync",
+        "params": [
+          {
+            "name": "customer",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "transaction",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "WalletTransactionsReverseOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReverseWalletTransactionResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/WalletTransactions/WalletTransactionsService.cs"
+  },
+  {
+    "operationId": "listStoreWalletTransactions",
+    "resource": "wallet_ledger",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(WalletLedgerListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "WalletLedgerListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/WalletLedger/WalletLedgerService.cs"
+  },
+  {
+    "operationId": "getWalletOverview",
+    "resource": "wallet_overview",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetWalletOverviewResponseValue200ApplicationJson> GetAsync(WalletOverviewGetOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "WalletOverviewGetOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetWalletOverviewResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/WalletOverview/WalletOverviewService.cs"
   },
   {
     "operationId": "listWalletTransactions",
@@ -8996,6 +11124,40 @@
     "sourceFile": "src/SellApp.net/Services/CashbackRules/CashbackRulesService.cs"
   },
   {
+    "operationId": "quoteCashbackRule",
+    "resource": "cashback_rules",
+    "method": "QuoteAsync",
+    "nativeSignature": "public virtual async Task<SdkQuoteCashbackRuleResponseValue200ApplicationJson> QuoteAsync(CashbackRulesQuoteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "QuoteAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CashbackRulesQuoteOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkQuoteCashbackRuleResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CashbackRules/CashbackRulesService.cs"
+  },
+  {
     "operationId": "listWalletBonusTiers",
     "resource": "wallet_bonus_tiers",
     "method": "ListAsync",
@@ -9206,6 +11368,40 @@
     "sourceFile": "src/SellApp.net/Services/WalletBonusTiers/WalletBonusTiersService.cs"
   },
   {
+    "operationId": "quoteWalletBonusTier",
+    "resource": "wallet_bonus_tiers",
+    "method": "QuoteAsync",
+    "nativeSignature": "public virtual async Task<SdkQuoteWalletBonusTierResponseValue200ApplicationJson> QuoteAsync(WalletBonusTiersQuoteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "QuoteAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "WalletBonusTiersQuoteOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkQuoteWalletBonusTierResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/WalletBonusTiers/WalletBonusTiersService.cs"
+  },
+  {
     "operationId": "listCourses",
     "resource": "courses",
     "method": "ListAsync",
@@ -9234,6 +11430,40 @@
           }
         ],
         "returnType": "Task<SellAppList<SdkListCoursesResponseValue200ApplicationJson>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Courses/CoursesService.cs"
+  },
+  {
+    "operationId": "createCourse",
+    "resource": "courses",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateCourseResponseValue201ApplicationJson> CreateAsync(CoursesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CoursesCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateCourseResponseValue201ApplicationJson>",
         "async": true
       }
     ],
@@ -9382,6 +11612,40 @@
           }
         ],
         "returnType": "Task<SdkUpdateCourseResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Courses/CoursesService.cs"
+  },
+  {
+    "operationId": "getCourseStudentSummary",
+    "resource": "courses",
+    "method": "GetStudentSummaryAsync",
+    "nativeSignature": "public virtual async Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson> GetStudentSummaryAsync(CoursesGetStudentSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetStudentSummaryAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CoursesGetStudentSummaryOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson>",
         "async": true
       }
     ],
@@ -9818,6 +12082,268 @@
     "sourceFile": "src/SellApp.net/Services/CoursesLessons/CoursesLessonsService.cs"
   },
   {
+    "operationId": "listCheckoutFieldTemplates",
+    "resource": "checkout_field_templates",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SdkListCheckoutFieldTemplatesResponseValue200ApplicationJson> ListAsync(CheckoutFieldTemplatesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkListCheckoutFieldTemplatesResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "createCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkCreateCheckoutFieldTemplateResponseValue201ApplicationJson> CreateAsync(CheckoutFieldTemplatesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkCreateCheckoutFieldTemplateResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "getCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetCheckoutFieldTemplateResponseValue200ApplicationJson> GetAsync(string checkoutFieldTemplate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "checkoutFieldTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetCheckoutFieldTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "replaceCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceCheckoutFieldTemplateResponseValue200ApplicationJson> ReplaceAsync(string checkoutFieldTemplate, CheckoutFieldTemplatesReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "checkoutFieldTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceCheckoutFieldTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "updateCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateCheckoutFieldTemplateResponseValue200ApplicationJson> UpdateAsync(string checkoutFieldTemplate, CheckoutFieldTemplatesUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "checkoutFieldTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateCheckoutFieldTemplateResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "deleteCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "DeleteAsync",
+    "nativeSignature": "public virtual async Task DeleteAsync(string checkoutFieldTemplate, CheckoutFieldTemplatesDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DeleteAsync",
+        "params": [
+          {
+            "name": "checkoutFieldTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesDeleteOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
+    "operationId": "duplicateCheckoutFieldTemplate",
+    "resource": "checkout_field_templates",
+    "method": "DuplicateAsync",
+    "nativeSignature": "public virtual async Task<SdkDuplicateCheckoutFieldTemplateResponseValue201ApplicationJson> DuplicateAsync(string checkoutFieldTemplate, CheckoutFieldTemplatesDuplicateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DuplicateAsync",
+        "params": [
+          {
+            "name": "checkoutFieldTemplate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "CheckoutFieldTemplatesDuplicateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkDuplicateCheckoutFieldTemplateResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/CheckoutFieldTemplates/CheckoutFieldTemplatesService.cs"
+  },
+  {
     "operationId": "listPaymentMethods",
     "resource": "payment_methods",
     "method": "ListAsync",
@@ -9992,6 +12518,80 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/PaymentMethods/PaymentMethodsService.cs"
+  },
+  {
+    "operationId": "getPaymentMethodModifier",
+    "resource": "payment_methods_modifier",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetPaymentMethodModifierResponseValue200ApplicationJson> GetAsync(string paymentMethod, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "paymentMethod",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetPaymentMethodModifierResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/PaymentMethodsModifier/PaymentMethodsModifierService.cs"
+  },
+  {
+    "operationId": "replacePaymentMethodModifier",
+    "resource": "payment_methods_modifier",
+    "method": "ReplaceAsync",
+    "nativeSignature": "public virtual async Task<SdkReplacePaymentMethodModifierResponseValue200ApplicationJson> ReplaceAsync(string paymentMethod, PaymentMethodsModifierReplaceOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAsync",
+        "params": [
+          {
+            "name": "paymentMethod",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "PaymentMethodsModifierReplaceOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplacePaymentMethodModifierResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/PaymentMethodsModifier/PaymentMethodsModifierService.cs"
   },
   {
     "operationId": "listCustomPaymentMethods",
@@ -10436,6 +13036,752 @@
     "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
   },
   {
+    "operationId": "getCheckoutSettings",
+    "resource": "store_settings",
+    "method": "GetCheckoutAsync",
+    "nativeSignature": "public virtual async Task<SdkGetCheckoutSettingsResponseValue200ApplicationJson> GetCheckoutAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetCheckoutAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetCheckoutSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replaceCheckoutSettings",
+    "resource": "store_settings",
+    "method": "ReplaceCheckoutAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson> ReplaceCheckoutAsync(StoreSettingsReplaceCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceCheckoutAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplaceCheckoutOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceCheckoutSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updateCheckoutSettings",
+    "resource": "store_settings",
+    "method": "UpdateCheckoutAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson> UpdateCheckoutAsync(StoreSettingsUpdateCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateCheckoutAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdateCheckoutOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateCheckoutSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "getTaxSettings",
+    "resource": "store_settings",
+    "method": "GetTaxesAsync",
+    "nativeSignature": "public virtual async Task<SdkGetTaxSettingsResponseValue200ApplicationJson> GetTaxesAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetTaxesAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetTaxSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replaceTaxSettings",
+    "resource": "store_settings",
+    "method": "ReplaceTaxesAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceTaxSettingsResponseValue200ApplicationJson> ReplaceTaxesAsync(StoreSettingsReplaceTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceTaxesAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplaceTaxesOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceTaxSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updateTaxSettings",
+    "resource": "store_settings",
+    "method": "UpdateTaxesAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateTaxSettingsResponseValue200ApplicationJson> UpdateTaxesAsync(StoreSettingsUpdateTaxesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateTaxesAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdateTaxesOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateTaxSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "getCustomerEmailSettings",
+    "resource": "store_settings",
+    "method": "GetCustomerEmailsAsync",
+    "nativeSignature": "public virtual async Task<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson> GetCustomerEmailsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetCustomerEmailsAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetCustomerEmailSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replaceCustomerEmailSettings",
+    "resource": "store_settings",
+    "method": "ReplaceCustomerEmailsAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson> ReplaceCustomerEmailsAsync(StoreSettingsReplaceCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceCustomerEmailsAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplaceCustomerEmailsOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updateCustomerEmailSettings",
+    "resource": "store_settings",
+    "method": "UpdateCustomerEmailsAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson> UpdateCustomerEmailsAsync(StoreSettingsUpdateCustomerEmailsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateCustomerEmailsAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdateCustomerEmailsOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "getStoreAlertSettings",
+    "resource": "store_settings",
+    "method": "GetAlertsAsync",
+    "nativeSignature": "public virtual async Task<SdkGetStoreAlertSettingsResponseValue200ApplicationJson> GetAlertsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAlertsAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetStoreAlertSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replaceStoreAlertSettings",
+    "resource": "store_settings",
+    "method": "ReplaceAlertsAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson> ReplaceAlertsAsync(StoreSettingsReplaceAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceAlertsAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplaceAlertsOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updateStoreAlertSettings",
+    "resource": "store_settings",
+    "method": "UpdateAlertsAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson> UpdateAlertsAsync(StoreSettingsUpdateAlertsOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAlertsAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdateAlertsOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "getPersonalizationSettings",
+    "resource": "store_settings",
+    "method": "GetPersonalizationAsync",
+    "nativeSignature": "public virtual async Task<SdkGetPersonalizationSettingsResponseValue200ApplicationJson> GetPersonalizationAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetPersonalizationAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetPersonalizationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replacePersonalizationSettings",
+    "resource": "store_settings",
+    "method": "ReplacePersonalizationAsync",
+    "nativeSignature": "public virtual async Task<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson> ReplacePersonalizationAsync(StoreSettingsReplacePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplacePersonalizationAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplacePersonalizationOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplacePersonalizationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updatePersonalizationSettings",
+    "resource": "store_settings",
+    "method": "UpdatePersonalizationAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson> UpdatePersonalizationAsync(StoreSettingsUpdatePersonalizationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdatePersonalizationAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdatePersonalizationOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "replaceCryptoCheckoutSettings",
+    "resource": "store_settings",
+    "method": "ReplaceCryptoCheckoutAsync",
+    "nativeSignature": "public virtual async Task<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson> ReplaceCryptoCheckoutAsync(StoreSettingsReplaceCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReplaceCryptoCheckoutAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsReplaceCryptoCheckoutOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "updateCryptoCheckoutSettings",
+    "resource": "store_settings",
+    "method": "UpdateCryptoCheckoutAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson> UpdateCryptoCheckoutAsync(StoreSettingsUpdateCryptoCheckoutOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateCryptoCheckoutAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSettingsUpdateCryptoCheckoutOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSettings/StoreSettingsService.cs"
+  },
+  {
+    "operationId": "getSenderEmail",
+    "resource": "store_sender_email",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSenderEmailResponseValue200ApplicationJson> GetAsync(StoreSenderEmailGetOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSenderEmailGetOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSenderEmailResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSenderEmail/StoreSenderEmailService.cs"
+  },
+  {
+    "operationId": "setSenderEmail",
+    "resource": "store_sender_email",
+    "method": "SetAsync",
+    "nativeSignature": "public virtual async Task<SdkSetSenderEmailResponseValue200ApplicationJson> SetAsync(StoreSenderEmailSetOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "SetAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSenderEmailSetOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkSetSenderEmailResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSenderEmail/StoreSenderEmailService.cs"
+  },
+  {
+    "operationId": "deleteSenderEmail",
+    "resource": "store_sender_email",
+    "method": "DeleteAsync",
+    "nativeSignature": "public virtual async Task DeleteAsync(StoreSenderEmailDeleteOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DeleteAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSenderEmailDeleteOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSenderEmail/StoreSenderEmailService.cs"
+  },
+  {
+    "operationId": "sendSenderEmailVerification",
+    "resource": "store_sender_email",
+    "method": "SendVerificationAsync",
+    "nativeSignature": "public virtual async Task<SdkSendSenderEmailVerificationResponseValue200ApplicationJson> SendVerificationAsync(StoreSenderEmailSendVerificationOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "SendVerificationAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreSenderEmailSendVerificationOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkSendSenderEmailVerificationResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreSenderEmail/StoreSenderEmailService.cs"
+  },
+  {
+    "operationId": "getStoreIntegrations",
+    "resource": "store_integrations",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetStoreIntegrationsResponseValue200ApplicationJson> GetAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetStoreIntegrationsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreIntegrations/StoreIntegrationsService.cs"
+  },
+  {
+    "operationId": "disconnectGoogleCalendar",
+    "resource": "store_integrations",
+    "method": "DisconnectGoogleCalendarAsync",
+    "nativeSignature": "public virtual async Task DisconnectGoogleCalendarAsync(StoreIntegrationsDisconnectGoogleCalendarOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DisconnectGoogleCalendarAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "StoreIntegrationsDisconnectGoogleCalendarOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/StoreIntegrations/StoreIntegrationsService.cs"
+  },
+  {
     "operationId": "listNotificationChannels",
     "resource": "store_notification_channels",
     "method": "ListAsync",
@@ -10808,6 +14154,74 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/StoreCustomDomains/StoreCustomDomainsService.cs"
+  },
+  {
+    "operationId": "listNotifications",
+    "resource": "notifications",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<ListNotificationsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(NotificationsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "NotificationsListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<ListNotificationsResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Notifications/NotificationsService.cs"
+  },
+  {
+    "operationId": "markNotificationsSeen",
+    "resource": "notifications",
+    "method": "MarkAsync",
+    "nativeSignature": "public virtual async Task<SellAppList<MarkNotificationsSeenResponseValue200ApplicationJsonPropertyDataItem>> MarkAsync(NotificationsMarkOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "MarkAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "NotificationsMarkOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SellAppList<MarkNotificationsSeenResponseValue200ApplicationJsonPropertyDataItem>>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Notifications/NotificationsService.cs"
   },
   {
     "operationId": "listCreditsProducts",
@@ -11328,6 +14742,188 @@
     "sourceFile": "src/SellApp.net/Services/Affiliates/AffiliatesService.cs"
   },
   {
+    "operationId": "getAffiliateProducts",
+    "resource": "affiliates_products",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetAffiliateProductsResponseValue200ApplicationJson> GetAsync(string affiliate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "affiliate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetAffiliateProductsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatesProducts/AffiliatesProductsService.cs"
+  },
+  {
+    "operationId": "updateAffiliateProducts",
+    "resource": "affiliates_products",
+    "method": "UpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkUpdateAffiliateProductsResponseValue200ApplicationJson> UpdateAsync(string affiliate, AffiliatesProductsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "UpdateAsync",
+        "params": [
+          {
+            "name": "affiliate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "AffiliatesProductsUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkUpdateAffiliateProductsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatesProducts/AffiliatesProductsService.cs"
+  },
+  {
+    "operationId": "getAffiliateCoupon",
+    "resource": "affiliates_coupon",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetAffiliateCouponResponseValue200ApplicationJson> GetAsync(string affiliate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "affiliate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetAffiliateCouponResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatesCoupon/AffiliatesCouponService.cs"
+  },
+  {
+    "operationId": "saveAffiliateCoupon",
+    "resource": "affiliates_coupon",
+    "method": "SaveAsync",
+    "nativeSignature": "public virtual async Task<SdkSaveAffiliateCouponResponseValue200ApplicationJson> SaveAsync(string affiliate, AffiliatesCouponSaveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "SaveAsync",
+        "params": [
+          {
+            "name": "affiliate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "AffiliatesCouponSaveOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkSaveAffiliateCouponResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatesCoupon/AffiliatesCouponService.cs"
+  },
+  {
+    "operationId": "disableAffiliateCoupon",
+    "resource": "affiliates_coupon",
+    "method": "DisableAsync",
+    "nativeSignature": "public virtual async Task DisableAsync(string affiliate, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "DisableAsync",
+        "params": [
+          {
+            "name": "affiliate",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatesCoupon/AffiliatesCouponService.cs"
+  },
+  {
     "operationId": "listAffiliateReferrals",
     "resource": "affiliate_referrals",
     "method": "ListAsync",
@@ -11646,14 +15242,54 @@
     "sourceFile": "src/SellApp.net/Services/AffiliatePayouts/AffiliatePayoutsService.cs"
   },
   {
+    "operationId": "markAffiliatePayoutsPaid",
+    "resource": "affiliate_payouts",
+    "method": "MarkPaidAsync",
+    "nativeSignature": "public virtual async Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson> MarkPaidAsync(AffiliatePayoutsMarkPaidOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "MarkPaidAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "AffiliatePayoutsMarkPaidOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/AffiliatePayouts/AffiliatePayoutsService.cs"
+  },
+  {
     "operationId": "listRefunds",
     "resource": "refunds",
     "method": "ListAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListAsync",
         "params": [
+          {
+            "name": "options",
+            "type": "RefundsListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
           {
             "name": "requestOptions",
             "type": "RequestOptions?",
@@ -11711,11 +15347,17 @@
     "operationId": "listExports",
     "resource": "exports",
     "method": "ListAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<ListExportsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(ExportsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListAsync",
         "params": [
+          {
+            "name": "options",
+            "type": "ExportsListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
           {
             "name": "requestOptions",
             "type": "RequestOptions?",
@@ -11847,11 +15489,17 @@
     "operationId": "listDisputes",
     "resource": "disputes",
     "method": "ListAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListAsync",
         "params": [
+          {
+            "name": "options",
+            "type": "DisputesListOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
           {
             "name": "requestOptions",
             "type": "RequestOptions?",
@@ -12749,11 +16397,17 @@
     "operationId": "listWebhookDeliveries",
     "resource": "webhook_platform",
     "method": "ListDeliveriesAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "ListDeliveriesAsync",
         "params": [
+          {
+            "name": "options",
+            "type": "WebhookPlatformListDeliveriesOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
           {
             "name": "requestOptions",
             "type": "RequestOptions?",
@@ -14463,11 +18117,17 @@
     "operationId": "v2ListBlacklists",
     "resource": "blacklists",
     "method": "V2ListBlacklistsAsync",
-    "nativeSignature": "public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "nativeSignature": "public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
     "signatures": [
       {
         "name": "V2ListBlacklistsAsync",
         "params": [
+          {
+            "name": "options",
+            "type": "BlacklistsV2ListBlacklistsOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
           {
             "name": "requestOptions",
             "type": "RequestOptions?",
@@ -15028,6 +18688,40 @@
           }
         ],
         "returnType": "Task",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Coupons/CouponsService.cs"
+  },
+  {
+    "operationId": "v2GetCouponUsage",
+    "resource": "coupons",
+    "method": "V2GetCouponUsageAsync",
+    "nativeSignature": "public virtual async Task<SdkV2GetCouponUsageResponseValue200ApplicationJson> V2GetCouponUsageAsync(string coupon, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "V2GetCouponUsageAsync",
+        "params": [
+          {
+            "name": "coupon",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2GetCouponUsageResponseValue200ApplicationJson>",
         "async": true
       }
     ],
@@ -15982,6 +19676,262 @@
       }
     ],
     "sourceFile": "src/SellApp.net/Services/TicketsMessages/TicketsMessagesService.cs"
+  },
+  {
+    "operationId": "batchUpdateTickets",
+    "resource": "tickets",
+    "method": "BatchUpdateAsync",
+    "nativeSignature": "public virtual async Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson> BatchUpdateAsync(TicketsBatchUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "BatchUpdateAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "TicketsBatchUpdateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Tickets/TicketsService.cs"
+  },
+  {
+    "operationId": "v2GetTicketContext",
+    "resource": "tickets",
+    "method": "GetContextAsync",
+    "nativeSignature": "public virtual async Task<SdkV2GetTicketContextResponseValue200ApplicationJson> GetContextAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetContextAsync",
+        "params": [
+          {
+            "name": "ticket",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2GetTicketContextResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/Tickets/TicketsService.cs"
+  },
+  {
+    "operationId": "v2ListTicketWalletRefundOptions",
+    "resource": "tickets_wallet_refunds",
+    "method": "ListOptionsAsync",
+    "nativeSignature": "public virtual async Task<SdkV2ListTicketWalletRefundOptionsResponseValue200ApplicationJson> ListOptionsAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListOptionsAsync",
+        "params": [
+          {
+            "name": "ticket",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2ListTicketWalletRefundOptionsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/TicketsWalletRefunds/TicketsWalletRefundsService.cs"
+  },
+  {
+    "operationId": "v2ListTicketWalletRefunds",
+    "resource": "tickets_wallet_refunds",
+    "method": "ListAsync",
+    "nativeSignature": "public virtual async Task<SdkV2ListTicketWalletRefundsResponseValue200ApplicationJson> ListAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ListAsync",
+        "params": [
+          {
+            "name": "ticket",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2ListTicketWalletRefundsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/TicketsWalletRefunds/TicketsWalletRefundsService.cs"
+  },
+  {
+    "operationId": "v2RefundTicketToWallet",
+    "resource": "tickets_wallet_refunds",
+    "method": "CreateAsync",
+    "nativeSignature": "public virtual async Task<SdkV2RefundTicketToWalletResponseValue201ApplicationJson> CreateAsync(string ticket, TicketsWalletRefundsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "CreateAsync",
+        "params": [
+          {
+            "name": "ticket",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "TicketsWalletRefundsCreateOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2RefundTicketToWalletResponseValue201ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/TicketsWalletRefunds/TicketsWalletRefundsService.cs"
+  },
+  {
+    "operationId": "v2ReverseTicketWalletRefund",
+    "resource": "tickets_wallet_refunds",
+    "method": "ReverseAsync",
+    "nativeSignature": "public virtual async Task<SdkV2ReverseTicketWalletRefundResponseValue200ApplicationJson> ReverseAsync(string ticket, string walletRefund, TicketsWalletRefundsReverseOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "ReverseAsync",
+        "params": [
+          {
+            "name": "ticket",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "walletRefund",
+            "type": "string",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "options",
+            "type": "TicketsWalletRefundsReverseOptions",
+            "optional": false,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkV2ReverseTicketWalletRefundResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/TicketsWalletRefunds/TicketsWalletRefundsService.cs"
+  },
+  {
+    "operationId": "getSupportAnalytics",
+    "resource": "tickets_analytics",
+    "method": "GetAsync",
+    "nativeSignature": "public virtual async Task<SdkGetSupportAnalyticsResponseValue200ApplicationJson> GetAsync(TicketsAnalyticsGetOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)",
+    "signatures": [
+      {
+        "name": "GetAsync",
+        "params": [
+          {
+            "name": "options",
+            "type": "TicketsAnalyticsGetOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "requestOptions",
+            "type": "RequestOptions?",
+            "optional": true,
+            "passingStyle": "named"
+          },
+          {
+            "name": "cancellationToken",
+            "type": "CancellationToken",
+            "optional": true,
+            "passingStyle": "named"
+          }
+        ],
+        "returnType": "Task<SdkGetSupportAnalyticsResponseValue200ApplicationJson>",
+        "async": true
+      }
+    ],
+    "sourceFile": "src/SellApp.net/Services/TicketsAnalytics/TicketsAnalyticsService.cs"
   },
   {
     "operationId": "getOAuthAuthorizationServerMetadata",

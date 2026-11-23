@@ -13,5 +13,8 @@
   "enrollment_limit": null,
   "delivery_text": null,
   "visibility": null,
-  "expected_updated_at": null
+  "expected_updated_at": null,
+  "title": null,
+  "slug": null,
+  "description": null
 }

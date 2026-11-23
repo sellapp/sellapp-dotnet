@@ -359,3 +359,116 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## ListFailedGrantReasonsAsync
+
+List community failed grant reasons
+
+[API reference](https://sell.app/docs/api/community-connections/list-failed-grant-reasons) · Effect: **read**
+
+```csharp
+public virtual async Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson> ListFailedGrantReasonsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.CommunityConnections.ListFailedGrantReasonsAsync();
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## SyncDiscordRolesAsync
+
+Sync Discord roles
+
+[API reference](https://sell.app/docs/api/community-connections/sync-discord-roles) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkSyncDiscordRolesResponseValue200ApplicationJson> SyncDiscordRolesAsync(CommunityConnectionsSyncDiscordRolesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `CommunityConnectionsSyncDiscordRolesOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkSyncDiscordRolesResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.CommunityConnections.SyncDiscordRolesAsync(new CommunityConnectionsSyncDiscordRolesOptions
+    {
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+

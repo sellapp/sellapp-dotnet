@@ -137,6 +137,26 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestBatchUpdateAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_batch_update_tickets_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/tickets/batch", HttpStatusCode.OK, fixture);
+            var result = await this.service.BatchUpdateAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<TicketsBatchUpdateOptions>("{\"action\":\"close\",\"resources\":[1]}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/tickets/batch");
+        }
+
+        [Fact]
+        public async Task TestGetContextAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_v_2_get_ticket_context_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/tickets/test_ticket/context", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetContextAsync("test_ticket");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/tickets/test_ticket/context");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_tickets_response_value_200_application_json_property_data_item.json");

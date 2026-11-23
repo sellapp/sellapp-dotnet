@@ -198,5 +198,62 @@ namespace SellApp
         {
             return this.DisconnectAsync(platform, requestOptions, cancellationToken);
         }
+
+        /// <summary>List community failed grant reasons</summary>
+        /// <remarks>
+        /// List why community access grants failed across all platforms, with how many grants failed for each reason and what you can do about it, most frequent first. A grant is the access a purchase gives a customer, such as a Discord role or a place in a Telegram group. Only reasons that still need attention or are retried are counted; failures nobody can act on, such as a customer who left the server, are not. Only SellApp's records are read; no platform is contacted. An empty `data` array means no grant is failing. Requires the `community` API-key ability and the `community` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson> ListFailedGrantReasonsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "listCommunityFailedGrantReasons", false);
+            return await this.GetAsync<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson>("/v2/community-connections/failed-grant-reasons", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson>> ListFailedGrantReasonsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.ListFailedGrantReasonsAsync(requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="ListFailedGrantReasonsAsync"/>.</summary>
+        public virtual Task<SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson> ListFailedGrantReasons(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.ListFailedGrantReasonsAsync(requestOptions, cancellationToken);
+        }
+
+        /// <summary>Sync Discord roles</summary>
+        /// <remarks>
+        /// Read the role list of the store's Discord servers from Discord again and check the bot's role position, which tells whether the bot can give the roles your products sell. Syncs every connected server, or only `server_id`. A server Discord refuses is reported on its own row with `synced: false`, and the others still sync; `failed_count` counts those rows. Nothing is given to or taken from a member, so repeating the request is safe. `422` on `platform` when no Discord server is connected, and on `server_id` when that server is not connected to this store. Requires the `community` API-key ability and the `community` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkSyncDiscordRolesResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkSyncDiscordRolesResponseValue200ApplicationJson> SyncDiscordRolesAsync(CommunityConnectionsSyncDiscordRolesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "syncDiscordRoles", false);
+            return await this.PostAsync<SdkSyncDiscordRolesResponseValue200ApplicationJson>("/v2/community-connections/discord/sync-roles", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkSyncDiscordRolesResponseValue200ApplicationJson>> SyncDiscordRolesWithResponseAsync(CommunityConnectionsSyncDiscordRolesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.SyncDiscordRolesAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="SyncDiscordRolesAsync"/>.</summary>
+        public virtual Task<SdkSyncDiscordRolesResponseValue200ApplicationJson> SyncDiscordRoles(CommunityConnectionsSyncDiscordRolesOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.SyncDiscordRolesAsync(options, requestOptions, cancellationToken);
+        }
     }
 }

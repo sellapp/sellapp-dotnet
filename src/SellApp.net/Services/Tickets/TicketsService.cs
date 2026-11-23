@@ -135,7 +135,7 @@ namespace SellApp
 
         /// <summary>List all tickets</summary>
         /// <remarks>
-        /// List your store's support tickets, 15 per page by default. This v2 route is store-scoped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List your store's support tickets, 15 per page by default. This v2 route is store-scoped. Narrow the results with `waiting_on`, `reason` and `customer_email`; they combine with each other and with any other filters. An unknown `waiting_on` or `reason`, or a `customer_email` longer than 255 characters, returns `422`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -175,7 +175,7 @@ namespace SellApp
 
         /// <summary>Search tickets</summary>
         /// <remarks>
-        /// Search tickets using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search tickets using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. Narrow the results with `waiting_on`, `reason` and `customer_email`; they combine with each other and with any other filters. An unknown `waiting_on` or `reason`, or a `customer_email` longer than 255 characters, returns `422`. Page through results with `limit` (1 to 100, default 15; a larger value returns `422`) and `page`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -244,7 +244,7 @@ namespace SellApp
 
         /// <summary>Close, reopen, or archive a ticket</summary>
         /// <remarks>
-        /// Change ticket status or archive state in the selected store. Requires the ticket API-key ability and store ticket permission. Send status OPEN to reopen or CLOSED to close; closing sends the existing customer notification only when the status changes. Send archived true to archive or false to restore. You may send both fields together; omitted fields stay unchanged. Use the same optional Idempotency-Key and identical body after a lost response. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Close, reopen, archive or restore a ticket in the selected store. Send `status` `CLOSED` to close or `OPEN` to reopen, and `archived` `true` to archive or `false` to restore; you may send both, and omitted fields stay unchanged. When you close a ticket you can record why with `outcome`, which is accepted only together with `status` `CLOSED`. Closing emails the customer that the ticket was closed, at most once an hour per ticket: reopening and closing again within the hour sends no second email. A closed ticket keeps its outcome. Sending the outcome it already has changes nothing; a different outcome, or an outcome for a ticket that was closed without one, returns `422` on `outcome` and nothing in the request is applied, so reopen the ticket first. Requires the `ticket` API-key ability and the ticket permission in your team role. Use the same optional Idempotency-Key and identical body after a lost response. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="ticket">The ticket.</param>
         /// <param name="options">Request options.</param>
@@ -270,6 +270,64 @@ namespace SellApp
         public virtual Task<SdkUpdateTicketResponseValue200ApplicationJson> Update(string ticket, TicketsUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.UpdateAsync(ticket, options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Update several tickets</summary>
+        /// <remarks>
+        /// Close, reopen, archive, restore or mark as unread up to 50 tickets in one request, and get one result per ticket in the order you sent them. Every ID must be a ticket of the selected store: one unknown ID returns `404` and changes nothing. Each ticket is then changed on its own, so one refusal does not undo the others. `close` needs an `outcome`, which is recorded on every ticket it closes, and emails each customer that the ticket was closed, at most once an hour per ticket. `mark_unread` marks the ticket unread for your store (`read_status.store` becomes `false`). Requires the `ticket` API-key ability and the ticket permission in your team role. Repeating the same request is safe: a ticket already in the requested state comes back as `skipped`. Send an optional `Idempotency-Key` with an identical body to get the original response back after a lost connection. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkBatchUpdateTicketsResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson> BatchUpdateAsync(TicketsBatchUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "batchUpdateTickets", true);
+            return await this.PatchAsync<SdkBatchUpdateTicketsResponseValue200ApplicationJson>("/v2/tickets/batch", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkBatchUpdateTicketsResponseValue200ApplicationJson>> BatchUpdateWithResponseAsync(TicketsBatchUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.BatchUpdateAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="BatchUpdateAsync"/>.</summary>
+        public virtual Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson> BatchUpdate(TicketsBatchUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.BatchUpdateAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve a ticket's customer and refund context</summary>
+        /// <remarks>
+        /// Read what you need beside a ticket's conversation in one call: the resolution, the customer's order history in this store, the linked order, what can still be refunded to the customer's wallet, and the latest 20 support activity entries, newest first. `refund_options` has the same items as the ticket's wallet refund options. The customer figures count the store's completed orders whose customer or order email is the ticket's email. Requires the `ticket` API-key ability and the ticket permission in your team role. The response includes the customer's email, order count and lifetime spend, so give a key with this ability only to people and tools that may see them. Amounts are integer USD cents: `1999` means $19.99. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="ticket">The ticket ID in the selected store.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkV2GetTicketContextResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkV2GetTicketContextResponseValue200ApplicationJson> GetContextAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "v2GetTicketContext", false);
+            return await this.GetAsync<SdkV2GetTicketContextResponseValue200ApplicationJson>($"/v2/tickets/{Uri.EscapeDataString(ticket)}/context", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkV2GetTicketContextResponseValue200ApplicationJson>> GetContextWithResponseAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetContextAsync(ticket, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetContextAsync"/>.</summary>
+        public virtual Task<SdkV2GetTicketContextResponseValue200ApplicationJson> GetContext(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetContextAsync(ticket, requestOptions, cancellationToken);
         }
     }
 }

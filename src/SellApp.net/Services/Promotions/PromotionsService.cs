@@ -279,5 +279,35 @@ namespace SellApp
         {
             return this.RestoreAsync(promotion, options, requestOptions, cancellationToken);
         }
+
+        /// <summary>Retrieve promotion usage</summary>
+        /// <remarks>
+        /// Count the completed orders that used a promotion, across all of its phases and its whole life, and list the newest of them. Only orders whose status is `COMPLETED` count; pending and refunded orders do not. A promotion from another store returns `404`, and so does a deleted one unless you send `with_trashed=true`. Requires the `promotion` API-key ability and the promotion permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="promotion">The promotion ID.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetPromotionUsageResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetPromotionUsageResponseValue200ApplicationJson> GetUsageAsync(string promotion, PromotionsGetUsageOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getPromotionUsage", false);
+            return await this.GetAsync<SdkGetPromotionUsageResponseValue200ApplicationJson>($"/v2/promotions/{Uri.EscapeDataString(promotion)}/usage", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetPromotionUsageResponseValue200ApplicationJson>> GetUsageWithResponseAsync(string promotion, PromotionsGetUsageOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetUsageAsync(promotion, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetUsageAsync"/>.</summary>
+        public virtual Task<SdkGetPromotionUsageResponseValue200ApplicationJson> GetUsage(string promotion, PromotionsGetUsageOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetUsageAsync(promotion, options, requestOptions, cancellationToken);
+        }
     }
 }

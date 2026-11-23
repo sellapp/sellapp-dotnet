@@ -27,10 +27,9 @@ namespace SellApp
         [STJS.JsonPropertyName("store_wide")]
         public bool? StoreWide { get; set; }
 
-        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.</summary>
+        /// <summary>Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`. It may be an empty list when the same request sends `store_wide: true`, so a store-wide coupon you read can be sent back unchanged. Otherwise an empty list returns `422` on `products`.</summary>
         [JsonProperty("products")]
         [STJS.JsonPropertyName("products")]
-        [SellAppSchemaConstraints(MinItems = 1)]
         public List<long>? Products { get; set; }
 
         /// <summary>Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.</summary>
@@ -62,6 +61,11 @@ namespace SellApp
         [STJS.JsonPropertyName("subscription_payments")]
         [SellAppSchemaConstraints(Minimum = 1d, Maximum = 36d)]
         public long? SubscriptionPayments { get; set; }
+
+        /// <summary>The most a percentage coupon takes off one order, as a decimal amount of at least 1 in the major unit of the order's currency, with at most two decimals: `15.50` caps the discount at 15.50. Send null to remove the cap. Only a `PERCENTAGE` coupon can have a cap: sending one for an `AMOUNT` coupon returns `422` on `maximum_discount_amount`, and changing a coupon to `AMOUNT` removes its cap.</summary>
+        [JsonProperty("maximum_discount_amount")]
+        [STJS.JsonPropertyName("maximum_discount_amount")]
+        public OneOf.OneOf<double, string>? MaximumDiscountAmount { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

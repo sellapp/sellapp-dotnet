@@ -31,7 +31,7 @@ namespace SellApp
         [JsonProperty("metadata", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("metadata")]
         [SellAppSchemaConstraints(MaxProperties = 50)]
-        public Dictionary<string, ScalarMetadataValue> Metadata { get; set; } = default!;
+        public Dictionary<string, OneOf.OneOf<string, double, bool>?> Metadata { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

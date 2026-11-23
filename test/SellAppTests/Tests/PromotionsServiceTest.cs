@@ -131,6 +131,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestGetUsageAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_promotion_usage_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/promotions/test_promotion/usage", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetUsageAsync("test_promotion", new PromotionsGetUsageOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/promotions/test_promotion/usage");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_list_promotions_response_value_200_application_json.json");

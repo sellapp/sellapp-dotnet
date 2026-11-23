@@ -165,7 +165,7 @@ namespace SellApp
 
         /// <summary>List all feedback</summary>
         /// <remarks>
-        /// List customer feedback for your store, 15 entries per page by default. This v2 route is store-scoped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List customer feedback for your store, 15 entries per page by default. This v2 route is store-scoped. Use `reply_state` to list only feedback you have or have not replied to. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -205,7 +205,7 @@ namespace SellApp
 
         /// <summary>Search feedback</summary>
         /// <remarks>
-        /// Search feedback using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search feedback using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. Use `reply_state` to find only feedback you have or have not replied to. Page through results with `limit` (1 to 100, default 15; a larger value returns `422`) and `page`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>

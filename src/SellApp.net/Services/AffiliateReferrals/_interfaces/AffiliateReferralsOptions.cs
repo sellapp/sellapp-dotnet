@@ -11,6 +11,12 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class AffiliateReferralsListOptions : ListOptions
     {
+        /// <summary>Text to look for in the affiliate's email address and the product and variant titles. A number also matches the referral ID or the order ID exactly. `%` and `_` match themselves.</summary>
+        [JsonProperty("search")]
+        [STJS.JsonPropertyName("search")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? Search { get; set; }
+
         /// <summary>Filter by store affiliate ID.</summary>
         [JsonProperty("affiliate_id")]
         [STJS.JsonPropertyName("affiliate_id")]

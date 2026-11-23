@@ -148,6 +148,36 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestPublishAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_publish_product_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/products/test_product/publish", HttpStatusCode.OK, fixture);
+            var result = await this.service.PublishAsync("test_product", new ProductsPublishOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/products/test_product/publish");
+        }
+
+        [Fact]
+        public async Task TestDuplicateAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_duplicate_product_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/products/test_product/duplicate", HttpStatusCode.OK, fixture);
+            var result = await this.service.DuplicateAsync("test_product");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/products/test_product/duplicate");
+        }
+
+        [Fact]
+        public async Task TestMoveAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_move_product_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/products/test_product/position", HttpStatusCode.OK, fixture);
+            var result = await this.service.MoveAsync("test_product", Newtonsoft.Json.JsonConvert.DeserializeObject<ProductsMoveOptions>("{\"position\":1}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/products/test_product/position");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_products_response_value_200_application_json_property_data_item.json");

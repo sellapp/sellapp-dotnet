@@ -6,16 +6,13 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
-    /// <summary>Represents a search products request application json property search.</summary>
+    /// <summary>Matches products whose title contains `value`.</summary>
     [SellAppModelSchema(true)]
     public class SearchProductsRequestApplicationJsonPropertySearch
     {
         [JsonProperty("value")]
         [STJS.JsonPropertyName("value")]
         public string? Value { get; set; }
-        [JsonProperty("case_sensitive")]
-        [STJS.JsonPropertyName("case_sensitive")]
-        public bool? CaseSensitive { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

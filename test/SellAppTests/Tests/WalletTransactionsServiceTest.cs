@@ -27,6 +27,19 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestReverseAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_reverse_wallet_transaction_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/wallets/test_customer/transactions/test_transaction/reverse", HttpStatusCode.OK, fixture);
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!;
+            options.Note = "test_note";
+            var result = await this.service.ReverseAsync("test_customer", "test_transaction", options);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/wallets/test_customer/transactions/test_transaction/reverse");
+            await this.httpMock.AssertRequestBodyContainsAsync("note", "test_note");
+        }
+
+        [Fact]
         public async Task TestListAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_list_wallet_transactions_response_value_200_application_json_property_data_item.json");
@@ -82,35 +95,35 @@ namespace SellAppTests
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");
-            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.ListAsync("test_customer", new WalletTransactionsListOptions()));
+            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.ReverseAsync("test_customer", "test_transaction", Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!));
         }
 
         [Fact]
         public async Task TestError404()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.NotFound, "{\"code\":\"not_found\",\"message\":\"Not Found\"}");
-            await Assert.ThrowsAsync<NotFoundException>(() => this.service.ListAsync("test_customer", new WalletTransactionsListOptions()));
+            await Assert.ThrowsAsync<NotFoundException>(() => this.service.ReverseAsync("test_customer", "test_transaction", Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!));
         }
 
         [Fact]
         public async Task TestError422()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)422, "{\"code\":\"unprocessable_entity\",\"message\":\"Unprocessable\"}");
-            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.ListAsync("test_customer", new WalletTransactionsListOptions()));
+            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.ReverseAsync("test_customer", "test_transaction", Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!));
         }
 
         [Fact]
         public async Task TestError429()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)429, "{\"code\":\"too_many_requests\",\"message\":\"Too Many Requests\"}");
-            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.ListAsync("test_customer", new WalletTransactionsListOptions()));
+            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.ReverseAsync("test_customer", "test_transaction", Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!));
         }
 
         [Fact]
         public async Task TestError500()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.InternalServerError, "{\"code\":\"server_error\",\"message\":\"Server Error\"}");
-            await Assert.ThrowsAsync<ServerException>(() => this.service.ListAsync("test_customer", new WalletTransactionsListOptions()));
+            await Assert.ThrowsAsync<ServerException>(() => this.service.ReverseAsync("test_customer", "test_transaction", Newtonsoft.Json.JsonConvert.DeserializeObject<WalletTransactionsReverseOptions>("{\"note\":\"test_note\"}")!));
         }
     }
 }

@@ -53,6 +53,52 @@ namespace SellApp
         [STJS.JsonPropertyName("status[]")]
         public List<SubscriptionsStatus>? Status { get; set; }
 
+        /// <summary>Keep subscriptions sold by this order.</summary>
+        [JsonProperty("order_id")]
+        [STJS.JsonPropertyName("order_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? OrderId { get; set; }
+
+        /// <summary>Keep subscriptions whose plan is a variant of this product, including subscriptions moved to that plan after signup.</summary>
+        [JsonProperty("product_id")]
+        [STJS.JsonPropertyName("product_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? ProductId { get; set; }
+
+        /// <summary>Keep subscriptions that renew on or after this moment. Only `ACTIVE` and `TRIALING` subscriptions with a renewal date that are neither paused nor scheduled to cancel match a renewal filter. A date such as `2026-11-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.</summary>
+        [JsonProperty("renews_after")]
+        [STJS.JsonPropertyName("renews_after")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? RenewsAfter { get; set; }
+
+        /// <summary>Keep subscriptions that renew on or before this moment, with the same rules as `renews_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `renews_after`.</summary>
+        [JsonProperty("renews_before")]
+        [STJS.JsonPropertyName("renews_before")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? RenewsBefore { get; set; }
+
+        /// <summary>Keep `CANCELED` subscriptions cancelled on or after this moment. The cancellation time is when an immediate cancellation happened; for a subscription that ran out at its period end it is approximate, the last time the subscription record changed. Dates are read like `renews_after`. Inclusive.</summary>
+        [JsonProperty("cancelled_after")]
+        [STJS.JsonPropertyName("cancelled_after")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CancelledAfter { get; set; }
+
+        /// <summary>Keep `CANCELED` subscriptions cancelled on or before this moment, with the same rules as `cancelled_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `cancelled_after`.</summary>
+        [JsonProperty("cancelled_before")]
+        [STJS.JsonPropertyName("cancelled_before")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CancelledBefore { get; set; }
+
+        /// <summary>`true` keeps `ACTIVE` and `TRIALING` subscriptions set to cancel at the end of their period; `false` keeps subscriptions that are not set to.</summary>
+        [JsonProperty("scheduled_to_cancel")]
+        [STJS.JsonPropertyName("scheduled_to_cancel")]
+        public bool? ScheduledToCancel { get; set; }
+
+        /// <summary>`true` keeps paused subscriptions; `false` keeps subscriptions that are not paused.</summary>
+        [JsonProperty("paused")]
+        [STJS.JsonPropertyName("paused")]
+        public bool? Paused { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="SubscriptionsService.SearchAsync"/>: Search subscriptions</summary>
@@ -74,6 +120,52 @@ namespace SellApp
         [JsonProperty("includes")]
         [STJS.JsonPropertyName("includes")]
         public List<SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
+
+        /// <summary>Keep subscriptions sold by this order.</summary>
+        [JsonProperty("order_id")]
+        [STJS.JsonPropertyName("order_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? OrderId { get; set; }
+
+        /// <summary>Keep subscriptions whose plan is a variant of this product, including subscriptions moved to that plan after signup.</summary>
+        [JsonProperty("product_id")]
+        [STJS.JsonPropertyName("product_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? ProductId { get; set; }
+
+        /// <summary>Keep subscriptions that renew on or after this moment. Only `ACTIVE` and `TRIALING` subscriptions with a renewal date that are neither paused nor scheduled to cancel match a renewal filter. A date such as `2026-11-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.</summary>
+        [JsonProperty("renews_after")]
+        [STJS.JsonPropertyName("renews_after")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? RenewsAfter { get; set; }
+
+        /// <summary>Keep subscriptions that renew on or before this moment, with the same rules as `renews_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `renews_after`.</summary>
+        [JsonProperty("renews_before")]
+        [STJS.JsonPropertyName("renews_before")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? RenewsBefore { get; set; }
+
+        /// <summary>Keep `CANCELED` subscriptions cancelled on or after this moment. The cancellation time is when an immediate cancellation happened; for a subscription that ran out at its period end it is approximate, the last time the subscription record changed. Dates are read like `renews_after`. Inclusive.</summary>
+        [JsonProperty("cancelled_after")]
+        [STJS.JsonPropertyName("cancelled_after")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CancelledAfter { get; set; }
+
+        /// <summary>Keep `CANCELED` subscriptions cancelled on or before this moment, with the same rules as `cancelled_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `cancelled_after`.</summary>
+        [JsonProperty("cancelled_before")]
+        [STJS.JsonPropertyName("cancelled_before")]
+        [SellAppSchemaConstraints(MaxLength = 64)]
+        public string? CancelledBefore { get; set; }
+
+        /// <summary>`true` keeps `ACTIVE` and `TRIALING` subscriptions set to cancel at the end of their period; `false` keeps subscriptions that are not set to.</summary>
+        [JsonProperty("scheduled_to_cancel")]
+        [STJS.JsonPropertyName("scheduled_to_cancel")]
+        public bool? ScheduledToCancel { get; set; }
+
+        /// <summary>`true` keeps paused subscriptions; `false` keeps subscriptions that are not paused.</summary>
+        [JsonProperty("paused")]
+        [STJS.JsonPropertyName("paused")]
+        public bool? Paused { get; set; }
 
         /// <summary>Page number to return.</summary>
         [JsonProperty("page")]

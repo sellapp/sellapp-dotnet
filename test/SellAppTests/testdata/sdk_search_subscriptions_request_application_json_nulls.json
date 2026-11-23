@@ -2,5 +2,13 @@
   "filters": null,
   "sort": null,
   "search": null,
-  "includes": null
+  "includes": null,
+  "order_id": null,
+  "product_id": null,
+  "renews_after": null,
+  "renews_before": null,
+  "cancelled_after": null,
+  "cancelled_before": null,
+  "scheduled_to_cancel": null,
+  "paused": null
 }

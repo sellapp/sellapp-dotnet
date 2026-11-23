@@ -9,11 +9,12 @@ List refunds
 [API reference](https://sell.app/docs/api/refunds) · Effect: **read**
 
 ```csharp
-public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RefundsListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| options | `RefundsListOptions?` | No |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -31,7 +32,9 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-var result = await client.Refunds.ListAsync();
+var result = await client.Refunds.ListAsync(new RefundsListOptions
+    {
+    });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

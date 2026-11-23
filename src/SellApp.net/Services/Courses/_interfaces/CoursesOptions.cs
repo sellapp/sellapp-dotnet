@@ -24,6 +24,96 @@ namespace SellApp
 
     }
 
+    /// <summary>Request options for <see cref="CoursesService.CreateAsync"/>: Create a course</summary>
+    [SellAppModelSchema(false)]
+    public class CoursesCreateOptions : BaseOptions
+    {
+        [JsonProperty("category")]
+        [STJS.JsonPropertyName("category")]
+        public Category? Category { get; set; }
+
+        [JsonProperty("level")]
+        [STJS.JsonPropertyName("level")]
+        public SdkCreateCourseRequestApplicationJsonLevel? Level { get; set; }
+
+        [JsonProperty("language")]
+        [STJS.JsonPropertyName("language")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? Language { get; set; }
+
+        [JsonProperty("subtitle")]
+        [STJS.JsonPropertyName("subtitle")]
+        [SellAppSchemaConstraints(MaxLength = 120)]
+        public string? Subtitle { get; set; }
+
+        [JsonProperty("author")]
+        [STJS.JsonPropertyName("author")]
+        [SellAppSchemaConstraints(MaxLength = 120)]
+        public string? Author { get; set; }
+
+        [JsonProperty("subcategory")]
+        [STJS.JsonPropertyName("subcategory")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? Subcategory { get; set; }
+
+        [JsonProperty("what_you_learn")]
+        [STJS.JsonPropertyName("what_you_learn")]
+        [SellAppSchemaConstraints(MaxItems = 50)]
+        public List<string>? WhatYouLearn { get; set; }
+
+        [JsonProperty("requirements")]
+        [STJS.JsonPropertyName("requirements")]
+        [SellAppSchemaConstraints(MaxItems = 50)]
+        public List<string>? Requirements { get; set; }
+
+        [JsonProperty("certificate_enabled")]
+        [STJS.JsonPropertyName("certificate_enabled")]
+        public bool? CertificateEnabled { get; set; }
+
+        [JsonProperty("access_type")]
+        [STJS.JsonPropertyName("access_type")]
+        public SdkCreateCourseRequestApplicationJsonAccessType? AccessType { get; set; }
+
+        /// <summary>Required when access_type is limited; cleared otherwise.</summary>
+        [JsonProperty("access_duration_days")]
+        [STJS.JsonPropertyName("access_duration_days")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 3650d)]
+        public long? AccessDurationDays { get; set; }
+
+        [JsonProperty("enrollment_limit")]
+        [STJS.JsonPropertyName("enrollment_limit")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? EnrollmentLimit { get; set; }
+
+        [JsonProperty("delivery_text")]
+        [STJS.JsonPropertyName("delivery_text")]
+        [SellAppSchemaConstraints(MaxLength = 65535)]
+        public string? DeliveryText { get; set; }
+
+        /// <summary>The course name customers see.</summary>
+        [JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("title")]
+        [SellAppSchemaConstraints(MinLength = 1, MaxLength = 255)]
+        public string Title { get; set; } = default!;
+
+        /// <summary>The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`. When you leave it out, SellApp makes one from the title.</summary>
+        [JsonProperty("slug")]
+        [STJS.JsonPropertyName("slug")]
+        [SellAppSchemaConstraints(MaxLength = 255, Pattern = "^[a-z0-9]+(?:-[a-z0-9]+)*$")]
+        public string? Slug { get; set; }
+
+        /// <summary>The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. Leave it out, or send null, to start without one; a course needs a description before it is published.</summary>
+        [JsonProperty("description")]
+        [STJS.JsonPropertyName("description")]
+        [SellAppSchemaConstraints(MinLength = 5)]
+        public string? Description { get; set; }
+
+        [JsonProperty("visibility")]
+        [STJS.JsonPropertyName("visibility")]
+        public CatalogVisibility? Visibility { get; set; }
+
+    }
+
     /// <summary>Request options for <see cref="CoursesService.SearchAsync"/>: Search courses</summary>
     [SellAppModelSchema(false)]
     public class CoursesSearchOptions : ListOptions
@@ -127,9 +217,28 @@ namespace SellApp
         [STJS.JsonPropertyName("visibility")]
         public CatalogVisibility? Visibility { get; set; }
 
+        /// <summary>The `updated_at` you last read. If the course changed since, the request returns `422` on `expected_updated_at` and changes nothing. It is checked even when the request changes nothing else.</summary>
         [JsonProperty("expected_updated_at")]
         [STJS.JsonPropertyName("expected_updated_at")]
         public DateTimeOffset? ExpectedUpdatedAt { get; set; }
+
+        /// <summary>The course name customers see.</summary>
+        [JsonProperty("title")]
+        [STJS.JsonPropertyName("title")]
+        [SellAppSchemaConstraints(MinLength = 1, MaxLength = 255)]
+        public string? Title { get; set; }
+
+        /// <summary>The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`.</summary>
+        [JsonProperty("slug")]
+        [STJS.JsonPropertyName("slug")]
+        [SellAppSchemaConstraints(MaxLength = 255, Pattern = "^[a-z0-9]+(?:-[a-z0-9]+)*$")]
+        public string? Slug { get; set; }
+
+        /// <summary>The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. `null` keeps the current description. To clear the description of a draft course, send an empty element such as `&lt;p&gt;&lt;/p&gt;`; a published course must keep one, so clearing it returns `422` on `description`.</summary>
+        [JsonProperty("description")]
+        [STJS.JsonPropertyName("description")]
+        [SellAppSchemaConstraints(MinLength = 5)]
+        public string? Description { get; set; }
 
     }
 
@@ -203,9 +312,56 @@ namespace SellApp
         [STJS.JsonPropertyName("visibility")]
         public CatalogVisibility? Visibility { get; set; }
 
+        /// <summary>The `updated_at` you last read. If the course changed since, the request returns `422` on `expected_updated_at` and changes nothing. It is checked even when the request changes nothing else.</summary>
         [JsonProperty("expected_updated_at")]
         [STJS.JsonPropertyName("expected_updated_at")]
         public DateTimeOffset? ExpectedUpdatedAt { get; set; }
+
+        /// <summary>The course name customers see.</summary>
+        [JsonProperty("title")]
+        [STJS.JsonPropertyName("title")]
+        [SellAppSchemaConstraints(MinLength = 1, MaxLength = 255)]
+        public string? Title { get; set; }
+
+        /// <summary>The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`.</summary>
+        [JsonProperty("slug")]
+        [STJS.JsonPropertyName("slug")]
+        [SellAppSchemaConstraints(MaxLength = 255, Pattern = "^[a-z0-9]+(?:-[a-z0-9]+)*$")]
+        public string? Slug { get; set; }
+
+        /// <summary>The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. `null` keeps the current description. To clear the description of a draft course, send an empty element such as `&lt;p&gt;&lt;/p&gt;`; a published course must keep one, so clearing it returns `422` on `description`.</summary>
+        [JsonProperty("description")]
+        [STJS.JsonPropertyName("description")]
+        [SellAppSchemaConstraints(MinLength = 5)]
+        public string? Description { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="CoursesService.GetStudentSummaryAsync"/>: Retrieve a course student summary</summary>
+    [SellAppModelSchema(false)]
+    public class CoursesGetStudentSummaryOptions : BaseOptions
+    {
+        /// <summary>The first day to include, as `YYYY-MM-DD` in the store's timezone.</summary>
+        [JsonProperty("start_date", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("start_date")]
+        public string StartDate { get; set; } = default!;
+
+        /// <summary>The last day to include, as `YYYY-MM-DD` in the store's timezone. It must not be before `start_date`, and the range can cover at most 366 days; otherwise the request returns `422` on `end_date`.</summary>
+        [JsonProperty("end_date", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("end_date")]
+        public string EndDate { get; set; } = default!;
+
+        /// <summary>Count one course only: the course `id` from `/v2/courses`. Another product, a deleted course, or another store's course returns `422` on `course_id`.</summary>
+        [JsonProperty("course_id")]
+        [STJS.JsonPropertyName("course_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? CourseId { get; set; }
+
+        /// <summary>How many rows `students` and `courses` each return: 10 by default, at most 20. A larger value returns `422` on `limit`. The `summary` totals always cover everything.</summary>
+        [JsonProperty("limit")]
+        [STJS.JsonPropertyName("limit")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 20d)]
+        public long? Limit { get; set; }
 
     }
 }

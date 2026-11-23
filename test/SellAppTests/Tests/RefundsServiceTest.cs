@@ -31,7 +31,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_list_refunds_response_value_200_application_json_property_data_item.json");
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/refunds", HttpStatusCode.OK, fixture);
-            var result = await this.service.ListAsync();
+            var result = await this.service.ListAsync(new RefundsListOptions());
             Assert.NotNull(result);
             Assert.NotEmpty(result.Data);
             this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/refunds");
@@ -41,7 +41,7 @@ namespace SellAppTests
         public async Task TestListAsyncEmpty()
         {
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/refunds", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
-            var result = await this.service.ListAsync();
+            var result = await this.service.ListAsync(new RefundsListOptions());
             Assert.NotNull(result);
             Assert.Empty(result.Data);
         }
@@ -65,7 +65,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/refunds", HttpStatusCode.OK, new[] { page1, page2 });
 
             var items = new List<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListAutoPagingAsync())
+            await foreach (var item in this.service.ListAutoPagingAsync(new RefundsListOptions()))
             {
                 items.Add(item);
             }
@@ -80,7 +80,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/refunds", HttpStatusCode.OK, new[] { empty });
 
             var items = new List<ListRefundsResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListAutoPagingAsync())
+            await foreach (var item in this.service.ListAutoPagingAsync(new RefundsListOptions()))
             {
                 items.Add(item);
             }
@@ -92,35 +92,35 @@ namespace SellAppTests
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");
-            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.ListAsync());
+            await Assert.ThrowsAsync<AuthenticationException>(() => this.service.ListAsync(new RefundsListOptions()));
         }
 
         [Fact]
         public async Task TestError404()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.NotFound, "{\"code\":\"not_found\",\"message\":\"Not Found\"}");
-            await Assert.ThrowsAsync<NotFoundException>(() => this.service.ListAsync());
+            await Assert.ThrowsAsync<NotFoundException>(() => this.service.ListAsync(new RefundsListOptions()));
         }
 
         [Fact]
         public async Task TestError422()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)422, "{\"code\":\"unprocessable_entity\",\"message\":\"Unprocessable\"}");
-            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.ListAsync());
+            await Assert.ThrowsAsync<UnprocessableEntityException>(() => this.service.ListAsync(new RefundsListOptions()));
         }
 
         [Fact]
         public async Task TestError429()
         {
             this.httpMock.MockResponseForAnyRequest((HttpStatusCode)429, "{\"code\":\"too_many_requests\",\"message\":\"Too Many Requests\"}");
-            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.ListAsync());
+            await Assert.ThrowsAsync<RateLimitExceededException>(() => this.service.ListAsync(new RefundsListOptions()));
         }
 
         [Fact]
         public async Task TestError500()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.InternalServerError, "{\"code\":\"server_error\",\"message\":\"Server Error\"}");
-            await Assert.ThrowsAsync<ServerException>(() => this.service.ListAsync());
+            await Assert.ThrowsAsync<ServerException>(() => this.service.ListAsync(new RefundsListOptions()));
         }
     }
 }

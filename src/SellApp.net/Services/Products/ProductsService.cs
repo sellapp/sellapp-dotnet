@@ -214,7 +214,7 @@ namespace SellApp
 
         /// <summary>Search products</summary>
         /// <remarks>
-        /// Search products using JSON body filters, search terms, includes, and sort instructions. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search your store's products by title and narrow them by price, stock, visibility, or sales, 15 per page by default. Send the filters in the JSON body. Products support no `filters` or `sort` entries: any entry returns `422`. A filter value that is not valid, such as an unknown `stock` state or a `min_price` above `max_price`, returns `422` on that field. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
@@ -336,6 +336,95 @@ namespace SellApp
         public virtual Task BatchDelete(ProductsBatchDeleteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.BatchDeleteAsync(options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Publish a product</summary>
+        /// <remarks>
+        /// Publish a draft product so customers can buy it. Works for normal products, bundles, add-ons, credits products, booking products, and courses. Each is checked as saved, the way its dashboard editor checks it before publishing, and nothing else about the product changes. A normal product needs a description and at least one published variant, and every variant that will be on sale needs a title, a description of at least 5 characters, a working delivery (for example an uploaded file for a download), a price, and payment methods enabled for the store that can take that currency. With exactly one variant, that variant is published with the product. With several, send the draft variants to publish with it in `variant_ids`; the others stay drafts. Publishing a subscription variant also creates its billing plans with the payment providers. A booking product publishes its one option with it; with several options, publish at least one with `POST /v2/products/{product}/variants/{variant}/publish` first, and the other options keep their own state. A bundle needs at least one product in it. A course is published with `visibility`, or with its saved visibility when you leave it out; `PUBLIC` also needs a ready promo video and at least one published lesson. A subscription-priced course cannot be published here. Publishing does not change a normal product's `visibility`: a product that is not `PUBLIC` is published but stays off the storefront listing. Requires the `listing` API-key ability and the `listing` permission in your team role. Safe to repeat: once the product is published, another call changes nothing and returns `422` with `The product is already published.` on `product`. Every refusal returns `422`. `visibility` is accepted only for a course and `variant_ids` only for a normal product; each is otherwise refused on that field, and `variant_ids.{i}` names an ID that is not a variant of this product. Everything else is on `product`, with one sentence per thing the product still needs. One `product` refusal comes after the product was published: when a payment provider refuses to create a subscription billing plan, the product and its variants are already published and the message is the provider's reason. Retrieve the product before trying again. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkPublishProductResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkPublishProductResponseValue200ApplicationJson> PublishAsync(string product, ProductsPublishOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "publishProduct", false);
+            return await this.PostAsync<SdkPublishProductResponseValue200ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/publish", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkPublishProductResponseValue200ApplicationJson>> PublishWithResponseAsync(string product, ProductsPublishOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.PublishAsync(product, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="PublishAsync"/>.</summary>
+        public virtual Task<SdkPublishProductResponseValue200ApplicationJson> Publish(string product, ProductsPublishOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.PublishAsync(product, options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Duplicate a product</summary>
+        /// <remarks>
+        /// Copy a normal product, bundle, add-on, credits product, or booking product within the same store and return the copy. Courses cannot be duplicated. The copy is titled `(Copy)`, `(Copy 2)`, and so on, with a matching `-copy` slug, and keeps every other product setting, including its images, `visibility`, and draft state. A copy of a published product is therefore on sale straight away. It gets no place in the product order or in a section. A normal product's variants are copied with their settings and downloadable files, except subscription variants. A bundle's variant is copied with the products in it, an add-on's with its downloadable files and the products it is offered with, a credits product's with its rate tiers, and a booking product's options, except subscription options, with their schedules. Never copied: sales, reviews, appointments, serial codes, issued licence keys, and group membership. A copied variant that delivers serial codes gets a stock of `0`, so it shows as sold out until you add codes. Requires the `listing` API-key ability and the `listing` permission in your team role. Not safe to retry blindly: every call creates another copy. If a response is lost, list your products and look for the copy before trying again. A course, or a product with nothing to copy (only subscription variants), returns `422` on `product`. A product that changed while the copy was being made also returns `422` on `product`; nothing was copied. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkDuplicateProductResponseValue201ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkDuplicateProductResponseValue201ApplicationJson> DuplicateAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "duplicateProduct", false);
+            return await this.PostAsync<SdkDuplicateProductResponseValue201ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/duplicate", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkDuplicateProductResponseValue201ApplicationJson>> DuplicateWithResponseAsync(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.DuplicateAsync(product, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="DuplicateAsync"/>.</summary>
+        public virtual Task<SdkDuplicateProductResponseValue201ApplicationJson> Duplicate(string product, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.DuplicateAsync(product, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Move a product</summary>
+        /// <remarks>
+        /// Move a normal product to a position in your store's product order, shifting the products in between by one. Positions run from `1` to the number of normal products, drafts included; a product's position is its `order`. Gaps in the stored order are closed first. Requires the `listing` API-key ability and the `listing` permission in your team role. Safe to repeat: moving a product to the position it already has changes nothing. Send `expected_position` with the position you last read to refuse the move when someone else moved the product in the meantime. A position past the end returns `422` on `position` with the allowed range, a product that is no longer at `expected_position` returns `422` on `expected_position` with its current position, and a listing that is not a normal product returns `422` on `product`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkMoveProductResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkMoveProductResponseValue200ApplicationJson> MoveAsync(string product, ProductsMoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "moveProduct", false);
+            return await this.PutAsync<SdkMoveProductResponseValue200ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/position", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkMoveProductResponseValue200ApplicationJson>> MoveWithResponseAsync(string product, ProductsMoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.MoveAsync(product, options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="MoveAsync"/>.</summary>
+        public virtual Task<SdkMoveProductResponseValue200ApplicationJson> Move(string product, ProductsMoveOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.MoveAsync(product, options, requestOptions, cancellationToken);
         }
     }
 }

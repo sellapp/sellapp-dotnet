@@ -148,6 +148,36 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestPublishAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_publish_product_variant_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/publish", HttpStatusCode.OK, fixture);
+            var result = await this.service.PublishAsync("test_product", "test_variant");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/publish");
+        }
+
+        [Fact]
+        public async Task TestDuplicateAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_duplicate_product_variant_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/duplicate", HttpStatusCode.OK, fixture);
+            var result = await this.service.DuplicateAsync("test_product", "test_variant");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/products/test_product/variants/test_variant/duplicate");
+        }
+
+        [Fact]
+        public async Task TestReorderAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_reorder_product_variants_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/products/test_product/variants/order", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReorderAsync("test_product", Newtonsoft.Json.JsonConvert.DeserializeObject<ProductVariantsReorderOptions>("{\"variant_ids\":[1]}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/products/test_product/variants/order");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_product_variants_response_value_200_application_json_property_data_item.json");

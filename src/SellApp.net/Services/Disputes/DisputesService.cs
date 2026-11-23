@@ -26,40 +26,42 @@ namespace SellApp
 
         /// <summary>List disputes</summary>
         /// <remarks>
-        /// Read-only, redacted, store-scoped disputes that may reference an Order or Charge. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List your store's payment disputes, most recently opened first, 50 per page. Each dispute is read-only and redacted, and may reference an order or a standalone charge. Filter by `status`, `provider`, or the day a dispute was opened; filters combine, and the date filters read whole days in the store's time zone and include both ends. An unknown `status`, a date that cannot be read, or an `opened_before` earlier than `opened_after` returns `422` on that parameter. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>A page of <see cref="ListDisputesResponseValue200ApplicationJsonPropertyDataItem"/> results.</returns>
-        public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> ListAsync(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listDisputes", false);
-            return await this.GetAsync<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>>("/v2/disputes", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>>("/v2/disputes", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>>> ListWithResponseAsync(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.ListAsync(requestOptions, cancellationToken);
+            var value = await this.ListAsync(options, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="ListAsync"/>.</summary>
-        public virtual Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> List(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>> List(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.ListAsync(requestOptions, cancellationToken);
+            return this.ListAsync(options, requestOptions, cancellationToken);
         }
 
         /// <summary>Auto-paging variant of <see cref="ListAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async sequence of <see cref="ListDisputesResponseValue200ApplicationJsonPropertyDataItem"/> items.</returns>
-        public virtual IAsyncEnumerable<ListDisputesResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerable<ListDisputesResponseValue200ApplicationJsonPropertyDataItem> ListAutoPagingAsync(DisputesListOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "listDisputes", false);
-            return base.ListAutoPagingAsync<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/disputes", null, requestOptions, cancellationToken);
+            return base.ListAutoPagingAsync<ListDisputesResponseValue200ApplicationJsonPropertyDataItem>(HttpMethod.Get, "/v2/disputes", options, requestOptions, cancellationToken);
         }
 
         /// <summary>Retrieve a dispute</summary>

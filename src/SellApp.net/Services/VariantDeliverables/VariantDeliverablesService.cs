@@ -24,6 +24,66 @@ namespace SellApp
         /// <param name="client">The HTTP client used to make API requests.</param>
         public VariantDeliverablesService(SellAppClient client) : base(client) { }
 
+        /// <summary>Preview variant buyer notification</summary>
+        /// <remarks>
+        /// See who would be emailed if you told this variant's buyers about new downloadable files, without sending anything. Use it before `POST` on the same path to check the numbers. Works for any variant, drafts included. Requires the `listing` API-key ability and the `listing` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="variant">The variant path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson> PreviewAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "previewVariantBuyerNotification", false);
+            return await this.GetAsync<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}/deliverable/buyer-notification", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson>> PreviewWithResponseAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.PreviewAsync(product, variant, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="PreviewAsync"/>.</summary>
+        public virtual Task<SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson> Preview(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.PreviewAsync(product, variant, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Notify variant buyers</summary>
+        /// <remarks>
+        /// Email your customers that this variant has new content: every completed order that delivered its downloadable files gets one email. The emails are queued, so `202` means they were queued, not delivered. It sends only for a published variant with at least one file, at least one such order, and no upload in progress. The buyers of one variant can be emailed this way at most once an hour, whichever API key or team member sends it, and each team member can send at most 3 times a minute per variant. Requires the `listing` API-key ability and the `listing` permission in your team role. Send an `Idempotency-Key` header; requests without one return `400`. A retry with the same key and an empty body returns the first response with `Idempotent-Replayed: true` and sends nothing new. Use a new key for every send you intend, including a new attempt after a `422`. The same key while the first request is still running returns `409`. Every refusal is `422` on `variant`: a draft variant, a variant without files, a variant nobody has bought, an upload still in progress, the hourly limit (the message says how many minutes are left), the per-minute limit, or another send for the same variant at the same moment. Check `GET` on the same path first to see the numbers. A variant of another product returns `404`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="product">The product path parameter.</param>
+        /// <param name="variant">The variant path parameter.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkNotifyVariantBuyersResponseValue202ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkNotifyVariantBuyersResponseValue202ApplicationJson> NotifyAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "notifyVariantBuyers", true);
+            return await this.PostAsync<SdkNotifyVariantBuyersResponseValue202ApplicationJson>($"/v2/products/{Uri.EscapeDataString(product)}/variants/{Uri.EscapeDataString(variant)}/deliverable/buyer-notification", null, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkNotifyVariantBuyersResponseValue202ApplicationJson>> NotifyWithResponseAsync(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.NotifyAsync(product, variant, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="NotifyAsync"/>.</summary>
+        public virtual Task<SdkNotifyVariantBuyersResponseValue202ApplicationJson> Notify(string product, string variant, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.NotifyAsync(product, variant, requestOptions, cancellationToken);
+        }
+
         /// <summary>Retrieve variant deliverable configuration</summary>
         /// <remarks>
         /// Retrieve variant deliverable configuration. Requires the listing Sanctum ability. Returns delivery types and safe configuration for a variant in the authenticated store. Dynamic endpoint URLs and inventory data are not returned. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.

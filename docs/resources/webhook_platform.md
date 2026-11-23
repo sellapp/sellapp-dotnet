@@ -64,11 +64,12 @@ List webhook deliveries
 [API reference](https://sell.app/docs/api/events) · Effect: **read**
 
 ```csharp
-public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>> ListDeliveriesAsync(WebhookPlatformListDeliveriesOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| options | `WebhookPlatformListDeliveriesOptions?` | No |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -86,7 +87,9 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-var result = await client.WebhookPlatform.ListDeliveriesAsync();
+var result = await client.WebhookPlatform.ListDeliveriesAsync(new WebhookPlatformListDeliveriesOptions
+    {
+    });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

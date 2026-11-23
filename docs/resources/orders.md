@@ -156,7 +156,7 @@ var client = new SellAppClient(new SellAppOptions
 
 var result = await client.Orders.SearchAsync(new OrdersSearchOptions
     {
-        Filters = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertyFiltersItem>>("[{\"field\":\"transaction_id\",\"operator\":\"contains\",\"value\":\"pi_3Example\"},{\"field\":\"status\",\"operator\":\"in\",\"value\":[\"COMPLETED\"]}]")!,
+        Filters = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertyFiltersItem>>("[{\"field\":\"created_at\",\"operator\":\"gte\",\"value\":\"2026-07-01T00:00:00Z\"},{\"field\":\"created_at\",\"operator\":\"lte\",\"value\":\"2026-07-31T23:59:59Z\"},{\"field\":\"total\",\"operator\":\"gte\",\"value\":1000},{\"field\":\"currency\",\"operator\":\"eq\",\"value\":\"USD\"},{\"field\":\"status\",\"operator\":\"in\",\"value\":[\"COMPLETED\"]}]")!,
         Sort = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertySortItem>>("[{\"field\":\"created_at\",\"direction\":\"desc\"}]")!,
         Pagination = JsonConvert.DeserializeObject<SearchOrdersRequestApplicationJsonPropertyPagination>("{\"page\":1,\"limit\":25}")!,
     });
@@ -404,7 +404,7 @@ var result = await client.Orders.CreateReplacementAsync(
     "9001",
     new OrdersCreateReplacementOptions
     {
-        ProductVariants = JsonConvert.DeserializeObject<CreateOrderReplacementRequestApplicationJsonPropertyProductVariants>("[4321]")!,
+        ProductVariants = JsonConvert.DeserializeObject<OneOf.OneOf<long, List<long>, CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3>>("[4321]")!,
     },
     requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
 );
@@ -469,6 +469,7 @@ var result = await client.Orders.CreateRefundAsync(
     new OrdersCreateRefundOptions
     {
         Amount = JsonConvert.DeserializeObject<string?>("\"5.00\"")!,
+        ExpectedRefundedTotalCents = JsonConvert.DeserializeObject<long?>("0")!,
     },
     requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
 );
@@ -687,6 +688,70 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## RegenerateTelegramInviteAsync
+
+Create a Telegram invite link
+
+[API reference](https://sell.app/docs/api/orders/create-a-telegram-invite-link) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson> RegenerateTelegramInviteAsync(string order, OrdersRegenerateTelegramInviteOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| order | `string` | Yes |
+| options | `OrdersRegenerateTelegramInviteOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Orders.RegenerateTelegramInviteAsync(
+    "9001",
+    new OrdersRegenerateTelegramInviteOptions
+    {
+        VariantId = JsonConvert.DeserializeObject<long?>("4321")!,
+    },
+    requestOptions: new RequestOptions { IdempotencyKey = "example-mutation-001" }
+);
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

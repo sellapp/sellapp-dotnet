@@ -7,6 +7,18 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
+    /// <summary>Request options for <see cref="ExportsService.ListAsync"/>: List exports</summary>
+    [SellAppModelSchema(false)]
+    public class ExportsListOptions : ListOptions
+    {
+        /// <summary>Page number, starting at 1.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
+    }
+
     /// <summary>Request options for <see cref="ExportsService.CreateAsync"/>: Create an export</summary>
     [SellAppModelSchema(false)]
     public class ExportsCreateOptions : BaseOptions

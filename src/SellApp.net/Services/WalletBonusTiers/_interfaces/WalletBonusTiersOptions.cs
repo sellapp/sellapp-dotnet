@@ -125,4 +125,16 @@ namespace SellApp
         public bool? IsActive { get; set; }
 
     }
+
+    /// <summary>Request options for <see cref="WalletBonusTiersService.QuoteAsync"/>: Quote a wallet bonus tier</summary>
+    [SellAppModelSchema(false)]
+    public class WalletBonusTiersQuoteOptions : BaseOptions
+    {
+        /// <summary>The top-up amount to quote, in integer USD cents.</summary>
+        [JsonProperty("top_up_cents", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("top_up_cents")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 999999999999d)]
+        public long TopUpCents { get; set; }
+
+    }
 }

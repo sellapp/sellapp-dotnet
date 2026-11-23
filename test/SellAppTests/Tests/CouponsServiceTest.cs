@@ -241,7 +241,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_v_2_batch_create_coupons_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Post, "/v2/coupons/batch", HttpStatusCode.OK, fixture);
-            var result = await this.service.V2BatchCreateCouponsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsV2BatchCreateCouponsOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1,\"applies_to\":\"one_time\",\"subscription_payments\":1}]}")!);
+            var result = await this.service.V2BatchCreateCouponsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsV2BatchCreateCouponsOptions>("{\"resources\":[{\"code\":\"test_code\",\"type\":\"PERCENTAGE\",\"discount\":1,\"store_wide\":true,\"products\":[1],\"product_variants\":[1],\"limit\":1,\"expires_at\":\"2023-01-01T00:00:00.000Z\",\"minimum_amount\":1,\"applies_to\":\"one_time\",\"subscription_payments\":1,\"maximum_discount_amount\":1}]}")!);
             Assert.NotNull(result);
             this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/coupons/batch");
         }
@@ -262,6 +262,16 @@ namespace SellAppTests
             this.httpMock.MockResponse(HttpMethod.Delete, "/v2/coupons/batch", HttpStatusCode.NoContent, "");
             await this.service.V2BatchDeleteCouponsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<CouponsV2BatchDeleteCouponsOptions>("{\"resources\":[1]}")!);
             this.httpMock.AssertRequestWasMade(HttpMethod.Delete, "/v2/coupons/batch");
+        }
+
+        [Fact]
+        public async Task TestV2GetCouponUsageAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_v_2_get_coupon_usage_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/coupons/test_coupon/usage", HttpStatusCode.OK, fixture);
+            var result = await this.service.V2GetCouponUsageAsync("test_coupon");
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/coupons/test_coupon/usage");
         }
 
         [Fact]

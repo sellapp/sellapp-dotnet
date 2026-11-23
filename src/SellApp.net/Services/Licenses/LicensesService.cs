@@ -84,7 +84,7 @@ namespace SellApp
 
         /// <summary>List all license keys</summary>
         /// <remarks>
-        /// List your store's license keys. Use `limit` and `page` to read one page at a time. The response schema describes each license. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List your store's license keys, one page at a time with `limit` and `page`. Filter by part of the key, the customer's email, the product, the order, or `validity`; several filters combine, and a key must match all of them. A filter value in the wrong shape returns `422` on that parameter. Requires the `license` API-key ability. The response schema describes each license. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>

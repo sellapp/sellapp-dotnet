@@ -26,7 +26,7 @@ namespace SellApp
 
         /// <summary>List affiliate referrals</summary>
         /// <remarks>
-        /// List store referrals with their attributed order and purchase line item. Requires the `affiliate` credential ability. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List store referrals with their attributed order and purchase line item, newest first, 15 per page by default. Requires the `affiliate` credential ability. Use `search` to find referrals by affiliate email, product or variant title, or an exact referral or order ID. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>

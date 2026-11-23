@@ -64,6 +64,35 @@ namespace SellApp
             return base.ListAutoPagingAsync<SdkListCoursesResponseValue200ApplicationJson>(HttpMethod.Get, "/v2/courses", options, requestOptions, cancellationToken);
         }
 
+        /// <summary>Create a course</summary>
+        /// <remarks>
+        /// Create a course as a draft that customers cannot buy yet, whatever `visibility` you send: `visibility`, `HIDDEN` by default, applies once the course is published. It starts with no sections and one draft option named `Default`, priced at 0 USD: set the price with the product variant endpoints, add sections and lessons, then publish it with `POST /v2/products/{product}/publish`, where `{product}` is the course `id`. Each successful call creates another course, so do not retry blindly after a lost response: search courses for the title first. Requires the `listing` API-key ability and the `listing` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkCreateCourseResponseValue201ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkCreateCourseResponseValue201ApplicationJson> CreateAsync(CoursesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "createCourse", false);
+            return await this.PostAsync<SdkCreateCourseResponseValue201ApplicationJson>("/v2/courses", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkCreateCourseResponseValue201ApplicationJson>> CreateWithResponseAsync(CoursesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.CreateAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="CreateAsync"/>.</summary>
+        public virtual Task<SdkCreateCourseResponseValue201ApplicationJson> Create(CoursesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.CreateAsync(options, requestOptions, cancellationToken);
+        }
+
         /// <summary>Search courses</summary>
         /// <remarks>
         /// Search courses by title, slug, or description and compose supported filters and sort instructions. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
@@ -135,7 +164,7 @@ namespace SellApp
 
         /// <summary>Update a course</summary>
         /// <remarks>
-        /// Update course metadata, access configuration, delivery copy, or publication visibility. Public visibility requires a ready promotional video and at least one published lesson. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update a course's title, URL slug, description, details, access rules, delivery message, or visibility. Only the fields you send change, and PUT behaves exactly like PATCH. Sending the course's current `visibility` changes nothing; a different `visibility` also publishes a draft course. `PUBLIC` first checks that the course has a ready promotional video and at least one published lesson, and otherwise returns `422` on `promo_video` or `curriculum` without changing anything. Every successful update moves `updated_at` forward, even one that changes nothing, so retrying with the same `expected_updated_at` after a success returns `422`: retrieve the course again first. Requires the `listing` API-key ability and the `listing` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="course">The course path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -165,7 +194,7 @@ namespace SellApp
 
         /// <summary>Update a course</summary>
         /// <remarks>
-        /// Update course metadata, access configuration, delivery copy, or publication visibility. Public visibility requires a ready promotional video and at least one published lesson. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Update a course's title, URL slug, description, details, access rules, delivery message, or visibility. Only the fields you send change, and PUT behaves exactly like PATCH. Sending the course's current `visibility` changes nothing; a different `visibility` also publishes a draft course. `PUBLIC` first checks that the course has a ready promotional video and at least one published lesson, and otherwise returns `422` on `promo_video` or `curriculum` without changing anything. Every successful update moves `updated_at` forward, even one that changes nothing, so retrying with the same `expected_updated_at` after a success returns `422`: retrieve the course again first. Requires the `listing` API-key ability and the `listing` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="course">The course path parameter.</param>
         /// <param name="options">Request options.</param>
@@ -191,6 +220,35 @@ namespace SellApp
         public virtual Task<SdkUpdateCourseResponseValue200ApplicationJson> Update(string course, CoursesUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             return this.UpdateAsync(course, options, requestOptions, cancellationToken);
+        }
+
+        /// <summary>Retrieve a course student summary</summary>
+        /// <remarks>
+        /// Summarize who bought your courses in a date range: totals for students, purchases, units, and orders, plus the top students and the top courses. A purchase counts when it is paid or completed and was made within the range; refunded and pending purchases do not count. A student is a customer, or the order email when a purchase has no customer record. The response contains customer email addresses, so handle it as personal data. Requires the `invoice` API-key ability and the invoice permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkGetCourseStudentSummaryResponseValue200ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson> GetStudentSummaryAsync(CoursesGetStudentSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "getCourseStudentSummary", false);
+            return await this.GetAsync<SdkGetCourseStudentSummaryResponseValue200ApplicationJson>("/v2/course-students", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkGetCourseStudentSummaryResponseValue200ApplicationJson>> GetStudentSummaryWithResponseAsync(CoursesGetStudentSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.GetStudentSummaryAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="GetStudentSummaryAsync"/>.</summary>
+        public virtual Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson> GetStudentSummary(CoursesGetStudentSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.GetStudentSummaryAsync(options, requestOptions, cancellationToken);
         }
     }
 }

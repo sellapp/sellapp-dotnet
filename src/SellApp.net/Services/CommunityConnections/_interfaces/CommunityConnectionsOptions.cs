@@ -43,4 +43,16 @@ namespace SellApp
         public string ServerId { get; set; } = default!;
 
     }
+
+    /// <summary>Request options for <see cref="CommunityConnectionsService.SyncDiscordRolesAsync"/>: Sync Discord roles</summary>
+    [SellAppModelSchema(false)]
+    public class CommunityConnectionsSyncDiscordRolesOptions : BaseOptions
+    {
+        /// <summary>The Discord server to sync. Leave out or send `null` to sync every connected server.</summary>
+        [JsonProperty("server_id")]
+        [STJS.JsonPropertyName("server_id")]
+        [SellAppSchemaConstraints(MaxLength = 32)]
+        public string? ServerId { get; set; }
+
+    }
 }

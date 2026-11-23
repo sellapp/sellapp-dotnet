@@ -269,4 +269,20 @@ namespace SellApp
         public List<UpdateUpsellOfferRequestApplicationJsonPropertyItemsItem>? Items { get; set; }
 
     }
+
+    /// <summary>Request options for <see cref="UpsellOffersService.GetPerformanceAsync"/>: Retrieve upsell offer performance</summary>
+    [SellAppModelSchema(false)]
+    public class UpsellOffersGetPerformanceOptions : BaseOptions
+    {
+        /// <summary>Set to `true` to also find a deleted upsell offer.</summary>
+        [JsonProperty("with_trashed")]
+        [STJS.JsonPropertyName("with_trashed")]
+        public bool? WithTrashed { get; set; }
+
+        /// <summary>Set to `true` to find only a deleted upsell offer. Ignored when `with_trashed` is `true`.</summary>
+        [JsonProperty("only_trashed")]
+        [STJS.JsonPropertyName("only_trashed")]
+        public bool? OnlyTrashed { get; set; }
+
+    }
 }

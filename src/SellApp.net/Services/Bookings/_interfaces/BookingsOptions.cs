@@ -82,4 +82,121 @@ namespace SellApp
         public string Status { get; set; } = default!;
 
     }
+
+    /// <summary>Request options for <see cref="BookingsService.CreateAsync"/>: Create a booking product</summary>
+    [SellAppModelSchema(false)]
+    public class BookingsCreateOptions : BaseOptions
+    {
+        /// <summary>The product name customers see. The URL slug is made from it.</summary>
+        [JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("title")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string Title { get; set; } = default!;
+
+        /// <summary>The product description as HTML, 5 to 5000 characters. Leave it out to start without one.</summary>
+        [JsonProperty("description")]
+        [STJS.JsonPropertyName("description")]
+        [SellAppSchemaConstraints(MinLength = 5, MaxLength = 5000)]
+        public string? Description { get; set; }
+
+        [JsonProperty("visibility")]
+        [STJS.JsonPropertyName("visibility")]
+        public CatalogVisibility? Visibility { get; set; }
+
+        /// <summary>The name of the bookable option.</summary>
+        [JsonProperty("variant_title")]
+        [STJS.JsonPropertyName("variant_title")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? VariantTitle { get; set; }
+
+        /// <summary>The option's description. Defaults to the product description, or to `Book an appointment for` and the title when there is none.</summary>
+        [JsonProperty("variant_description")]
+        [STJS.JsonPropertyName("variant_description")]
+        [SellAppSchemaConstraints(MinLength = 5, MaxLength = 5000)]
+        public string? VariantDescription { get; set; }
+
+        /// <summary>The price of one appointment in the smallest unit of `currency`: `2500` means $25.00 in USD, and `0` makes it free. A paid price outside the currency's limits, such as below 0.50 in USD, returns `422` on `price_cents`.</summary>
+        [JsonProperty("price_cents", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("price_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long PriceCents { get; set; }
+
+        /// <summary>An optional crossed-out price shown next to the real one, in the same unit. It must be higher than `price_cents` and within the currency's limits; otherwise the request returns `422` on `compare_at_price_cents`.</summary>
+        [JsonProperty("compare_at_price_cents")]
+        [STJS.JsonPropertyName("compare_at_price_cents")]
+        public long? CompareAtPriceCents { get; set; }
+
+        /// <summary>The currency of both prices.</summary>
+        [JsonProperty("currency")]
+        [STJS.JsonPropertyName("currency")]
+        public SdkCreateBookingProductRequestApplicationJsonCurrency? Currency { get; set; }
+
+        /// <summary>How customers can pay. Each must be enabled for the store, or the request returns `422` on `payment_methods`. Leave it out to use the store's default payment methods for the currency; a paid booking with none available returns `422` on `payment_methods`.</summary>
+        [JsonProperty("payment_methods")]
+        [STJS.JsonPropertyName("payment_methods")]
+        [SellAppSchemaConstraints(UniqueItems = true)]
+        public List<SdkCreateBookingProductRequestApplicationJsonPaymentMethods>? PaymentMethods { get; set; }
+
+        /// <summary>The IANA timezone the weekly availability is read in. Defaults to the store's timezone.</summary>
+        [JsonProperty("timezone")]
+        [STJS.JsonPropertyName("timezone")]
+        public string? Timezone { get; set; }
+
+        [JsonProperty("duration_minutes")]
+        [STJS.JsonPropertyName("duration_minutes")]
+        [SellAppSchemaConstraints(Minimum = 30d, MultipleOf = 30d)]
+        public long? DurationMinutes { get; set; }
+
+        [JsonProperty("min_notice_minutes")]
+        [STJS.JsonPropertyName("min_notice_minutes")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 525600d)]
+        public long? MinNoticeMinutes { get; set; }
+
+        [JsonProperty("max_advance_days")]
+        [STJS.JsonPropertyName("max_advance_days")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 730d)]
+        public long? MaxAdvanceDays { get; set; }
+
+        [JsonProperty("buffer_before_minutes")]
+        [STJS.JsonPropertyName("buffer_before_minutes")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 1440d, MultipleOf = 30d)]
+        public long? BufferBeforeMinutes { get; set; }
+
+        [JsonProperty("buffer_after_minutes")]
+        [STJS.JsonPropertyName("buffer_after_minutes")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 1440d, MultipleOf = 30d)]
+        public long? BufferAfterMinutes { get; set; }
+
+        [JsonProperty("provider_connection_ids")]
+        [STJS.JsonPropertyName("provider_connection_ids")]
+        public List<long>? ProviderConnectionIds { get; set; }
+
+        [JsonProperty("video_provider")]
+        [STJS.JsonPropertyName("video_provider")]
+        public SdkCreateBookingProductRequestApplicationJsonVideoProvider? VideoProvider { get; set; }
+
+        [JsonProperty("video_provider_connection_id")]
+        [STJS.JsonPropertyName("video_provider_connection_id")]
+        public long? VideoProviderConnectionId { get; set; }
+
+        [JsonProperty("reminders_enabled")]
+        [STJS.JsonPropertyName("reminders_enabled")]
+        public bool? RemindersEnabled { get; set; }
+
+        [JsonProperty("reminder_offset_value")]
+        [STJS.JsonPropertyName("reminder_offset_value")]
+        [SellAppSchemaConstraints(Minimum = 1d, Maximum = 10080d)]
+        public long? ReminderOffsetValue { get; set; }
+
+        [JsonProperty("reminder_offset_unit")]
+        [STJS.JsonPropertyName("reminder_offset_unit")]
+        public SdkCreateBookingProductRequestApplicationJsonReminderOffsetUnit? ReminderOffsetUnit { get; set; }
+
+        /// <summary>Weekly opening hours, one entry per day from `1` to `7`, in 30-minute steps. Days you leave out are closed. Leave the whole list out to open days `1` to `5` from 09:00 to 17:00.</summary>
+        [JsonProperty("availability")]
+        [STJS.JsonPropertyName("availability")]
+        [SellAppSchemaConstraints(MinItems = 0, MaxItems = 7)]
+        public List<CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem>? Availability { get; set; }
+
+    }
 }

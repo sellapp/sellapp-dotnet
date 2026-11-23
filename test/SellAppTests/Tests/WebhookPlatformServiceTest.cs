@@ -41,7 +41,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_list_webhook_deliveries_response_value_200_application_json_property_data_item.json");
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/webhook-deliveries", HttpStatusCode.OK, fixture);
-            var result = await this.service.ListDeliveriesAsync();
+            var result = await this.service.ListDeliveriesAsync(new WebhookPlatformListDeliveriesOptions());
             Assert.NotNull(result);
             Assert.NotEmpty(result.Data);
             this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/webhook-deliveries");
@@ -51,7 +51,7 @@ namespace SellAppTests
         public async Task TestListDeliveriesAsyncEmpty()
         {
             this.httpMock.MockResponse(HttpMethod.Get, "/v2/webhook-deliveries", HttpStatusCode.OK, "{\"data\":[],\"list_metadata\":{\"before\":null,\"after\":null}}");
-            var result = await this.service.ListDeliveriesAsync();
+            var result = await this.service.ListDeliveriesAsync(new WebhookPlatformListDeliveriesOptions());
             Assert.NotNull(result);
             Assert.Empty(result.Data);
         }
@@ -85,7 +85,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/webhook-deliveries", HttpStatusCode.OK, new[] { page1, page2 });
 
             var items = new List<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListDeliveriesAutoPagingAsync())
+            await foreach (var item in this.service.ListDeliveriesAutoPagingAsync(new WebhookPlatformListDeliveriesOptions()))
             {
                 items.Add(item);
             }
@@ -100,7 +100,7 @@ namespace SellAppTests
             this.httpMock.MockSequentialResponses(HttpMethod.Get, "/v2/webhook-deliveries", HttpStatusCode.OK, new[] { empty });
 
             var items = new List<ListWebhookDeliveriesResponseValue200ApplicationJsonPropertyDataItem>();
-            await foreach (var item in this.service.ListDeliveriesAutoPagingAsync())
+            await foreach (var item in this.service.ListDeliveriesAutoPagingAsync(new WebhookPlatformListDeliveriesOptions()))
             {
                 items.Add(item);
             }

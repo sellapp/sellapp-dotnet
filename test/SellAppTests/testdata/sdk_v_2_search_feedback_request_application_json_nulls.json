@@ -2,5 +2,6 @@
   "filters": null,
   "sort": null,
   "search": null,
-  "includes": null
+  "includes": null,
+  "reply_state": null
 }

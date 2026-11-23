@@ -50,5 +50,9 @@
       "title": "test_title"
     }
   ],
-  "url": "https://example.com"
+  "url": "https://example.com",
+  "price_range": null,
+  "stock": null,
+  "sales": 1,
+  "sold_out": true
 }

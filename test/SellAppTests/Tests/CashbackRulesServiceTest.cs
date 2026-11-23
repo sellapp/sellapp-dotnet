@@ -85,6 +85,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestQuoteAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_quote_cashback_rule_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/cashback-rules/quote", HttpStatusCode.OK, fixture);
+            var result = await this.service.QuoteAsync(new CashbackRulesQuoteOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/cashback-rules/quote");
+        }
+
+        [Fact]
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");

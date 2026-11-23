@@ -2,5 +2,12 @@
   "filters": null,
   "sort": null,
   "search": null,
-  "includes": null
+  "includes": null,
+  "min_price": null,
+  "max_price": null,
+  "stock": null,
+  "visibility": null,
+  "has_sales": null,
+  "with_drafts": null,
+  "only_drafts": null
 }

@@ -45,6 +45,35 @@ namespace SellApp
         [SellAppSchemaConstraints(Minimum = 1d)]
         public long? Page { get; set; }
 
+        /// <summary>Keep keys that contain this text: letters, digits, and hyphens, up to 100 characters. A full key as the customer sees it, including the store's key prefix, also finds its key.</summary>
+        [JsonProperty("key")]
+        [STJS.JsonPropertyName("key")]
+        [SellAppSchemaConstraints(Pattern = "^[A-Za-z0-9-]{1,100}$")]
+        public string? Key { get; set; }
+
+        /// <summary>Keep keys of the store customer with exactly this email address.</summary>
+        [JsonProperty("customer_email")]
+        [STJS.JsonPropertyName("customer_email")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? CustomerEmail { get; set; }
+
+        /// <summary>Keep keys issued for this product.</summary>
+        [JsonProperty("product_id")]
+        [STJS.JsonPropertyName("product_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? ProductId { get; set; }
+
+        /// <summary>Keep keys issued by this order.</summary>
+        [JsonProperty("order_id")]
+        [STJS.JsonPropertyName("order_id")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? OrderId { get; set; }
+
+        /// <summary>Keep keys by whether they validate now, decided the way license validation decides it: `active` keys are switched on and not past their expiry, `inactive` keys are switched off but not expired, and `expired` keys are past `expires_at`.</summary>
+        [JsonProperty("validity")]
+        [STJS.JsonPropertyName("validity")]
+        public LicensesValidity? Validity { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="LicensesService.UpdateAsync"/>: Update a license key</summary>

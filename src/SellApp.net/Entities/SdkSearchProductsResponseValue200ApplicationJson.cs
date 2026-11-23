@@ -15,10 +15,10 @@ namespace SellApp
         public List<SearchProductsResponseValue200ApplicationJsonPropertyDataItem> Data { get; set; } = default!;
         [JsonProperty("links", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("links")]
-        public SearchProductsResponseValue200ApplicationJsonPropertyLinks Links { get; set; } = default!;
+        public PaginationLinks Links { get; set; } = default!;
         [JsonProperty("meta", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("meta")]
-        public SearchProductsResponseValue200ApplicationJsonPropertyMeta Meta { get; set; } = default!;
+        public PaginationMeta Meta { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

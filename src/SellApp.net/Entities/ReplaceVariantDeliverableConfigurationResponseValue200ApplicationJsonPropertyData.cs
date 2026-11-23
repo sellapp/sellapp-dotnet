@@ -16,7 +16,7 @@ namespace SellApp
         public List<ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataTypes> Types { get; set; } = default!;
         [JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("data")]
-        public ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData Data { get; set; } = default!;
+        public OneOf.OneOf<ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1, List<object>> Data { get; set; } = default!;
 
         /// <summary>Whether a dynamic delivery endpoint is configured. The endpoint itself is never returned.</summary>
         [JsonProperty("webhook_configured", Required = Newtonsoft.Json.Required.Always)]

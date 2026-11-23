@@ -250,6 +250,22 @@ namespace SellApp
         [STJS.JsonPropertyName("includes")]
         public List<SearchProductVariantsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
 
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
+        /// <summary>Include draft variants alongside published variants.</summary>
+        [JsonProperty("with_drafts")]
+        [STJS.JsonPropertyName("with_drafts")]
+        public bool? WithDrafts { get; set; }
+
+        /// <summary>Return only draft variants.</summary>
+        [JsonProperty("only_drafts")]
+        [STJS.JsonPropertyName("only_drafts")]
+        public bool? OnlyDrafts { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="ProductVariantsService.BatchCreateAsync"/>: Batch create product variants</summary>
@@ -279,6 +295,18 @@ namespace SellApp
         [JsonProperty("resources", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("resources")]
         public List<long> Resources { get; set; } = default!;
+
+    }
+
+    /// <summary>Request options for <see cref="ProductVariantsService.ReorderAsync"/>: Reorder product variants</summary>
+    [SellAppModelSchema(false)]
+    public class ProductVariantsReorderOptions : BaseOptions
+    {
+        /// <summary>Every published variant ID of the product, first to last.</summary>
+        [JsonProperty("variant_ids", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("variant_ids")]
+        [SellAppSchemaConstraints(MinItems = 1, MaxItems = 500, UniqueItems = true)]
+        public List<long> VariantIds { get; set; } = default!;
 
     }
 }

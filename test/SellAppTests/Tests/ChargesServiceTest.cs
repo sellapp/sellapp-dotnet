@@ -94,6 +94,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestGetSummaryAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_charge_summary_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/charges/summary", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetSummaryAsync(new ChargesGetSummaryOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/charges/summary");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/list_charges_response_value_200_application_json_property_data_item.json");

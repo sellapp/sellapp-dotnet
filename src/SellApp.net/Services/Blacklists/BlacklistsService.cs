@@ -182,40 +182,42 @@ namespace SellApp
 
         /// <summary>List blacklist rules</summary>
         /// <remarks>
-        /// List store-scoped blacklist rules. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// List your store's blacklist rules, oldest first, 15 per page by default. Narrow the list with `type` and with `search`, which matches part of the blocked value or of the description. An unknown `type`, a `search` longer than 255 characters or a `limit` over 100 returns `422`. An empty `data` array means no rule matches. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>A page of <see cref="Blacklist"/> results.</returns>
-        public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "v2ListBlacklists", false);
-            return await this.GetAsync<SellAppList<Blacklist>>("/v2/blacklists", null, requestOptions, cancellationToken);
+            return await this.GetAsync<SellAppList<Blacklist>>("/v2/blacklists", options, requestOptions, cancellationToken);
         }
 
-        public virtual async Task<ApiResponse<SellAppList<Blacklist>>> V2ListBlacklistsWithResponseAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ApiResponse<SellAppList<Blacklist>>> V2ListBlacklistsWithResponseAsync(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             var capture = new ApiResponseCapture();
             requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
             requestOptions.Capture = capture;
-            var value = await this.V2ListBlacklistsAsync(requestOptions, cancellationToken);
+            var value = await this.V2ListBlacklistsAsync(options, requestOptions, cancellationToken);
             return capture.Wrap(value);
         }
 
         /// <summary>Compatibility wrapper for <see cref="V2ListBlacklistsAsync"/>.</summary>
-        public virtual Task<SellAppList<Blacklist>> V2ListBlacklists(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<SellAppList<Blacklist>> V2ListBlacklists(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return this.V2ListBlacklistsAsync(requestOptions, cancellationToken);
+            return this.V2ListBlacklistsAsync(options, requestOptions, cancellationToken);
         }
 
         /// <summary>Auto-paging variant of <see cref="V2ListBlacklistsAsync"/>. Yields individual items across all pages.</summary>
+        /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async sequence of <see cref="Blacklist"/> items.</returns>
-        public virtual IAsyncEnumerable<Blacklist> V2ListBlacklistsAutoPagingAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual IAsyncEnumerable<Blacklist> V2ListBlacklistsAutoPagingAsync(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
         {
             requestOptions = RequestOptions.ForOperation(requestOptions, "v2ListBlacklists", false);
-            return base.ListAutoPagingAsync<Blacklist>(HttpMethod.Get, "/v2/blacklists", null, requestOptions, cancellationToken);
+            return base.ListAutoPagingAsync<Blacklist>(HttpMethod.Get, "/v2/blacklists", options, requestOptions, cancellationToken);
         }
 
         /// <summary>Create a blacklist rule</summary>

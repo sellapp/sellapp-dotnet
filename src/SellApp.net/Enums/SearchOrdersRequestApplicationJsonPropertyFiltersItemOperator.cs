@@ -22,8 +22,10 @@ namespace SellApp
         public static SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator Eq => new("eq");
         public static SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator Contains => new("contains");
         public static SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator In => new("in");
+        public static SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator Gte => new("gte");
+        public static SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator Lte => new("lte");
 
-        public bool IsKnown => Value is "eq" or "contains" or "in";
+        public bool IsKnown => Value is "eq" or "contains" or "in" or "gte" or "lte";
         public bool Equals(SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator other) => StringComparer.Ordinal.Equals(Value, other.Value);
         public override bool Equals(object? obj) => obj is SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator other && Equals(other);
         public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Value ?? string.Empty);

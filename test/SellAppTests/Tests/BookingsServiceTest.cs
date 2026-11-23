@@ -97,6 +97,19 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestCreateAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_create_booking_product_response_value_201_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Post, "/v2/booking-products", HttpStatusCode.OK, fixture);
+            var options = Newtonsoft.Json.JsonConvert.DeserializeObject<BookingsCreateOptions>("{\"title\":\"test_title\",\"price_cents\":1}")!;
+            options.Title = "test_title";
+            var result = await this.service.CreateAsync(options);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Post, "/v2/booking-products");
+            await this.httpMock.AssertRequestBodyContainsAsync("title", "test_title");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_list_appointments_response_value_200_application_json.json");

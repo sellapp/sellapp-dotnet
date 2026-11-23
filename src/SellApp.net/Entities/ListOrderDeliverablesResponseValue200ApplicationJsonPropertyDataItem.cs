@@ -23,6 +23,11 @@ namespace SellApp
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("status")]
         public ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemStatus Status { get; set; }
+
+        /// <summary>The delivery record for this item, or null while `status` is `pending`. Send it to `POST /v2/orders/{order}/dynamic-delivery-retries` to retry a dynamic delivery.</summary>
+        [JsonProperty("delivered_product_id", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("delivered_product_id")]
+        public long? DeliveredProductId { get; set; }
         [JsonProperty("product_variant_id", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("product_variant_id")]
         public long? ProductVariantId { get; set; }

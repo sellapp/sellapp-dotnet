@@ -372,8 +372,126 @@ var result = await client.Tickets.UpdateAsync(
     {
         Status = JsonConvert.DeserializeObject<SdkUpdateTicketRequestApplicationJsonStatus>("\"CLOSED\"")!,
         Archived = true,
+        Outcome = JsonConvert.DeserializeObject<SdkUpdateTicketRequestApplicationJsonOutcome>("\"delivered\"")!,
     }
 );
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## BatchUpdateAsync
+
+Update several tickets
+
+[API reference](https://sell.app/docs/api/tickets/update-several-tickets) · Effect: **consequential**
+
+```csharp
+public virtual async Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson> BatchUpdateAsync(TicketsBatchUpdateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `TicketsBatchUpdateOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkBatchUpdateTicketsResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Tickets.BatchUpdateAsync(new TicketsBatchUpdateOptions
+    {
+        Action = JsonConvert.DeserializeObject<SdkBatchUpdateTicketsRequestApplicationJsonAction>("\"close\"")!,
+        Outcome = JsonConvert.DeserializeObject<SdkBatchUpdateTicketsRequestApplicationJsonOutcome>("\"delivered\"")!,
+        Resources = JsonConvert.DeserializeObject<List<long>>("[311,313]")!,
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 409, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## GetContextAsync
+
+Retrieve a ticket's customer and refund context
+
+[API reference](https://sell.app/docs/api/tickets/retrieve-ticket-context) · Effect: **read**
+
+```csharp
+public virtual async Task<SdkV2GetTicketContextResponseValue200ApplicationJson> GetContextAsync(string ticket, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| ticket | `string` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkV2GetTicketContextResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Tickets.GetContextAsync("312");
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

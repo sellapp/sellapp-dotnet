@@ -27,6 +27,33 @@ namespace SellApp
         [STJS.JsonPropertyName("only_drafts")]
         public bool? OnlyDrafts { get; set; }
 
+        /// <summary>Only products whose every priced variant costs at least this much, in integer minor units of that variant's own currency: `999` means $9.99 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter. Must not be greater than `max_price`.</summary>
+        [JsonProperty("min_price")]
+        [STJS.JsonPropertyName("min_price")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? MinPrice { get; set; }
+
+        /// <summary>Only products whose every priced variant costs at most this much, in integer minor units of that variant's own currency: `2500` means $25.00 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter.</summary>
+        [JsonProperty("max_price")]
+        [STJS.JsonPropertyName("max_price")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? MaxPrice { get; set; }
+
+        /// <summary>Filter by stock, draft variants included. `in_stock`: at least one variant can be bought (unlimited stock, or at least its minimum purchase quantity left). `sold_out`: no variant can be bought. `any_variant_sold_out`: at least one variant with a stock count is sold out. `limited`: at least one variant has a stock count. `unlimited`: no variant has a stock count.</summary>
+        [JsonProperty("stock")]
+        [STJS.JsonPropertyName("stock")]
+        public ProductsStock? Stock { get; set; }
+
+        /// <summary>Only products with one of these visibilities. Repeat the parameter to select several. A single `visibility=HIDDEN` also works.</summary>
+        [JsonProperty("visibility[]")]
+        [STJS.JsonPropertyName("visibility[]")]
+        public List<ProductsVisibility>? Visibility { get; set; }
+
+        /// <summary>`true` for products with at least one completed sale, `false` for products without one. Only purchase line items with status `COMPLETED` count, so pending or refunded ones do not.</summary>
+        [JsonProperty("has_sales")]
+        [STJS.JsonPropertyName("has_sales")]
+        public bool? HasSales { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="ProductsService.CreateAsync"/>: Create a product</summary>
@@ -189,10 +216,12 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class ProductsSearchOptions : ListOptions
     {
+        /// <summary>Not supported for products: no field can be filtered this way, so any entry returns `422` on `filters`. Use the price, stock, visibility, and sales fields instead.</summary>
         [JsonProperty("filters")]
         [STJS.JsonPropertyName("filters")]
         public List<SearchProductsRequestApplicationJsonPropertyFiltersItem>? Filters { get; set; }
 
+        /// <summary>Not supported for products: any entry returns `422` on `sort`.</summary>
         [JsonProperty("sort")]
         [STJS.JsonPropertyName("sort")]
         public List<SearchProductsRequestApplicationJsonPropertySortItem>? Sort { get; set; }
@@ -201,9 +230,48 @@ namespace SellApp
         [STJS.JsonPropertyName("search")]
         public SearchProductsRequestApplicationJsonPropertySearch? Search { get; set; }
 
+        /// <summary>Only `variants` is accepted, and variants are always included.</summary>
         [JsonProperty("includes")]
         [STJS.JsonPropertyName("includes")]
         public List<SearchProductsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
+
+        /// <summary>Only products whose every priced variant costs at least this much, in integer minor units of that variant's own currency: `999` means $9.99 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter. Must not be greater than `max_price`.</summary>
+        [JsonProperty("min_price")]
+        [STJS.JsonPropertyName("min_price")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? MinPrice { get; set; }
+
+        /// <summary>Only products whose every priced variant costs at most this much, in integer minor units of that variant's own currency: `2500` means $25.00 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter.</summary>
+        [JsonProperty("max_price")]
+        [STJS.JsonPropertyName("max_price")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? MaxPrice { get; set; }
+
+        /// <summary>Filter by stock, draft variants included. `in_stock`: at least one variant can be bought (unlimited stock, or at least its minimum purchase quantity left). `sold_out`: no variant can be bought. `any_variant_sold_out`: at least one variant with a stock count is sold out. `limited`: at least one variant has a stock count. `unlimited`: no variant has a stock count.</summary>
+        [JsonProperty("stock")]
+        [STJS.JsonPropertyName("stock")]
+        public Stock? Stock { get; set; }
+
+        /// <summary>Only products with one of these visibilities. A single string such as `"HIDDEN"` is also accepted.</summary>
+        [JsonProperty("visibility")]
+        [STJS.JsonPropertyName("visibility")]
+        [SellAppSchemaConstraints(MinItems = 1, UniqueItems = true)]
+        public List<SdkSearchProductsRequestApplicationJsonVisibility>? Visibility { get; set; }
+
+        /// <summary>`true` for products with at least one completed sale, `false` for products without one. Only purchase line items with status `COMPLETED` count, so pending or refunded ones do not.</summary>
+        [JsonProperty("has_sales")]
+        [STJS.JsonPropertyName("has_sales")]
+        public bool? HasSales { get; set; }
+
+        /// <summary>Include draft products alongside published products.</summary>
+        [JsonProperty("with_drafts")]
+        [STJS.JsonPropertyName("with_drafts")]
+        public bool? WithDrafts { get; set; }
+
+        /// <summary>Return only draft products.</summary>
+        [JsonProperty("only_drafts")]
+        [STJS.JsonPropertyName("only_drafts")]
+        public bool? OnlyDrafts { get; set; }
 
         /// <summary>Page number to return.</summary>
         [JsonProperty("page")]
@@ -241,6 +309,40 @@ namespace SellApp
         [STJS.JsonPropertyName("resources")]
         [SellAppSchemaConstraints(MinItems = 1, UniqueItems = true)]
         public List<long> Resources { get; set; } = default!;
+
+    }
+
+    /// <summary>Request options for <see cref="ProductsService.PublishAsync"/>: Publish a product</summary>
+    [SellAppModelSchema(false)]
+    public class ProductsPublishOptions : BaseOptions
+    {
+        [JsonProperty("visibility")]
+        [STJS.JsonPropertyName("visibility")]
+        public CatalogVisibility? Visibility { get; set; }
+
+        /// <summary>Normal products only. IDs of this product's draft variants to publish with it. Needed when the product has several variants and none is published yet; a single variant is published anyway. Draft variants you leave out stay drafts.</summary>
+        [JsonProperty("variant_ids")]
+        [STJS.JsonPropertyName("variant_ids")]
+        [SellAppSchemaConstraints(UniqueItems = true)]
+        public List<long>? VariantIds { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="ProductsService.MoveAsync"/>: Move a product</summary>
+    [SellAppModelSchema(false)]
+    public class ProductsMoveOptions : BaseOptions
+    {
+        /// <summary>The new position, where `1` is first. At most the number of normal products in the store, drafts included.</summary>
+        [JsonProperty("position", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("position")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long Position { get; set; }
+
+        /// <summary>The position you last read for this product (its `order`). The move is refused when the product is no longer there.</summary>
+        [JsonProperty("expected_position")]
+        [STJS.JsonPropertyName("expected_position")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? ExpectedPosition { get; set; }
 
     }
 }

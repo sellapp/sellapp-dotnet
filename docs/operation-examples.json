@@ -42,6 +42,14 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "getChargeSummary",
+    "mountTarget": "Charges",
+    "methodName": "get_summary",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Charges.GetSummaryAsync(new ChargesGetSummaryOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listGroups",
     "mountTarget": "Groups",
     "methodName": "list",
@@ -205,7 +213,7 @@
     "operationId": "issueReplacementForCompletedInvoice",
     "mountTarget": "Invoices",
     "methodName": "issue_replacement",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Invoices.IssueReplacementAsync(\n    \"1\",\n    new InvoicesIssueReplacementOptions\n    {\n        ProductVariants = JsonConvert.DeserializeObject<IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants>(\"[117214]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Invoices.IssueReplacementAsync(\n    \"1\",\n    new InvoicesIssueReplacementOptions\n    {\n        ProductVariants = JsonConvert.DeserializeObject<OneOf.OneOf<long, List<long>>>(\"[117214]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -221,7 +229,7 @@
     "operationId": "createInvoiceRefund",
     "mountTarget": "Invoices",
     "methodName": "create_refund",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Invoices.CreateRefundAsync(\n    \"1\",\n    new InvoicesCreateRefundOptions\n    {\n        Amount = JsonConvert.DeserializeObject<string?>(\"\\\"12.50\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Invoices.CreateRefundAsync(\n    \"1\",\n    new InvoicesCreateRefundOptions\n    {\n        Amount = JsonConvert.DeserializeObject<string?>(\"\\\"12.50\\\"\")!,\n        ExpectedRefundedTotalCents = JsonConvert.DeserializeObject<long?>(\"0\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -373,7 +381,7 @@
     "operationId": "searchProducts",
     "mountTarget": "Products",
     "methodName": "search",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.SearchAsync(new ProductsSearchOptions\n    {\n        Filters = JsonConvert.DeserializeObject<List<SearchProductsRequestApplicationJsonPropertyFiltersItem>>(\"[{\\\"field\\\":\\\"id\\\",\\\"operator\\\":\\\"=\\\",\\\"value\\\":1}]\")!,\n        Sort = JsonConvert.DeserializeObject<List<SearchProductsRequestApplicationJsonPropertySortItem>>(\"[{\\\"field\\\":\\\"created_at\\\",\\\"direction\\\":\\\"desc\\\"}]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.SearchAsync(new ProductsSearchOptions\n    {\n        Search = JsonConvert.DeserializeObject<SearchProductsRequestApplicationJsonPropertySearch>(\"{\\\"value\\\":\\\"launch\\\"}\")!,\n        MaxPrice = JsonConvert.DeserializeObject<long?>(\"2500\")!,\n        Stock = JsonConvert.DeserializeObject<Stock?>(\"\\\"in_stock\\\"\")!,\n        Visibility = JsonConvert.DeserializeObject<List<SdkSearchProductsRequestApplicationJsonVisibility>>(\"[\\\"PUBLIC\\\"]\")!,\n        HasSales = JsonConvert.DeserializeObject<bool?>(\"true\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -398,6 +406,62 @@
     "mountTarget": "Products",
     "methodName": "batch_delete",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.Products.BatchDeleteAsync(new ProductsBatchDeleteOptions\n    {\n        Resources = JsonConvert.DeserializeObject<List<long>>(\"[1,2]\")!,\n    });\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "publishProduct",
+    "mountTarget": "Products",
+    "methodName": "publish",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.PublishAsync(\n    \"1\",\n    new ProductsPublishOptions\n    {\n        VariantIds = JsonConvert.DeserializeObject<List<long>?>(\"[2]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "duplicateProduct",
+    "mountTarget": "Products",
+    "methodName": "duplicate",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.DuplicateAsync(\"1\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "moveProduct",
+    "mountTarget": "Products",
+    "methodName": "move",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Products.MoveAsync(\n    \"1\",\n    new ProductsMoveOptions\n    {\n        Position = 1,\n        ExpectedPosition = JsonConvert.DeserializeObject<long?>(\"3\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getProductFeaturedVariant",
+    "mountTarget": "ProductsFeaturedVariant",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductsFeaturedVariant.GetAsync(\"1\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceProductFeaturedVariant",
+    "mountTarget": "ProductsFeaturedVariant",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductsFeaturedVariant.ReplaceAsync(\n    \"1\",\n    new ProductsFeaturedVariantReplaceOptions\n    {\n        VariantId = JsonConvert.DeserializeObject<long?>(\"2\")!,\n        HighlightLabel = JsonConvert.DeserializeObject<HighlightLabel?>(\"\\\"best_value\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listProductSimilarProducts",
+    "mountTarget": "ProductsSimilarProducts",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductsSimilarProducts.ListAsync(\"30\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceProductSimilarProducts",
+    "mountTarget": "ProductsSimilarProducts",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductsSimilarProducts.ReplaceAsync(\n    \"30\",\n    new ProductsSimilarProductsReplaceOptions\n    {\n        VariantIds = JsonConvert.DeserializeObject<List<long>>(\"[31,41]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -518,6 +582,54 @@
     "mountTarget": "ProductVariants",
     "methodName": "batch_delete",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.ProductVariants.BatchDeleteAsync(\n    \"1\",\n    new ProductVariantsBatchDeleteOptions\n    {\n        Resources = JsonConvert.DeserializeObject<List<long>>(\"[1,2]\")!,\n    }\n);\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "publishProductVariant",
+    "mountTarget": "ProductVariants",
+    "methodName": "publish",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariants.PublishAsync(\n    \"11\",\n    \"12\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "duplicateProductVariant",
+    "mountTarget": "ProductVariants",
+    "methodName": "duplicate",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariants.DuplicateAsync(\n    \"1\",\n    \"2\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "reorderProductVariants",
+    "mountTarget": "ProductVariants",
+    "methodName": "reorder",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariants.ReorderAsync(\n    \"1\",\n    new ProductVariantsReorderOptions\n    {\n        VariantIds = JsonConvert.DeserializeObject<List<long>>(\"[2,1]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getVariantSubscriptionSettings",
+    "mountTarget": "ProductVariantsSubscriptionSettings",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariantsSubscriptionSettings.GetAsync(\n    \"1\",\n    \"4\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateVariantSubscriptionSettings",
+    "mountTarget": "ProductVariantsSubscriptionSettings",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariantsSubscriptionSettings.UpdateAsync(\n    \"1\",\n    \"4\",\n    new ProductVariantsSubscriptionSettingsUpdateOptions\n    {\n        PausePolicy = JsonConvert.DeserializeObject<UpdateVariantSubscriptionSettingsRequestApplicationJsonPropertyPausePolicy>(\"{\\\"max_pause_days\\\":30}\")!,\n        RenewalPolicy = JsonConvert.DeserializeObject<UpdateVariantSubscriptionSettingsRequestApplicationJsonPropertyRenewalPolicy>(\"{\\\"redeliver_on_renewal\\\":false}\")!,\n        ExpectedState = JsonConvert.DeserializeObject<string?>(\"\\\"3f9a1c0e7b2d4a6f8e1c5b9d0a7f3e2c4b6d8a0f1e3c5a7b9d2f4e6a8c0b1d3e\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceVariantCommunityAccess",
+    "mountTarget": "ProductVariantsCommunityAccess",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.ProductVariantsCommunityAccess.ReplaceAsync(\n    \"1\",\n    \"2\",\n    new ProductVariantsCommunityAccessReplaceOptions\n    {\n        Community = JsonConvert.DeserializeObject<ReplaceVariantCommunityAccessRequestApplicationJsonPropertyCommunity>(\"{\\\"platform\\\":\\\"discord\\\",\\\"server_id\\\":\\\"1187040134912155648\\\",\\\"role_ids\\\":[\\\"1187040299781210112\\\"],\\\"required\\\":true,\\\"remove_on_expire\\\":true}\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset?>(\"\\\"2024-01-10T18:47:22.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -746,6 +858,14 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "createBookingProduct",
+    "mountTarget": "Bookings",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Bookings.CreateAsync(new BookingsCreateOptions\n    {\n        Title = \"Strategy consultation\",\n        Description = JsonConvert.DeserializeObject<string?>(\"\\\"<p>A private strategy session for your next launch.</p>\\\"\")!,\n        VariantTitle = \"60 minute session\",\n        PriceCents = 2500,\n        Currency = JsonConvert.DeserializeObject<SdkCreateBookingProductRequestApplicationJsonCurrency>(\"\\\"USD\\\"\")!,\n        PaymentMethods = JsonConvert.DeserializeObject<List<SdkCreateBookingProductRequestApplicationJsonPaymentMethods>>(\"[\\\"STRIPE\\\"]\")!,\n        Timezone = \"Europe/London\",\n        DurationMinutes = 60,\n        Availability = JsonConvert.DeserializeObject<List<CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem>>(\"[{\\\"day\\\":1,\\\"enabled\\\":true,\\\"start\\\":\\\"09:00\\\",\\\"end\\\":\\\"12:00\\\"},{\\\"day\\\":3,\\\"enabled\\\":true,\\\"start\\\":\\\"13:00\\\",\\\"end\\\":\\\"17:00\\\"}]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "getBundleItem",
     "mountTarget": "BundleItems",
     "methodName": "get",
@@ -774,6 +894,38 @@
     "mountTarget": "BundleItems",
     "methodName": "detach",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.BundleItems.DetachAsync(\n    \"1\",\n    new BundleItemsDetachOptions\n    {\n        Resources = JsonConvert.DeserializeObject<List<long>>(\"[1]\")!,\n    }\n);\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "previewVariantBuyerNotification",
+    "mountTarget": "VariantDeliverables",
+    "methodName": "preview",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.PreviewAsync(\n    \"1\",\n    \"2\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "notifyVariantBuyers",
+    "mountTarget": "VariantDeliverables",
+    "methodName": "notify",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.NotifyAsync(\n    \"1\",\n    \"2\",\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getVariantDeliverableConfiguration",
+    "mountTarget": "VariantDeliverables",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.GetAsync(\n    \"string_example\",\n    \"1\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceVariantDeliverableConfiguration",
+    "mountTarget": "VariantDeliverables",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.ReplaceAsync(\n    \"string_example\",\n    \"1\",\n    new VariantDeliverablesReplaceOptions\n    {\n        Types = JsonConvert.DeserializeObject<List<SdkReplaceVariantDeliverableConfigurationRequestApplicationJsonTypes>>(\"[\\\"MANUAL\\\"]\")!,\n        Data = JsonConvert.DeserializeObject<ReplaceVariantDeliverableConfigurationRequestApplicationJsonPropertyData>(\"{\\\"comment\\\":\\\"Delivery is arranged by Launch Lab.\\\"}\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -854,6 +1006,14 @@
     "mountTarget": "PromotionsPhases",
     "methodName": "replace",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.PromotionsPhases.ReplaceAsync(\n    \"1\",\n    new PromotionsPhasesReplaceOptions\n    {\n        Phases = JsonConvert.DeserializeObject<List<ReplacePromotionPhasesRequestApplicationJsonPropertyPhasesItem>>(\"[{\\\"discount_type\\\":\\\"percentage\\\",\\\"discount_value\\\":\\\"20\\\",\\\"ends_at\\\":\\\"2026-08-04T00:00:00Z\\\",\\\"max_redemptions\\\":200,\\\"minimum_amount\\\":\\\"10\\\"},{\\\"discount_type\\\":\\\"fixed\\\",\\\"discount_value\\\":\\\"5\\\",\\\"ends_at\\\":null,\\\"max_redemptions\\\":null,\\\"minimum_amount\\\":\\\"25\\\"}]\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getPromotionUsage",
+    "mountTarget": "Promotions",
+    "methodName": "get_usage",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Promotions.GetUsageAsync(\n    \"30\",\n    new PromotionsGetUsageOptions\n    {\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1138,6 +1298,222 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "listSupportReplyTemplates",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.ListAsync(new SupportReplyTemplatesListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.CreateAsync(new SupportReplyTemplatesCreateOptions\n    {\n        Label = \"Refund credited\",\n        Body = \"Hi {customer_email}, we credited {refund_amount} to your {store_name} wallet for {product_title}. Your wallet balance is now {wallet_balance}.\",\n        SupportsAutoRespond = true,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.GetAsync(\"32\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.ReplaceAsync(\n    \"31\",\n    new SupportReplyTemplatesReplaceOptions\n    {\n        IsActive = false,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:12:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.UpdateAsync(\n    \"31\",\n    new SupportReplyTemplatesUpdateOptions\n    {\n        IsActive = false,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:12:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "deleteSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "delete",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.SupportReplyTemplates.DeleteAsync(\"33\");\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "renderSupportReplyTemplate",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "render",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.RenderAsync(\n    \"1\",\n    new SupportReplyTemplatesRenderOptions\n    {\n        TicketId = 4821,\n        InvoiceId = JsonConvert.DeserializeObject<long?>(\"7001\")!,\n        RefundAmountCents = JsonConvert.DeserializeObject<long?>(\"999\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "reorderSupportReplyTemplates",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "reorder",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.ReorderAsync(new SupportReplyTemplatesReorderOptions\n    {\n        OrderedTemplateIds = JsonConvert.DeserializeObject<List<long>>(\"[32,31]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportReplyTemplateOptions",
+    "mountTarget": "SupportReplyTemplates",
+    "methodName": "get_options",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReplyTemplates.GetOptionsAsync(new SupportReplyTemplatesGetOptionsOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listSupportReasons",
+    "mountTarget": "SupportReasons",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.ListAsync(new SupportReasonsListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createSupportReason",
+    "mountTarget": "SupportReasons",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.CreateAsync(new SupportReasonsCreateOptions\n    {\n        Label = \"Download link expired\",\n        Description = JsonConvert.DeserializeObject<string?>(\"\\\"The download link in the order email no longer works.\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportReason",
+    "mountTarget": "SupportReasons",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.GetAsync(\"14\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceSupportReason",
+    "mountTarget": "SupportReasons",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.ReplaceAsync(\n    \"14\",\n    new SupportReasonsReplaceOptions\n    {\n        Description = JsonConvert.DeserializeObject<string?>(\"\\\"The download link in the order email no longer opens.\\\"\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:10:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateSupportReason",
+    "mountTarget": "SupportReasons",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.UpdateAsync(\n    \"14\",\n    new SupportReasonsUpdateOptions\n    {\n        Description = JsonConvert.DeserializeObject<string?>(\"\\\"The download link in the order email no longer opens.\\\"\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:10:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "deleteSupportReason",
+    "mountTarget": "SupportReasons",
+    "methodName": "delete",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.SupportReasons.DeleteAsync(\"15\");\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportReasonOptions",
+    "mountTarget": "SupportReasons",
+    "methodName": "get_options",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportReasons.GetOptionsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listSupportAutomationRules",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.ListAsync(new SupportAutomationRulesListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createSupportAutomationRule",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.CreateAsync(new SupportAutomationRulesCreateOptions\n    {\n        Name = \"Expired download links\",\n        MatchReasonSource = JsonConvert.DeserializeObject<MatchReasonSource?>(\"\\\"store\\\"\")!,\n        MatchReasonCode = JsonConvert.DeserializeObject<string?>(\"\\\"download-link-expired\\\"\")!,\n        MatchProductIds = JsonConvert.DeserializeObject<List<long>>(\"[120]\")!,\n        MatchMaxOrderTotalCents = JsonConvert.DeserializeObject<long?>(\"5000\")!,\n        MaxPriorSupportRefundCount = JsonConvert.DeserializeObject<long?>(\"0\")!,\n        ResponseTemplateId = JsonConvert.DeserializeObject<long?>(\"32\")!,\n        ActionRefundKind = JsonConvert.DeserializeObject<ActionRefundKind?>(\"\\\"partial\\\"\")!,\n        ActionRefundPercentBasis = JsonConvert.DeserializeObject<long?>(\"5000\")!,\n        ActionRefundCapCents = JsonConvert.DeserializeObject<long?>(\"1000\")!,\n        ActionCloseOutcome = JsonConvert.DeserializeObject<ActionCloseOutcome?>(\"\\\"refunded_partial\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportAutomationRule",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.GetAsync(\"7\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceSupportAutomationRule",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.ReplaceAsync(\n    \"7\",\n    new SupportAutomationRulesReplaceOptions\n    {\n        Name = \"Expired download links, first refund only\",\n        Clear = JsonConvert.DeserializeObject<List<SdkReplaceSupportAutomationRuleRequestApplicationJsonClear>>(\"[\\\"match_max_order_total_cents\\\"]\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:20:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateSupportAutomationRule",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.UpdateAsync(\n    \"7\",\n    new SupportAutomationRulesUpdateOptions\n    {\n        Name = \"Expired download links, first refund only\",\n        Clear = JsonConvert.DeserializeObject<List<SdkUpdateSupportAutomationRuleRequestApplicationJsonClear>>(\"[\\\"match_max_order_total_cents\\\"]\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:20:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateSupportAutomationRuleState",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "update_state",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.UpdateStateAsync(\n    \"1\",\n    new SupportAutomationRulesUpdateStateOptions\n    {\n        State = JsonConvert.DeserializeObject<SdkUpdateSupportAutomationRuleStateRequestApplicationJsonState>(\"\\\"active\\\"\")!,\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-07-03T09:20:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "reorderSupportAutomationRules",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "reorder",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.ReorderAsync(new SupportAutomationRulesReorderOptions\n    {\n        OrderedRuleIds = JsonConvert.DeserializeObject<List<long>>(\"[7]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "dryRunSupportAutomationRules",
+    "mountTarget": "SupportAutomationRules",
+    "methodName": "dry_run",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationRules.DryRunAsync(new SupportAutomationRulesDryRunOptions\n    {\n        TicketId = 4821,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportAutomationSettings",
+    "mountTarget": "SupportAutomationSettings",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationSettings.GetAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceSupportAutomationSettings",
+    "mountTarget": "SupportAutomationSettings",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationSettings.ReplaceAsync(new SupportAutomationSettingsReplaceOptions\n    {\n        AutomationEnabled = true,\n        DailyRefundCapCents = JsonConvert.DeserializeObject<long?>(\"5000\")!,\n        ExpectedAutomationEnabled = false,\n        ExpectedDailyRefundCapCents = JsonConvert.DeserializeObject<long?>(\"null\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateSupportAutomationSettings",
+    "mountTarget": "SupportAutomationSettings",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.SupportAutomationSettings.UpdateAsync(new SupportAutomationSettingsUpdateOptions\n    {\n        AutomationEnabled = true,\n        DailyRefundCapCents = JsonConvert.DeserializeObject<long?>(\"5000\")!,\n        ExpectedAutomationEnabled = false,\n        ExpectedDailyRefundCapCents = JsonConvert.DeserializeObject<long?>(\"null\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listCustomers",
     "mountTarget": "Customers",
     "methodName": "list",
@@ -1221,7 +1597,7 @@
     "operationId": "searchOrders",
     "mountTarget": "Orders",
     "methodName": "search",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.SearchAsync(new OrdersSearchOptions\n    {\n        Filters = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertyFiltersItem>>(\"[{\\\"field\\\":\\\"transaction_id\\\",\\\"operator\\\":\\\"contains\\\",\\\"value\\\":\\\"pi_3Example\\\"},{\\\"field\\\":\\\"status\\\",\\\"operator\\\":\\\"in\\\",\\\"value\\\":[\\\"COMPLETED\\\"]}]\")!,\n        Sort = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertySortItem>>(\"[{\\\"field\\\":\\\"created_at\\\",\\\"direction\\\":\\\"desc\\\"}]\")!,\n        Pagination = JsonConvert.DeserializeObject<SearchOrdersRequestApplicationJsonPropertyPagination>(\"{\\\"page\\\":1,\\\"limit\\\":25}\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.SearchAsync(new OrdersSearchOptions\n    {\n        Filters = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertyFiltersItem>>(\"[{\\\"field\\\":\\\"created_at\\\",\\\"operator\\\":\\\"gte\\\",\\\"value\\\":\\\"2026-07-01T00:00:00Z\\\"},{\\\"field\\\":\\\"created_at\\\",\\\"operator\\\":\\\"lte\\\",\\\"value\\\":\\\"2026-07-31T23:59:59Z\\\"},{\\\"field\\\":\\\"total\\\",\\\"operator\\\":\\\"gte\\\",\\\"value\\\":1000},{\\\"field\\\":\\\"currency\\\",\\\"operator\\\":\\\"eq\\\",\\\"value\\\":\\\"USD\\\"},{\\\"field\\\":\\\"status\\\",\\\"operator\\\":\\\"in\\\",\\\"value\\\":[\\\"COMPLETED\\\"]}]\")!,\n        Sort = JsonConvert.DeserializeObject<List<SearchOrdersRequestApplicationJsonPropertySortItem>>(\"[{\\\"field\\\":\\\"created_at\\\",\\\"direction\\\":\\\"desc\\\"}]\")!,\n        Pagination = JsonConvert.DeserializeObject<SearchOrdersRequestApplicationJsonPropertyPagination>(\"{\\\"page\\\":1,\\\"limit\\\":25}\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1253,7 +1629,7 @@
     "operationId": "createOrderReplacement",
     "mountTarget": "Orders",
     "methodName": "create_replacement",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.CreateReplacementAsync(\n    \"9001\",\n    new OrdersCreateReplacementOptions\n    {\n        ProductVariants = JsonConvert.DeserializeObject<CreateOrderReplacementRequestApplicationJsonPropertyProductVariants>(\"[4321]\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.CreateReplacementAsync(\n    \"9001\",\n    new OrdersCreateReplacementOptions\n    {\n        ProductVariants = JsonConvert.DeserializeObject<OneOf.OneOf<long, List<long>, CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3>>(\"[4321]\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1261,7 +1637,7 @@
     "operationId": "createOrderRefund",
     "mountTarget": "Orders",
     "methodName": "create_refund",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.CreateRefundAsync(\n    \"9001\",\n    new OrdersCreateRefundOptions\n    {\n        Amount = JsonConvert.DeserializeObject<string?>(\"\\\"5.00\\\"\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.CreateRefundAsync(\n    \"9001\",\n    new OrdersCreateRefundOptions\n    {\n        Amount = JsonConvert.DeserializeObject<string?>(\"\\\"5.00\\\"\")!,\n        ExpectedRefundedTotalCents = JsonConvert.DeserializeObject<long?>(\"0\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1286,6 +1662,14 @@
     "mountTarget": "Orders",
     "methodName": "send_fulfillment_notifications",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.SendFulfillmentNotificationsAsync(\n    \"9001\",\n    new OrdersSendFulfillmentNotificationsOptions\n    {\n        Email = JsonConvert.DeserializeObject<string?>(\"\\\"maya@example.com\\\"\")!,\n        ProductVariantIds = JsonConvert.DeserializeObject<List<long>?>(\"[4321]\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "regenerateOrderTelegramInvite",
+    "mountTarget": "Orders",
+    "methodName": "regenerate_telegram_invite",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Orders.RegenerateTelegramInviteAsync(\n    \"9001\",\n    new OrdersRegenerateTelegramInviteOptions\n    {\n        VariantId = JsonConvert.DeserializeObject<long?>(\"4321\")!,\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1358,22 +1742,6 @@
     "mountTarget": "OrdersLineItems",
     "methodName": "get",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.OrdersLineItems.GetAsync(\n    \"4001\",\n    \"9001\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
-  },
-  {
-    "language": "dotnet",
-    "fileExtension": "cs",
-    "operationId": "getVariantDeliverableConfiguration",
-    "mountTarget": "VariantDeliverables",
-    "methodName": "get",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.GetAsync(\n    \"string_example\",\n    \"1\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
-  },
-  {
-    "language": "dotnet",
-    "fileExtension": "cs",
-    "operationId": "replaceVariantDeliverableConfiguration",
-    "mountTarget": "VariantDeliverables",
-    "methodName": "replace",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.VariantDeliverables.ReplaceAsync(\n    \"string_example\",\n    \"1\",\n    new VariantDeliverablesReplaceOptions\n    {\n        Types = JsonConvert.DeserializeObject<List<SdkReplaceVariantDeliverableConfigurationRequestApplicationJsonTypes>>(\"[\\\"MANUAL\\\"]\")!,\n        Data = JsonConvert.DeserializeObject<ReplaceVariantDeliverableConfigurationRequestApplicationJsonPropertyData>(\"{\\\"comment\\\":\\\"Delivery is arranged by Launch Lab.\\\"}\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1542,6 +1910,14 @@
     "mountTarget": "AffiliateProgram",
     "methodName": "invite",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliateProgram.InviteAsync(new AffiliateProgramInviteOptions\n    {\n        Email = \"alex.morgan@example.com\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "resendAffiliateInvitation",
+    "mountTarget": "AffiliateProgram",
+    "methodName": "resend",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliateProgram.ResendAsync(\"77\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1730,6 +2106,14 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "getUpsellOfferPerformance",
+    "mountTarget": "UpsellOffers",
+    "methodName": "get_performance",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.UpsellOffers.GetPerformanceAsync(\n    \"71\",\n    new UpsellOffersGetPerformanceOptions\n    {\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listCommunityConnections",
     "mountTarget": "CommunityConnections",
     "methodName": "list",
@@ -1778,6 +2162,62 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "listCommunityFailedGrantReasons",
+    "mountTarget": "CommunityConnections",
+    "methodName": "list_failed_grant_reasons",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnections.ListFailedGrantReasonsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getCommunityServer",
+    "mountTarget": "CommunityConnectionsServers",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnectionsServers.GetAsync(\n    \"discord\",\n    \"server_ship_room\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "removeCommunityServer",
+    "mountTarget": "CommunityConnectionsServers",
+    "methodName": "remove",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.CommunityConnectionsServers.RemoveAsync(\n    \"discord\",\n    \"server_ship_room\",\n    new CommunityConnectionsServersRemoveOptions\n    {\n        AffectedVariantIds = JsonConvert.DeserializeObject<List<long>>(\"[902]\")!,\n    }\n);\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "syncDiscordRoles",
+    "mountTarget": "CommunityConnections",
+    "methodName": "sync_discord_roles",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnections.SyncDiscordRolesAsync(new CommunityConnectionsSyncDiscordRolesOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listSlackAvailableChannels",
+    "mountTarget": "CommunityConnectionsSlack",
+    "methodName": "list_channels",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnectionsSlack.ListChannelsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "addSlackChannel",
+    "mountTarget": "CommunityConnectionsSlack",
+    "methodName": "add_channel",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnectionsSlack.AddChannelAsync(new CommunityConnectionsSlackAddChannelOptions\n    {\n        ChannelId = \"C07LAUNCHVIP\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceSlackWorkspaceInviteLink",
+    "mountTarget": "CommunityConnectionsSlack",
+    "methodName": "replace_invite_link",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CommunityConnectionsSlack.ReplaceInviteLinkAsync(new CommunityConnectionsSlackReplaceInviteLinkOptions\n    {\n        InviteLink = JsonConvert.DeserializeObject<string?>(\"\\\"https://join.slack.com/t/launch-lab/shared_invite/zt-2abc123\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "getWalletSettings",
     "mountTarget": "WalletSettings",
     "methodName": "get",
@@ -1813,7 +2253,7 @@
     "operationId": "adjustCustomerWallet",
     "mountTarget": "Wallet",
     "methodName": "adjust",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Wallet.AdjustAsync(\n    \"1\",\n    new WalletAdjustOptions\n    {\n        AmountCents = 2500,\n        IdempotencyKey = \"wallet-adjustment-01992a65\",\n        Note = \"Launch-day account credit\",\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Wallet.AdjustAsync(\n    \"1\",\n    new WalletAdjustOptions\n    {\n        AmountCents = 2500,\n        IdempotencyKey = \"wallet-adjustment-01992a65\",\n        Note = \"Launch-day account credit\",\n        ExpectedBalanceCents = 0,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1822,6 +2262,30 @@
     "mountTarget": "Wallet",
     "methodName": "update_status",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Wallet.UpdateStatusAsync(\n    \"1\",\n    new WalletUpdateStatusOptions\n    {\n        Status = JsonConvert.DeserializeObject<SdkUpdateCustomerWalletStatusRequestApplicationJsonStatus>(\"\\\"frozen\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "reverseWalletTransaction",
+    "mountTarget": "WalletTransactions",
+    "methodName": "reverse",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WalletTransactions.ReverseAsync(\n    \"42\",\n    \"501\",\n    new WalletTransactionsReverseOptions\n    {\n        Note = \"Credit went to the wrong customer\",\n        ExpectedBalanceCents = 2500,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listStoreWalletTransactions",
+    "mountTarget": "WalletLedger",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WalletLedger.ListAsync(new WalletLedgerListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getWalletOverview",
+    "mountTarget": "WalletOverview",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WalletOverview.GetAsync(new WalletOverviewGetOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1890,6 +2354,14 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "quoteCashbackRule",
+    "mountTarget": "CashbackRules",
+    "methodName": "quote",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CashbackRules.QuoteAsync(new CashbackRulesQuoteOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listWalletBonusTiers",
     "mountTarget": "WalletBonusTiers",
     "methodName": "list",
@@ -1938,10 +2410,26 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "quoteWalletBonusTier",
+    "mountTarget": "WalletBonusTiers",
+    "methodName": "quote",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WalletBonusTiers.QuoteAsync(new WalletBonusTiersQuoteOptions\n    {\n        TopUpCents = 20000,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listCourses",
     "mountTarget": "Courses",
     "methodName": "list",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Courses.ListAsync(new CoursesListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createCourse",
+    "mountTarget": "Courses",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Courses.CreateAsync(new CoursesCreateOptions\n    {\n        Category = JsonConvert.DeserializeObject<Category?>(\"\\\"design\\\"\")!,\n        Level = JsonConvert.DeserializeObject<SdkCreateCourseRequestApplicationJsonLevel>(\"\\\"beginner\\\"\")!,\n        Language = \"English\",\n        WhatYouLearn = JsonConvert.DeserializeObject<List<string>>(\"[\\\"Sketch a logo concept.\\\",\\\"Choose a color palette.\\\"]\")!,\n        CertificateEnabled = true,\n        DeliveryText = JsonConvert.DeserializeObject<string?>(\"\\\"Open your course from the link in your receipt.\\\"\")!,\n        Title = \"Brand identity basics\",\n        Description = JsonConvert.DeserializeObject<string?>(\"\\\"<p>Design a logo, color palette, and type system for your next project.</p>\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -1974,6 +2462,14 @@
     "mountTarget": "Courses",
     "methodName": "update",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Courses.UpdateAsync(\n    \"string_example\",\n    new CoursesUpdateOptions\n    {\n        Level = JsonConvert.DeserializeObject<SdkUpdateCourseRequestApplicationJsonLevel>(\"\\\"beginner\\\"\")!,\n        Visibility = JsonConvert.DeserializeObject<CatalogVisibility>(\"\\\"HIDDEN\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getCourseStudentSummary",
+    "mountTarget": "Courses",
+    "methodName": "get_student_summary",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Courses.GetStudentSummaryAsync(new CoursesGetStudentSummaryOptions\n    {\n        StartDate = \"2026-08-01\",\n        EndDate = \"2026-08-31\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2058,6 +2554,62 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "listCheckoutFieldTemplates",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.ListAsync(new CheckoutFieldTemplatesListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "createCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.CreateAsync(new CheckoutFieldTemplatesCreateOptions\n    {\n        Name = \"Discord access\",\n        Fields = JsonConvert.DeserializeObject<List<CreateCheckoutFieldTemplateRequestApplicationJsonPropertyFieldsItem>>(\"[{\\\"type\\\":\\\"text\\\",\\\"label\\\":\\\"Discord username\\\",\\\"key\\\":\\\"discord_username\\\",\\\"required\\\":true,\\\"placeholder\\\":\\\"name#0001\\\",\\\"description\\\":\\\"We add this account to the community after purchase.\\\"},{\\\"type\\\":\\\"radio\\\",\\\"label\\\":\\\"Experience level\\\",\\\"key\\\":\\\"experience_level\\\",\\\"required\\\":false,\\\"options\\\":[\\\"Beginner\\\",\\\"Intermediate\\\",\\\"Advanced\\\"],\\\"variant\\\":\\\"cards\\\",\\\"variant_options\\\":{\\\"vertical\\\":true,\\\"indicator\\\":true}}]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.GetAsync(\"14\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.ReplaceAsync(\n    \"14\",\n    new CheckoutFieldTemplatesReplaceOptions\n    {\n        Name = \"Discord onboarding\",\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-09-04T09:00:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.UpdateAsync(\n    \"14\",\n    new CheckoutFieldTemplatesUpdateOptions\n    {\n        Name = \"Discord onboarding\",\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-09-04T09:00:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "deleteCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "delete",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.CheckoutFieldTemplates.DeleteAsync(\n    \"14\",\n    new CheckoutFieldTemplatesDeleteOptions\n    {\n        ExpectedUpdatedAt = JsonConvert.DeserializeObject<DateTimeOffset>(\"\\\"2026-09-04T09:00:00.000000Z\\\"\")!,\n    }\n);\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "duplicateCheckoutFieldTemplate",
+    "mountTarget": "CheckoutFieldTemplates",
+    "methodName": "duplicate",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.CheckoutFieldTemplates.DuplicateAsync(\n    \"14\",\n    new CheckoutFieldTemplatesDuplicateOptions\n    {\n        Name = \"Discord access for courses\",\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listPaymentMethods",
     "mountTarget": "PaymentMethods",
     "methodName": "list",
@@ -2094,6 +2646,22 @@
     "mountTarget": "PaymentMethods",
     "methodName": "validate",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.PaymentMethods.ValidateAsync(\n    \"NMI\",\n    new PaymentMethodsValidateOptions { Body = JsonConvert.DeserializeObject<ValidateAndSavePaymentMethodConfigurationRequestApplicationJsonOneOfValue1>(\"{\\\"merchant_secure_key\\\":\\\"replace-with-nmi-secure-key\\\",\\\"merchant_tokenization_key\\\":\\\"replace-with-nmi-tokenization-key\\\",\\\"signing_key\\\":\\\"replace-with-nmi-signing-key\\\",\\\"currencies\\\":[\\\"USD\\\"]}\")! }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getPaymentMethodModifier",
+    "mountTarget": "PaymentMethodsModifier",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.PaymentMethodsModifier.GetAsync(\"STRIPE\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replacePaymentMethodModifier",
+    "mountTarget": "PaymentMethodsModifier",
+    "methodName": "replace",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.PaymentMethodsModifier.ReplaceAsync(\n    \"STRIPE\",\n    new PaymentMethodsModifierReplaceOptions\n    {\n        Kind = JsonConvert.DeserializeObject<SdkReplacePaymentMethodModifierRequestApplicationJsonKind>(\"\\\"fee\\\"\")!,\n        Percentage = JsonConvert.DeserializeObject<string?>(\"\\\"3.00\\\"\")!,\n        FixedAmount = JsonConvert.DeserializeObject<string?>(\"\\\"0.30\\\"\")!,\n        Condition = JsonConvert.DeserializeObject<Condition?>(\"\\\"below\\\"\")!,\n        Threshold = JsonConvert.DeserializeObject<OneOf.OneOf<double, string>?>(\"\\\"20.00\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2202,6 +2770,190 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "getCheckoutSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "get_checkout",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.GetCheckoutAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceCheckoutSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_checkout",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplaceCheckoutAsync(new StoreSettingsReplaceCheckoutOptions\n    {\n        ShoppingCartEnabled = true,\n        CustomerEmailRequired = true,\n        AllowVpnPurchases = true,\n        BlacklistOnDispute = true,\n        MinimumSpend = JsonConvert.DeserializeObject<string?>(\"\\\"5.00\\\"\")!,\n        BillingDescriptor = JsonConvert.DeserializeObject<string?>(\"\\\"LAUNCH LAB\\\"\")!,\n        AttemptsPerCustomer = 5,\n        AttemptsPerIp = JsonConvert.DeserializeObject<long?>(\"20\")!,\n        AttemptsPerEmail = JsonConvert.DeserializeObject<long?>(\"null\")!,\n        AttemptsPerFingerprint = JsonConvert.DeserializeObject<long?>(\"null\")!,\n        RateLimitWindowSeconds = 3600,\n        Crypto = JsonConvert.DeserializeObject<ReplaceCheckoutSettingsRequestApplicationJsonPropertyCrypto?>(\"{\\\"underpaid_percentage\\\":2,\\\"minimum_confirmations\\\":2}\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateCheckoutSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_checkout",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdateCheckoutAsync(new StoreSettingsUpdateCheckoutOptions\n    {\n        MinimumSpend = JsonConvert.DeserializeObject<string?>(\"\\\"10.00\\\"\")!,\n        AttemptsPerEmail = JsonConvert.DeserializeObject<long?>(\"10\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getTaxSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "get_taxes",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.GetTaxesAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceTaxSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_taxes",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplaceTaxesAsync(new StoreSettingsReplaceTaxesOptions\n    {\n        VatEnabled = true,\n        VatInclusivePricing = true,\n        CollectBillingDetails = false,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateTaxSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_taxes",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdateTaxesAsync(new StoreSettingsUpdateTaxesOptions\n    {\n        VatInclusivePricing = true,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getCustomerEmailSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "get_customer_emails",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.GetCustomerEmailsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceCustomerEmailSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_customer_emails",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplaceCustomerEmailsAsync(new StoreSettingsReplaceCustomerEmailsOptions\n    {\n        SendDeliveryEmail = true,\n        SendPaymentFailureEmail = false,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateCustomerEmailSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_customer_emails",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdateCustomerEmailsAsync(new StoreSettingsUpdateCustomerEmailsOptions\n    {\n        SendPaymentFailureEmail = false,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getStoreAlertSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "get_store_alerts",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.GetAlertsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceStoreAlertSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_store_alerts",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplaceAlertsAsync(new StoreSettingsReplaceAlertsOptions\n    {\n        SaleEmailsEnabled = false,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateStoreAlertSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_store_alerts",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdateAlertsAsync(new StoreSettingsUpdateAlertsOptions\n    {\n        SaleEmailsEnabled = false,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getPersonalizationSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "get_personalization",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.GetPersonalizationAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replacePersonalizationSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_personalization",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplacePersonalizationAsync(new StoreSettingsReplacePersonalizationOptions\n    {\n        SupportEmail = JsonConvert.DeserializeObject<string?>(\"\\\"support@launch-lab.example.com\\\"\")!,\n        TrustpilotEmail = JsonConvert.DeserializeObject<string?>(\"null\")!,\n        SenderName = JsonConvert.DeserializeObject<string?>(\"\\\"Launch Lab\\\"\")!,\n        SenderEmail = JsonConvert.DeserializeObject<string?>(\"\\\"orders@launch-lab.example.com\\\"\")!,\n        StoreAddress = JsonConvert.DeserializeObject<string?>(\"\\\"651 N Broad St, Suite 206\\\"\")!,\n        StoreCity = JsonConvert.DeserializeObject<string?>(\"\\\"Middletown\\\"\")!,\n        StoreState = JsonConvert.DeserializeObject<string?>(\"\\\"Delaware\\\"\")!,\n        StoreZip = JsonConvert.DeserializeObject<string?>(\"\\\"19709\\\"\")!,\n        StoreCountry = JsonConvert.DeserializeObject<string?>(\"\\\"United States\\\"\")!,\n        StoreTax = JsonConvert.DeserializeObject<string?>(\"\\\"EIN 98-7654321\\\"\")!,\n        BackLinkLabel = JsonConvert.DeserializeObject<string?>(\"\\\"Back to Launch Lab\\\"\")!,\n        BackLinkUrl = JsonConvert.DeserializeObject<string?>(\"\\\"https://launch-lab.example.com\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updatePersonalizationSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_personalization",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdatePersonalizationAsync(new StoreSettingsUpdatePersonalizationOptions\n    {\n        BackLinkLabel = JsonConvert.DeserializeObject<string?>(\"\\\"Return to the shop\\\"\")!,\n        BackLinkUrl = JsonConvert.DeserializeObject<string?>(\"\\\"https://launch-lab.example.com/shop\\\"\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "replaceCryptoCheckoutSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "replace_crypto_checkout",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.ReplaceCryptoCheckoutAsync(new StoreSettingsReplaceCryptoCheckoutOptions\n    {\n        UnderpaidPercentage = 1,\n        MinimumConfirmations = 3,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateCryptoCheckoutSettings",
+    "mountTarget": "StoreSettings",
+    "methodName": "update_crypto_checkout",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSettings.UpdateCryptoCheckoutAsync(new StoreSettingsUpdateCryptoCheckoutOptions\n    {\n        MinimumConfirmations = 3,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSenderEmail",
+    "mountTarget": "StoreSenderEmail",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSenderEmail.GetAsync(new StoreSenderEmailGetOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "setSenderEmail",
+    "mountTarget": "StoreSenderEmail",
+    "methodName": "set",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSenderEmail.SetAsync(new StoreSenderEmailSetOptions\n    {\n        Email = \"orders@launch-lab.example.com\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "deleteSenderEmail",
+    "mountTarget": "StoreSenderEmail",
+    "methodName": "delete",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.StoreSenderEmail.DeleteAsync(new StoreSenderEmailDeleteOptions\n    {\n    });\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "sendSenderEmailVerification",
+    "mountTarget": "StoreSenderEmail",
+    "methodName": "send_verification",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreSenderEmail.SendVerificationAsync(new StoreSenderEmailSendVerificationOptions\n    {\n        Email = \"orders@launch-lab.example.com\",\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getStoreIntegrations",
+    "mountTarget": "StoreIntegrations",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreIntegrations.GetAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "disconnectGoogleCalendar",
+    "mountTarget": "StoreIntegrations",
+    "methodName": "disconnect_google_calendar",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.StoreIntegrations.DisconnectGoogleCalendarAsync(new StoreIntegrationsDisconnectGoogleCalendarOptions\n    {\n        ConnectionId = 7,\n    });\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listNotificationChannels",
     "mountTarget": "StoreNotificationChannels",
     "methodName": "list",
@@ -2286,6 +3038,22 @@
     "mountTarget": "StoreCustomDomains",
     "methodName": "refresh",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.StoreCustomDomains.RefreshAsync(\"1\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "listNotifications",
+    "mountTarget": "Notifications",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Notifications.ListAsync(new NotificationsListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "markNotificationsSeen",
+    "mountTarget": "Notifications",
+    "methodName": "mark",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Notifications.MarkAsync(new NotificationsMarkOptions\n    {\n        NotificationIds = JsonConvert.DeserializeObject<List<long>?>(\"[9182]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2402,6 +3170,46 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "getAffiliateProducts",
+    "mountTarget": "AffiliatesProducts",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliatesProducts.GetAsync(\"88\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "updateAffiliateProducts",
+    "mountTarget": "AffiliatesProducts",
+    "methodName": "update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliatesProducts.UpdateAsync(\n    \"88\",\n    new AffiliatesProductsUpdateOptions\n    {\n        EnableSpecificProducts = true,\n        Products = JsonConvert.DeserializeObject<List<UpdateAffiliateProductsRequestApplicationJsonPropertyProductsItem>>(\"[{\\\"id\\\":42,\\\"enabled\\\":true,\\\"commission\\\":{\\\"type\\\":\\\"percentage\\\",\\\"percentage\\\":\\\"25\\\"}},{\\\"id\\\":43,\\\"enabled\\\":true,\\\"commission\\\":{\\\"type\\\":\\\"fixed\\\",\\\"amount_usd_cents\\\":550}}]\")!,\n        ReplaceProducts = true,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getAffiliateCoupon",
+    "mountTarget": "AffiliatesCoupon",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliatesCoupon.GetAsync(\"88\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "saveAffiliateCoupon",
+    "mountTarget": "AffiliatesCoupon",
+    "methodName": "save",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliatesCoupon.SaveAsync(\n    \"88\",\n    new AffiliatesCouponSaveOptions\n    {\n        Code = \"ALEX15\",\n        Type = JsonConvert.DeserializeObject<SdkSaveAffiliateCouponRequestApplicationJsonType>(\"\\\"PERCENTAGE\\\"\")!,\n        Discount = JsonConvert.DeserializeObject<OneOf.OneOf<double, string>>(\"\\\"15\\\"\")!,\n        StoreWide = true,\n        MaximumDiscountAmount = JsonConvert.DeserializeObject<string?>(\"\\\"20\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "disableAffiliateCoupon",
+    "mountTarget": "AffiliatesCoupon",
+    "methodName": "disable",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.AffiliatesCoupon.DisableAsync(\"88\");\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listAffiliateReferrals",
     "mountTarget": "AffiliateReferrals",
     "methodName": "list",
@@ -2474,10 +3282,18 @@
   {
     "language": "dotnet",
     "fileExtension": "cs",
+    "operationId": "markAffiliatePayoutsPaid",
+    "mountTarget": "AffiliatePayouts",
+    "methodName": "mark_paid",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.AffiliatePayouts.MarkPaidAsync(new AffiliatePayoutsMarkPaidOptions\n    {\n        PayoutIds = JsonConvert.DeserializeObject<List<long>>(\"[91,92]\")!,\n        ExpectedTotalUsdCents = 4250,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
     "operationId": "listRefunds",
     "mountTarget": "Refunds",
     "methodName": "list_refunds",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Refunds.ListAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Refunds.ListAsync(new RefundsListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2493,7 +3309,7 @@
     "operationId": "listExports",
     "mountTarget": "Exports",
     "methodName": "list_exports",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Exports.ListAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Exports.ListAsync(new ExportsListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2525,7 +3341,7 @@
     "operationId": "listDisputes",
     "mountTarget": "Disputes",
     "methodName": "list_disputes",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Disputes.ListAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Disputes.ListAsync(new DisputesListOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -2733,7 +3549,7 @@
     "operationId": "listWebhookDeliveries",
     "mountTarget": "WebhookPlatform",
     "methodName": "list_webhook_deliveries",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WebhookPlatform.ListDeliveriesAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.WebhookPlatform.ListDeliveriesAsync(new WebhookPlatformListDeliveriesOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -3125,7 +3941,7 @@
     "operationId": "v2ListBlacklists",
     "mountTarget": "Blacklists",
     "methodName": "v2_list_blacklists",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Blacklists.V2ListBlacklistsAsync();\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Blacklists.V2ListBlacklistsAsync(new BlacklistsV2ListBlacklistsOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -3246,6 +4062,14 @@
     "mountTarget": "Coupons",
     "methodName": "v2_batch_delete_coupons",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nawait client.Coupons.V2BatchDeleteCouponsAsync(new CouponsV2BatchDeleteCouponsOptions\n    {\n        Resources = JsonConvert.DeserializeObject<List<long>>(\"[1,2]\")!,\n    });\nConsole.WriteLine(\"Request completed.\");\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2GetCouponUsage",
+    "mountTarget": "Coupons",
+    "methodName": "v2_get_coupon_usage",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Coupons.V2GetCouponUsageAsync(\"1\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -3421,7 +4245,7 @@
     "operationId": "updateTicket",
     "mountTarget": "Tickets",
     "methodName": "update",
-    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Tickets.UpdateAsync(\n    \"42\",\n    new TicketsUpdateOptions\n    {\n        Status = JsonConvert.DeserializeObject<SdkUpdateTicketRequestApplicationJsonStatus>(\"\\\"CLOSED\\\"\")!,\n        Archived = true,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Tickets.UpdateAsync(\n    \"42\",\n    new TicketsUpdateOptions\n    {\n        Status = JsonConvert.DeserializeObject<SdkUpdateTicketRequestApplicationJsonStatus>(\"\\\"CLOSED\\\"\")!,\n        Archived = true,\n        Outcome = JsonConvert.DeserializeObject<SdkUpdateTicketRequestApplicationJsonOutcome>(\"\\\"delivered\\\"\")!,\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",
@@ -3454,6 +4278,62 @@
     "mountTarget": "TicketsMessages",
     "methodName": "v2_get_ticket_message",
     "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsMessages.V2GetTicketMessageAsync(\n    \"1\",\n    \"2\"\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "batchUpdateTickets",
+    "mountTarget": "Tickets",
+    "methodName": "batch_update",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Tickets.BatchUpdateAsync(new TicketsBatchUpdateOptions\n    {\n        Action = JsonConvert.DeserializeObject<SdkBatchUpdateTicketsRequestApplicationJsonAction>(\"\\\"close\\\"\")!,\n        Outcome = JsonConvert.DeserializeObject<SdkBatchUpdateTicketsRequestApplicationJsonOutcome>(\"\\\"delivered\\\"\")!,\n        Resources = JsonConvert.DeserializeObject<List<long>>(\"[311,313]\")!,\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2GetTicketContext",
+    "mountTarget": "Tickets",
+    "methodName": "get_context",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.Tickets.GetContextAsync(\"312\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2ListTicketWalletRefundOptions",
+    "mountTarget": "TicketsWalletRefunds",
+    "methodName": "list_options",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsWalletRefunds.ListOptionsAsync(\"312\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2ListTicketWalletRefunds",
+    "mountTarget": "TicketsWalletRefunds",
+    "methodName": "list",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsWalletRefunds.ListAsync(\"312\");\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2RefundTicketToWallet",
+    "mountTarget": "TicketsWalletRefunds",
+    "methodName": "create",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsWalletRefunds.CreateAsync(\n    \"312\",\n    new TicketsWalletRefundsCreateOptions\n    {\n        InvoiceId = 5120,\n        AmountCents = 500,\n        ExpectedRefundableCents = 1999,\n        CustomerNote = \"We added $5.00 to your store wallet for the trouble with your download link.\",\n    },\n    requestOptions: new RequestOptions { IdempotencyKey = \"example-mutation-001\" }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "v2ReverseTicketWalletRefund",
+    "mountTarget": "TicketsWalletRefunds",
+    "methodName": "reverse",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsWalletRefunds.ReverseAsync(\n    \"312\",\n    \"7001\",\n    new TicketsWalletRefundsReverseOptions\n    {\n        Reason = \"Issued on the wrong ticket.\",\n    }\n);\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
+  },
+  {
+    "language": "dotnet",
+    "fileExtension": "cs",
+    "operationId": "getSupportAnalytics",
+    "mountTarget": "TicketsAnalytics",
+    "methodName": "get",
+    "content": "using SellApp;\nusing Newtonsoft.Json;\nusing System.Collections.Generic;\n\nvar client = new SellAppClient(new SellAppOptions\n{\n    ApiKey = Environment.GetEnvironmentVariable(\"SELLAPP_API_KEY\"),\n    BaseUrl = Environment.GetEnvironmentVariable(\"SELLAPP_API_BASE_URL\"),\n    Store = Environment.GetEnvironmentVariable(\"SELLAPP_STORE\"),\n});\n\nvar result = await client.TicketsAnalytics.GetAsync(new TicketsAnalyticsGetOptions\n    {\n    });\nConsole.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));\n"
   },
   {
     "language": "dotnet",

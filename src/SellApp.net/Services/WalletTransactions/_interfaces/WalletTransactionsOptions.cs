@@ -7,6 +7,24 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
+    /// <summary>Request options for <see cref="WalletTransactionsService.ReverseAsync"/>: Reverse a wallet transaction</summary>
+    [SellAppModelSchema(false)]
+    public class WalletTransactionsReverseOptions : BaseOptions
+    {
+        /// <summary>Why the entry is reversed. It must contain more than spaces and is saved on the reversal entry.</summary>
+        [JsonProperty("note", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("note")]
+        [SellAppSchemaConstraints(MinLength = 1, MaxLength = 255)]
+        public string Note { get; set; } = default!;
+
+        /// <summary>Optional. The wallet balance in integer USD cents that you read before deciding. If the balance is different now, nothing changes and the request returns `422` on `expected_balance_cents`.</summary>
+        [JsonProperty("expected_balance_cents")]
+        [STJS.JsonPropertyName("expected_balance_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 999999999999d)]
+        public long? ExpectedBalanceCents { get; set; }
+
+    }
+
     /// <summary>Request options for <see cref="WalletTransactionsService.ListAsync"/>: List wallet transactions</summary>
     [SellAppModelSchema(false)]
     public class WalletTransactionsListOptions : ListOptions

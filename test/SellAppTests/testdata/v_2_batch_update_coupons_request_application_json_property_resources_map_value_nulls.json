@@ -9,5 +9,6 @@
   "expires_at": null,
   "minimum_amount": null,
   "applies_to": null,
-  "subscription_payments": null
+  "subscription_payments": null,
+  "maximum_discount_amount": null
 }

@@ -1,0 +1,16 @@
+{
+  "customer_id": null,
+  "email": null,
+  "courses_count": 1,
+  "course_purchases_count": 1,
+  "course_units_count": 1,
+  "orders_count": 1,
+  "latest_purchase_at": null,
+  "courses": [
+    {
+      "course_id": 1,
+      "title": "test_title",
+      "purchases_count": 1
+    }
+  ]
+}

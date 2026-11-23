@@ -277,11 +277,12 @@ List blacklist rules
 [API reference](https://sell.app/docs/api/blacklists/list-blacklists) · Effect: **read**
 
 ```csharp
-public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+public virtual async Task<SellAppList<Blacklist>> V2ListBlacklistsAsync(BlacklistsV2ListBlacklistsOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| options | `BlacklistsV2ListBlacklistsOptions?` | No |
 | requestOptions | `RequestOptions?` | No |
 | cancellationToken | `CancellationToken` | No |
 
@@ -299,7 +300,9 @@ var client = new SellAppClient(new SellAppOptions
     Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
 });
 
-var result = await client.Blacklists.V2ListBlacklistsAsync();
+var result = await client.Blacklists.V2ListBlacklistsAsync(new BlacklistsV2ListBlacklistsOptions
+    {
+    });
 Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
 ```
 

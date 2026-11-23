@@ -182,7 +182,7 @@ namespace SellApp
 
         /// <summary>Search groups</summary>
         /// <remarks>
-        /// Search groups using JSON body filters, search terms, includes, and sort instructions. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search groups using JSON body filters, search terms, includes, and sort instructions, 15 per page by default. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="options">Request options.</param>
         /// <param name="requestOptions">Per-request configuration overrides.</param>

@@ -1,0 +1,8 @@
+{
+  "email": null,
+  "verified": null,
+  "sender_name": null,
+  "default_from": "test_default_from",
+  "customer_emails_from": "test@example.com",
+  "pending": null
+}

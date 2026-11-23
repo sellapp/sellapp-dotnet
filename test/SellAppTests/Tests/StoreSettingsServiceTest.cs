@@ -102,6 +102,176 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestGetCheckoutAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_checkout_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/store/settings/checkout", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetCheckoutAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/store/settings/checkout");
+        }
+
+        [Fact]
+        public async Task TestReplaceCheckoutAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_checkout_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/checkout", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplaceCheckoutAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplaceCheckoutOptions>("{\"shopping_cart_enabled\":true,\"customer_email_required\":true,\"allow_vpn_purchases\":true,\"blacklist_on_dispute\":true,\"minimum_spend\":\"00000000000000000000000000\",\"billing_descriptor\":\"test_billing_descrip\",\"attempts_per_customer\":1,\"attempts_per_ip\":1,\"attempts_per_email\":1,\"attempts_per_fingerprint\":1,\"rate_limit_window_seconds\":60}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/checkout");
+        }
+
+        [Fact]
+        public async Task TestUpdateCheckoutAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_checkout_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/checkout", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdateCheckoutAsync(new StoreSettingsUpdateCheckoutOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/checkout");
+        }
+
+        [Fact]
+        public async Task TestGetTaxesAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_tax_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/store/settings/taxes", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetTaxesAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/store/settings/taxes");
+        }
+
+        [Fact]
+        public async Task TestReplaceTaxesAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_tax_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/taxes", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplaceTaxesAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplaceTaxesOptions>("{\"vat_enabled\":true,\"vat_inclusive_pricing\":true,\"collect_billing_details\":true}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/taxes");
+        }
+
+        [Fact]
+        public async Task TestUpdateTaxesAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_tax_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/taxes", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdateTaxesAsync(new StoreSettingsUpdateTaxesOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/taxes");
+        }
+
+        [Fact]
+        public async Task TestGetCustomerEmailsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_customer_email_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/store/settings/customer-emails", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetCustomerEmailsAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/store/settings/customer-emails");
+        }
+
+        [Fact]
+        public async Task TestReplaceCustomerEmailsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_customer_email_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/customer-emails", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplaceCustomerEmailsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplaceCustomerEmailsOptions>("{\"send_delivery_email\":true,\"send_payment_failure_email\":true}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/customer-emails");
+        }
+
+        [Fact]
+        public async Task TestUpdateCustomerEmailsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_customer_email_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/customer-emails", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdateCustomerEmailsAsync(new StoreSettingsUpdateCustomerEmailsOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/customer-emails");
+        }
+
+        [Fact]
+        public async Task TestGetAlertsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_store_alert_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/store/settings/store-alerts", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetAlertsAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/store/settings/store-alerts");
+        }
+
+        [Fact]
+        public async Task TestReplaceAlertsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_store_alert_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/store-alerts", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplaceAlertsAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplaceAlertsOptions>("{\"sale_emails_enabled\":true}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/store-alerts");
+        }
+
+        [Fact]
+        public async Task TestUpdateAlertsAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_store_alert_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/store-alerts", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdateAlertsAsync(new StoreSettingsUpdateAlertsOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/store-alerts");
+        }
+
+        [Fact]
+        public async Task TestGetPersonalizationAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_personalization_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/store/settings/personalization", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetPersonalizationAsync();
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/store/settings/personalization");
+        }
+
+        [Fact]
+        public async Task TestReplacePersonalizationAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_personalization_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/personalization", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplacePersonalizationAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplacePersonalizationOptions>("{\"support_email\":\"test@example.com\",\"trustpilot_email\":\"test@example.com\",\"sender_name\":\"Test\",\"store_address\":\"test_store_address\",\"store_city\":\"test_store_city\",\"store_state\":\"test_store_state\",\"store_zip\":\"test_store_zip\",\"store_country\":\"test_store_country\",\"store_tax\":\"test_store_tax\",\"back_link_label\":\"test_back_link_label\",\"back_link_url\":\"https://example.com\"}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/personalization");
+        }
+
+        [Fact]
+        public async Task TestUpdatePersonalizationAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_personalization_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/personalization", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdatePersonalizationAsync(new StoreSettingsUpdatePersonalizationOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/personalization");
+        }
+
+        [Fact]
+        public async Task TestReplaceCryptoCheckoutAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_replace_crypto_checkout_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Put, "/v2/store/settings/checkout/crypto", HttpStatusCode.OK, fixture);
+            var result = await this.service.ReplaceCryptoCheckoutAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<StoreSettingsReplaceCryptoCheckoutOptions>("{\"underpaid_percentage\":1,\"minimum_confirmations\":1}")!);
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Put, "/v2/store/settings/checkout/crypto");
+        }
+
+        [Fact]
+        public async Task TestUpdateCryptoCheckoutAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_update_crypto_checkout_settings_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Patch, "/v2/store/settings/checkout/crypto", HttpStatusCode.OK, fixture);
+            var result = await this.service.UpdateCryptoCheckoutAsync(new StoreSettingsUpdateCryptoCheckoutOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/store/settings/checkout/crypto");
+        }
+
+        [Fact]
         public async Task TestError401()
         {
             this.httpMock.MockResponseForAnyRequest(HttpStatusCode.Unauthorized, "{\"code\":\"unauthorized\",\"message\":\"Unauthorized\"}");

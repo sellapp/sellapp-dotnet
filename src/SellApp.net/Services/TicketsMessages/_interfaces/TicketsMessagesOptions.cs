@@ -93,5 +93,11 @@ namespace SellApp
         [STJS.JsonPropertyName("includes")]
         public List<V2SearchTicketMessagesRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
 
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
     }
 }

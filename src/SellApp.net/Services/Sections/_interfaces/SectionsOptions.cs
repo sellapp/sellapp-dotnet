@@ -196,6 +196,12 @@ namespace SellApp
         [STJS.JsonPropertyName("includes")]
         public List<V2SearchSectionsRequestApplicationJsonPropertyIncludesItem>? Includes { get; set; }
 
+        /// <summary>Page number to return.</summary>
+        [JsonProperty("page")]
+        [STJS.JsonPropertyName("page")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long? Page { get; set; }
+
     }
 
     /// <summary>Request options for <see cref="SectionsService.V2ReplaceSectionAsync"/>: Update a section</summary>

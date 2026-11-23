@@ -22,6 +22,17 @@ namespace SellApp
         [STJS.JsonPropertyName("status")]
         public AffiliatePayoutsStatus? Status { get; set; }
 
+        /// <summary>List only payouts recorded for this payout method. Uppercase, as returned in `payout_method`; `paypal` returns `422`.</summary>
+        [JsonProperty("payout_method")]
+        [STJS.JsonPropertyName("payout_method")]
+        public AffiliatePayoutsPayoutMethod? PayoutMethod { get; set; }
+
+        /// <summary>The start of the affiliate's email address, such as `alex` or `alex.morgan@`. It matches from the first character only, and `%` and `_` match themselves.</summary>
+        [JsonProperty("search")]
+        [STJS.JsonPropertyName("search")]
+        [SellAppSchemaConstraints(MaxLength = 255)]
+        public string? Search { get; set; }
+
         /// <summary>Page number to return.</summary>
         [JsonProperty("page")]
         [STJS.JsonPropertyName("page")]
@@ -38,6 +49,24 @@ namespace SellApp
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("status")]
         public SdkUpdateAffiliatePayoutStatusRequestApplicationJsonStatus Status { get; set; }
+
+    }
+
+    /// <summary>Request options for <see cref="AffiliatePayoutsService.MarkPaidAsync"/>: Mark affiliate payouts paid</summary>
+    [SellAppModelSchema(false)]
+    public class AffiliatePayoutsMarkPaidOptions : BaseOptions
+    {
+        /// <summary>The due payouts to record as paid, at most 20, each once. They are marked in this order.</summary>
+        [JsonProperty("payout_ids", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("payout_ids")]
+        [SellAppSchemaConstraints(MinItems = 1, MaxItems = 20, UniqueItems = true)]
+        public List<long> PayoutIds { get; set; } = default!;
+
+        /// <summary>The sum of the payouts' `amount_usd_cents`, in integer USD cents, as you read them. If they add up to anything else, nothing is marked.</summary>
+        [JsonProperty("expected_total_usd_cents", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("expected_total_usd_cents")]
+        [SellAppSchemaConstraints(Minimum = 1d)]
+        public long ExpectedTotalUsdCents { get; set; }
 
     }
 }

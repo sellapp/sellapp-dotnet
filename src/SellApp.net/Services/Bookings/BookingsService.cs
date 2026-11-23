@@ -192,5 +192,34 @@ namespace SellApp
         {
             return this.CancelAsync(booking, options, requestOptions, cancellationToken);
         }
+
+        /// <summary>Create a booking product</summary>
+        /// <remarks>
+        /// Create a draft booking product with one draft option that customers book as a timed appointment, one per purchase and one customer per time slot. Nothing can be booked until you publish it, whatever `visibility` you send: `visibility`, `PRIVATE` by default, applies once the product is published. Publish it with `POST /v2/products/{product}/publish`. Schedule fields you leave out take their defaults; read the result with `GET /v2/products/{product}/variants/{variant}/booking`. Each successful call creates another product, so do not retry blindly after a lost response: list your products first. Requires the `listing` API-key ability and the `listing` permission in your team role. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// </remarks>
+        /// <param name="options">Request options.</param>
+        /// <param name="requestOptions">Per-request configuration overrides.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The <see cref="SdkCreateBookingProductResponseValue201ApplicationJson"/> result.</returns>
+        public virtual async Task<SdkCreateBookingProductResponseValue201ApplicationJson> CreateAsync(BookingsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            requestOptions = RequestOptions.ForOperation(requestOptions, "createBookingProduct", false);
+            return await this.PostAsync<SdkCreateBookingProductResponseValue201ApplicationJson>("/v2/booking-products", options, requestOptions, cancellationToken);
+        }
+
+        public virtual async Task<ApiResponse<SdkCreateBookingProductResponseValue201ApplicationJson>> CreateWithResponseAsync(BookingsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            var capture = new ApiResponseCapture();
+            requestOptions = RequestOptions.ForOperation(requestOptions, string.Empty, false);
+            requestOptions.Capture = capture;
+            var value = await this.CreateAsync(options, requestOptions, cancellationToken);
+            return capture.Wrap(value);
+        }
+
+        /// <summary>Compatibility wrapper for <see cref="CreateAsync"/>.</summary>
+        public virtual Task<SdkCreateBookingProductResponseValue201ApplicationJson> Create(BookingsCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return this.CreateAsync(options, requestOptions, cancellationToken);
+        }
     }
 }

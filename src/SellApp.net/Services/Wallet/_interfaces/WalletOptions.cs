@@ -23,22 +23,29 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class WalletAdjustOptions : BaseOptions
     {
-        /// <summary>The signed adjustment amount in cents. Must not be zero.</summary>
+        /// <summary>The signed change in integer USD cents: positive adds money, negative takes it away. Must not be zero.</summary>
         [JsonProperty("amount_cents", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("amount_cents")]
         [SellAppSchemaConstraints(Minimum = -999999999999d, Maximum = 999999999999d)]
         public long AmountCents { get; set; }
 
-        /// <summary>Required body key, at most 128 characters. Keep the customer, amount, staff actor and trimmed note unchanged when retrying this intended adjustment.</summary>
+        /// <summary>Your key for this one adjustment, in printable ASCII characters and unique across all stores. Reuse it only to retry the same customer, amount, and note as the same staff member.</summary>
         [JsonProperty("idempotency_key", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("idempotency_key")]
         [SellAppSchemaConstraints(MaxLength = 128)]
         public string IdempotencyKey { get; set; } = default!;
 
+        /// <summary>Why the balance changed, with at least one character that is not a space. Leading and trailing spaces are removed. Saved on the entry and shown in the wallet history.</summary>
         [JsonProperty("note", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("note")]
         [SellAppSchemaConstraints(MinLength = 1, MaxLength = 255, Pattern = "\\S")]
         public string Note { get; set; } = default!;
+
+        /// <summary>Optional. The wallet balance in integer USD cents that you read before deciding on this change. If the balance is different now, nothing is written and the request returns `422` on `expected_balance_cents`. Use `0` for a customer who has no wallet yet.</summary>
+        [JsonProperty("expected_balance_cents")]
+        [STJS.JsonPropertyName("expected_balance_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d, Maximum = 999999999999d)]
+        public long? ExpectedBalanceCents { get; set; }
 
     }
 

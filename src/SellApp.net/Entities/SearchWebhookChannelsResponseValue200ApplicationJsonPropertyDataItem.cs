@@ -6,7 +6,7 @@ namespace SellApp
     using Newtonsoft.Json;
     using STJS = System.Text.Json.Serialization;
 
-    /// <summary>A seller-configured outbound webhook destination. IDs are stable UUIDs and are not reused when another channel is deleted.</summary>
+    /// <summary>A seller-configured outbound webhook destination. IDs are stable UUIDs and are not reused when another channel is deleted. List and search results also report how deliveries to the destination are going.</summary>
     [SellAppModelSchema(true)]
     public class SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItem
     {
@@ -36,6 +36,12 @@ namespace SellApp
         [JsonProperty("signing_secret_configured", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("signing_secret_configured")]
         public bool SigningSecretConfigured { get; set; }
+        [JsonProperty("health", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("health")]
+        public SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth Health { get; set; } = default!;
+        [JsonProperty("last_delivery", Required = Newtonsoft.Json.Required.AllowNull)]
+        [STJS.JsonPropertyName("last_delivery")]
+        public SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery? LastDelivery { get; set; }
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

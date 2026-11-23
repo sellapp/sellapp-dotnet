@@ -118,6 +118,16 @@ namespace SellAppTests
         }
 
         [Fact]
+        public async Task TestGetPerformanceAsync()
+        {
+            var fixture = System.IO.File.ReadAllText("testdata/sdk_get_upsell_offer_performance_response_value_200_application_json.json");
+            this.httpMock.MockResponse(HttpMethod.Get, "/v2/upsell-offers/test_upsellOffer/performance", HttpStatusCode.OK, fixture);
+            var result = await this.service.GetPerformanceAsync("test_upsellOffer", new UpsellOffersGetPerformanceOptions());
+            Assert.NotNull(result);
+            this.httpMock.AssertRequestWasMade(HttpMethod.Get, "/v2/upsell-offers/test_upsellOffer/performance");
+        }
+
+        [Fact]
         public async Task TestListAutoPagingAsync()
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_list_upsell_offers_response_value_200_application_json.json");

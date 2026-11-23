@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "event": "test_event",
+  "ticket_id": 1,
+  "rule_id": null,
+  "actor_type": "test_actor_type",
+  "wallet_credit_cents": null,
+  "wallet_credit_reversed": true,
+  "reason": null,
+  "created_at": "2023-01-01T00:00:00.000Z"
+}

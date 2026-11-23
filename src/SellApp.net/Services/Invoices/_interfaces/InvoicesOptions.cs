@@ -232,7 +232,7 @@ namespace SellApp
     {
         [JsonProperty("product_variants", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("product_variants")]
-        public IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants ProductVariants { get; set; } = default!;
+        public OneOf.OneOf<long, List<long>> ProductVariants { get; set; } = default!;
 
     }
 
@@ -256,11 +256,17 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class InvoicesCreateRefundOptions : BaseOptions
     {
-        /// <summary>Optional partial refund amount in major currency units. Omit for the full remaining refundable amount.</summary>
+        /// <summary>Optional partial refund amount in major units of the invoice's `payment.refund_currency`. Omit for the full remaining refundable amount.</summary>
         [JsonProperty("amount")]
         [STJS.JsonPropertyName("amount")]
         [SellAppSchemaConstraints(MaxLength = 32, Pattern = "^\\d+(\\.\\d+)?$")]
         public string? Amount { get; set; }
+
+        /// <summary>The refunded total you expect, in integer minor units of the invoice's `payment.refund_currency`, which can differ from the invoice currency: `500` means $5.00 in USD. Read it from `payment.refunded_total_cents` on the invoice and send it unchanged; it is `0` before the first refund. After a refund, `data.invoice.payment.refunded_total_cents` in the response is the value to send with the next one. With this field, the refund goes out only while the refunded total still equals it and no other refund on the order is pending. Omit it or send null to refund without the check.</summary>
+        [JsonProperty("expected_refunded_total_cents")]
+        [STJS.JsonPropertyName("expected_refunded_total_cents")]
+        [SellAppSchemaConstraints(Minimum = 0d)]
+        public long? ExpectedRefundedTotalCents { get; set; }
 
     }
 

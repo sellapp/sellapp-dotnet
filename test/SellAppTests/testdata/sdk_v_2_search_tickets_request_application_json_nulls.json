@@ -2,5 +2,8 @@
   "filters": null,
   "sort": null,
   "search": null,
-  "includes": null
+  "includes": null,
+  "waiting_on": null,
+  "reason": null,
+  "customer_email": null
 }

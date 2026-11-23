@@ -60,6 +60,72 @@ Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API refere
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## CreateAsync
+
+Create a course
+
+[API reference](https://sell.app/docs/api/courses/create-a-course) · Effect: **write**
+
+```csharp
+public virtual async Task<SdkCreateCourseResponseValue201ApplicationJson> CreateAsync(CoursesCreateOptions options, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `CoursesCreateOptions` | Yes |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkCreateCourseResponseValue201ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Courses.CreateAsync(new CoursesCreateOptions
+    {
+        Category = JsonConvert.DeserializeObject<Category?>("\"design\"")!,
+        Level = JsonConvert.DeserializeObject<SdkCreateCourseRequestApplicationJsonLevel>("\"beginner\"")!,
+        Language = "English",
+        WhatYouLearn = JsonConvert.DeserializeObject<List<string>>("[\"Sketch a logo concept.\",\"Choose a color palette.\"]")!,
+        CertificateEnabled = true,
+        DeliveryText = JsonConvert.DeserializeObject<string?>("\"Open your course from the link in your receipt.\"")!,
+        Title = "Brand identity basics",
+        Description = JsonConvert.DeserializeObject<string?>("\"<p>Design a logo, color palette, and type system for your next project.</p>\"")!,
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## SearchAsync
 
 Search courses
@@ -301,6 +367,66 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## GetStudentSummaryAsync
+
+Retrieve a course student summary
+
+[API reference](https://sell.app/docs/api/courses/retrieve-course-student-summary) · Effect: **read**
+
+```csharp
+public virtual async Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson> GetStudentSummaryAsync(CoursesGetStudentSummaryOptions? options = null, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| options | `CoursesGetStudentSummaryOptions?` | No |
+| requestOptions | `RequestOptions?` | No |
+| cancellationToken | `CancellationToken` | No |
+
+Returns: `Task<SdkGetCourseStudentSummaryResponseValue200ApplicationJson>`.
+
+```cs
+using SellApp;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+var client = new SellAppClient(new SellAppOptions
+{
+    ApiKey = Environment.GetEnvironmentVariable("SELLAPP_API_KEY"),
+    BaseUrl = Environment.GetEnvironmentVariable("SELLAPP_API_BASE_URL"),
+    Store = Environment.GetEnvironmentVariable("SELLAPP_STORE"),
+});
+
+var result = await client.Courses.GetStudentSummaryAsync(new CoursesGetStudentSummaryOptions
+    {
+        StartDate = "2026-08-01",
+        EndDate = "2026-08-31",
+    });
+Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

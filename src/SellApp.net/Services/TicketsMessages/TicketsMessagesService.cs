@@ -242,7 +242,7 @@ namespace SellApp
 
         /// <summary>Search ticket messages</summary>
         /// <remarks>
-        /// Search a ticket's messages using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
+        /// Search a ticket's messages using JSON body filters, search terms, includes, and sort instructions. This v2 route is store-scoped. Page through results with `limit` (1 to 100, default 15; a larger value returns `422`) and `page`. OAuth callers use the admin grant and select a store with X-STORE. Current membership and role permissions apply to every request.
         /// </remarks>
         /// <param name="ticket">The ticket path parameter.</param>
         /// <param name="options">Request options.</param>

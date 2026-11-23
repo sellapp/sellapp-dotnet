@@ -10,13 +10,20 @@ namespace SellApp
     [SellAppModelSchema(false)]
     public class SearchOrdersRequestApplicationJsonPropertyFiltersItem
     {
-        [JsonProperty("field", Required = Newtonsoft.Json.Required.Always)]
+
+        /// <summary>The order field to compare. `id` and `product_id` take positive integers with `eq` or `in`; `product_id` keeps orders with at least one line item for that product. `status`, `payment_method`, and `currency` take their enum values (`currency` is the order's ISO 4217 code, such as `USD`) with `eq` or `in`. `created_at` takes a date-time with a time zone, such as `2026-11-01T00:00:00Z` or `2026-11-01T01:00:00+01:00`, with `gte` or `lte`; it is compared in UTC to the second and both bounds are inclusive. `total` takes the order total in integer minor units of each order's own currency (`5000` means $50.00 in USD; the same number as `totals.total_cents`) with `eq`, `gte`, or `lte`; add a `currency` filter to compare orders in one currency. `additional_information` takes text with `contains`; the other text fields take text of up to 255 characters with `eq` or `contains`.</summary>
+        [JsonProperty("field", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("field")]
-        public string Field { get; set; } = default!;
+        public SearchOrdersRequestApplicationJsonPropertyFiltersItemField Field { get; set; }
+
+        /// <summary>`eq` matches exactly, `contains` matches part of the text, `in` matches any value in an array of up to 100, `gte` keeps values greater than or equal to `value`, and `lte` keeps values less than or equal to `value`. Each field accepts only the operators listed for it in `field`.</summary>
         [JsonProperty("operator", Required = Newtonsoft.Json.Required.Always, DefaultValueHandling = DefaultValueHandling.Ignore)]
         [STJS.JsonIgnore(Condition = STJS.JsonIgnoreCondition.WhenWritingDefault)]
         [STJS.JsonPropertyName("operator")]
         public SearchOrdersRequestApplicationJsonPropertyFiltersItemOperator Operator { get; set; }
+
+        /// <summary>A scalar for `eq`, `contains`, `gte`, and `lte`; a non-empty array for `in`.</summary>
         [JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("value")]
         public object Value { get; set; } = default!;

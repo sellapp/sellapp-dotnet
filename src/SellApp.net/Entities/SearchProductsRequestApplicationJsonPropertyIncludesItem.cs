@@ -12,7 +12,7 @@ namespace SellApp
     {
         [JsonProperty("relation", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("relation")]
-        public string Relation { get; set; } = default!;
+        public string Relation { get; internal set; } = "variants";
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

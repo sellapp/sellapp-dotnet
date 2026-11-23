@@ -137,7 +137,7 @@ namespace SellAppTests
         {
             var fixture = System.IO.File.ReadAllText("testdata/sdk_issue_replacement_for_completed_invoice_response_value_200_application_json.json");
             this.httpMock.MockResponse(HttpMethod.Patch, "/v2/invoices/test_invoice/issue-replacement", HttpStatusCode.OK, fixture);
-            var result = await this.service.IssueReplacementAsync("test_invoice", Newtonsoft.Json.JsonConvert.DeserializeObject<InvoicesIssueReplacementOptions>("{\"product_variants\":{}}")!);
+            var result = await this.service.IssueReplacementAsync("test_invoice", Newtonsoft.Json.JsonConvert.DeserializeObject<InvoicesIssueReplacementOptions>("{\"product_variants\":1}")!);
             Assert.NotNull(result);
             Assert.Equal(1, result.Id);
             this.httpMock.AssertRequestWasMade(HttpMethod.Patch, "/v2/invoices/test_invoice/issue-replacement");

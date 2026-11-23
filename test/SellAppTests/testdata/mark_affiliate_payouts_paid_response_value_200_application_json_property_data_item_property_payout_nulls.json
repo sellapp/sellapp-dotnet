@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "affiliate_id": 1,
+  "affiliate_email": null,
+  "amount_usd_cents": 1,
+  "status": "due",
+  "payout_method": null,
+  "payout_account": "test_payout_account",
+  "referrals_count": 1,
+  "created_at": null,
+  "updated_at": null
+}
