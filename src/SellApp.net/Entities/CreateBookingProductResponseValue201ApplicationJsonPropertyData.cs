@@ -71,10 +71,10 @@ namespace SellApp
         [STJS.JsonPropertyName("url")]
         public string Url { get; set; } = default!;
 
-        /// <summary>The kind of product: `booking` for a booking product.</summary>
-        [JsonProperty("type")]
+        /// <summary>What kind of product this is: `product`, `bundle`, `addon`, `credits`, `course`, or `booking`.</summary>
+        [JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
         [STJS.JsonPropertyName("type")]
-        public string? Type { get; set; }
+        public string Type { get; set; } = default!;
 
         /// <summary>Unrecognized response fields preserved for forward compatibility.</summary>
         [JsonExtensionData]

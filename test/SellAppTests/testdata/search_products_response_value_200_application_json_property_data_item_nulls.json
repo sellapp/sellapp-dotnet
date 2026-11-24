@@ -51,6 +51,7 @@
     }
   ],
   "url": "https://example.com",
+  "type": "test_type",
   "price_range": null,
   "stock": null,
   "sales": 1,

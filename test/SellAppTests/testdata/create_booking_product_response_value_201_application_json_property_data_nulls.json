@@ -51,5 +51,5 @@
     }
   ],
   "url": "https://example.com",
-  "type": null
+  "type": "test_type"
 }

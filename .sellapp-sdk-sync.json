@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "dotnet",
   "repository": "sellapp/sellapp-dotnet",
-  "sourceSha": "77cf567815f22f4c07cf6b707ab25d4ca74877af",
-  "specSha256": "588138cc0421d9c2f8b7382d2924ce51982635c344b9e57f6f46b68e18ea4d69",
+  "sourceSha": "47e5b156f89777b62ae90a33cac16756b9830558",
+  "specSha256": "2319bc01512943c10a5788a130a1d189fbb2b14d76b0142e62a47b759c391662",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "caeebbf8aade33e9adf76f3c89fed86ffc4efc6409c2177d070a51830210a95f",
-  "contentDigest": "f3b02206ed50c34431ddbdb9e23680050e4811c547ac4831b129d4d9dc9aa77f",
+  "treeDigest": "e190040f6497626daeada35cabb81e15402029884830e352d350e5c54a92d2fc",
+  "contentDigest": "292fe92002cf4e2bc87490a1d512b88b2ef56ae35b6addd3227cac19e921a96b",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -57,7 +57,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "8f606ba64e736f6e313dcceefc2aff510f1b0d8ec451eaa90c29068fa62d3618"
+      "sha256": "d65b87c04d6b9cc5efefcec0ffdff6f73767f3b1e1739b07e71e6602b62b625c"
     },
     {
       "path": "SellApp.sln",
@@ -72,7 +72,7 @@
     {
       "path": "docs/migration.md",
       "mode": "100644",
-      "sha256": "93cb5f3632ba41e91cbef0eca56536cabd6d525e748dc9aac4e736502807b09e"
+      "sha256": "2a2c9726edcf4a78185eac87a67824fed8e50054d5c67c18bd1d44255cb49c8f"
     },
     {
       "path": "docs/operation-examples.json",
@@ -587,7 +587,7 @@
     {
       "path": "examples/Onboarding/Onboarding.csproj",
       "mode": "100644",
-      "sha256": "79832d51b547b5e63067a6ba596255730ea3a2a7e2777dd727c30380a43355c0"
+      "sha256": "3d12ce0c54f6aa6e4dcefd62fdafadc451b9b84ac43522bdb4f447ef09eaf766"
     },
     {
       "path": "examples/Onboarding/Program.cs",
@@ -602,12 +602,12 @@
     {
       "path": "examples/check-package.mjs",
       "mode": "100644",
-      "sha256": "d5819d5e6cf0ee4f0bb98e1bcdaab03980b68524d783d3b326127b64fcc1fa45"
+      "sha256": "5e738ec5bf6f15e71936bfb4192c164101e6f9849c41f2882c6108b0b43f4839"
     },
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "8859584e6da02521f8abfa699616d2a655beb8c191c72dd96bec878ac9468cc5"
+      "sha256": "d84cb09b4e3e9d13306678d2cb5bc1f5008e1f50a4645237f6cb9038e3fd4c11"
     },
     {
       "path": "src/SellApp.net/Client/Errors.cs",
@@ -627,7 +627,7 @@
     {
       "path": "src/SellApp.net/Client/SellAppClient.cs",
       "mode": "100644",
-      "sha256": "b2c379a1da7d0117f7262c746b1f3a039e99cecabb4e5f001c7306d46accce7e"
+      "sha256": "fd4b3cc98122178b4224a23aa2e2cd4b965cbd5109477f5496231d5b1f2b2b02"
     },
     {
       "path": "src/SellApp.net/Client/SellAppOptions.cs",
@@ -927,7 +927,7 @@
     {
       "path": "src/SellApp.net/Entities/BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "aaed5b8c184fa1f63b19ebf0f94eecf41d87028f04b4129ebc988381a489ad1a"
+      "sha256": "041676435bc97c532e7cd008618fa9f23b6a3f94f252644e62bdca58fc549b83"
     },
     {
       "path": "src/SellApp.net/Entities/BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -957,7 +957,7 @@
     {
       "path": "src/SellApp.net/Entities/BatchCreateProductsResponseValue201ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "8263d3cac4565122cef7532dd147ca04f4d1c6c2bc9a74a9dc127bfc432349c7"
+      "sha256": "5a3122873870b99399c775b85210dc8dce4e9574363d4d36146606966a7d9870"
     },
     {
       "path": "src/SellApp.net/Entities/BatchCreateProductsResponseValue201ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -1092,7 +1092,7 @@
     {
       "path": "src/SellApp.net/Entities/BatchDeleteProductsResponseValue200ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "1c5a1c722211c7bea2fb595d4a5b628246f6b4069a41ffe4732f3ba87d2e0b29"
+      "sha256": "ef8e40d32ce05248ba6fb9fae93c234e4760e3720a5907a24b371d66eed65c3f"
     },
     {
       "path": "src/SellApp.net/Entities/BatchDeleteProductsResponseValue200ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -1302,7 +1302,7 @@
     {
       "path": "src/SellApp.net/Entities/BatchUpdateProductsResponseValue200ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "d2fc120d80021e81eef00284d88c5984e5645faada7c62a23792b9273623f08c"
+      "sha256": "31dbc5fdf4f82b026668a5541641fa1ed98b130a7253ac693b53c4052cf6b7cb"
     },
     {
       "path": "src/SellApp.net/Entities/BatchUpdateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -1602,7 +1602,7 @@
     {
       "path": "src/SellApp.net/Entities/CreateBookingProductResponseValue201ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "0ce6ae7ed523ff1dec92f5f9c3cb801493b308c4c4e14e235d7d65da90d15851"
+      "sha256": "e119e67e9aea0061865a1905aa7f7107445848ee8fe280b8374397d53ec23414"
     },
     {
       "path": "src/SellApp.net/Entities/CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -2712,7 +2712,7 @@
     {
       "path": "src/SellApp.net/Entities/CreateProductResponseValue201ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "0dc232d16de9976b54fd51519ed3082483e2618a41519a2f950ed54235a71157"
+      "sha256": "bd68d62e08ddd8a167d5e1739e2cd5f496f1e4066193182bdb36a564d26d536d"
     },
     {
       "path": "src/SellApp.net/Entities/CreateProductResponseValue201ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -3267,7 +3267,7 @@
     {
       "path": "src/SellApp.net/Entities/DeleteProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "aeb3e0dd76fba0bbe4b00ed5da9772990c3b2ce0bed147438687d52ce318d301"
+      "sha256": "364014d84eb161300ea9013da66ca0dec9c7fa4531af0ad23c01370f581f9ae5"
     },
     {
       "path": "src/SellApp.net/Entities/DeleteProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -3542,7 +3542,7 @@
     {
       "path": "src/SellApp.net/Entities/DuplicateProductResponseValue201ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "11c1e419914a60229ca2e83f0749c0a5f5076abb872868a36f9a4698491f0045"
+      "sha256": "c43a8fae03ab2c840feb7f54f876636f6b64e9e5b18b5f26b58466bf35f06af6"
     },
     {
       "path": "src/SellApp.net/Entities/DuplicateProductResponseValue201ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -4542,7 +4542,7 @@
     {
       "path": "src/SellApp.net/Entities/GetProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "7637fc77438e1bbde806c2ddf9a412e9c67fdffb3e23df2af33500caa95306e5"
+      "sha256": "d11df3ab807322cc2edbdc52f7c2af851c2c1351443508c3902534890a8c0092"
     },
     {
       "path": "src/SellApp.net/Entities/GetProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -6142,7 +6142,7 @@
     {
       "path": "src/SellApp.net/Entities/ListProductsResponseValue200ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "3aba028d30302bbb42c9d7fca935777711916a63d62f4f901b0fab10c64efb9c"
+      "sha256": "05175d383109e63824d5535130ef159e41101dfef6650a013be4a83429433072"
     },
     {
       "path": "src/SellApp.net/Entities/ListProductsResponseValue200ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -6612,7 +6612,7 @@
     {
       "path": "src/SellApp.net/Entities/MoveProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "21da7b1c3d7e4db5c2803db3df968f235a1a27ac57b1a432c3b323e4b88714f5"
+      "sha256": "523b3ca3924ba0288da19d66e6b1c9f740b4ed0a399ceaf69de43613a7c506ab"
     },
     {
       "path": "src/SellApp.net/Entities/MoveProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -6797,7 +6797,7 @@
     {
       "path": "src/SellApp.net/Entities/PublishProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "88399f4eefa9319aae403699fd9f98ccff666870fb5ba875cfe3da7b694066a0"
+      "sha256": "ffb0911fbd263d2a6501eb7a842f24a1d6b40187f97a5ca7ee6e69adcbbdb27e"
     },
     {
       "path": "src/SellApp.net/Entities/PublishProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -7717,7 +7717,7 @@
     {
       "path": "src/SellApp.net/Entities/ReplaceProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "31c39d19edde2827c1edb43b48ef38328497ac0c785b4d2d13b07c6be8d77f6f"
+      "sha256": "358dd7deb398eb21dbb8ae20085b6bd9eea26ef270fa581afff7ffce5f15f065"
     },
     {
       "path": "src/SellApp.net/Entities/ReplaceProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -11952,7 +11952,7 @@
     {
       "path": "src/SellApp.net/Entities/SearchProductsResponseValue200ApplicationJsonPropertyDataItem.cs",
       "mode": "100644",
-      "sha256": "afbe028ef0a365ee6ffbd8ce08b76a14a7f218f3ed36ae44c0e940fc2dfa1dab"
+      "sha256": "a2205a1766e608fe584d14c96b129840f2851f67f348de360a58817317de8389"
     },
     {
       "path": "src/SellApp.net/Entities/SearchProductsResponseValue200ApplicationJsonPropertyDataItemPropertyAdditionalInformationItem.cs",
@@ -13127,7 +13127,7 @@
     {
       "path": "src/SellApp.net/Entities/UpdateProductResponseValue200ApplicationJsonPropertyData.cs",
       "mode": "100644",
-      "sha256": "5077ff7fcc281bfdebc424a84b4219690d4f2f68a0be71c939c09a582c5b4b85"
+      "sha256": "abb6a183a66490b58b82d067b84964057ddfe049220d22a74babc7c8d8103a91"
     },
     {
       "path": "src/SellApp.net/Entities/UpdateProductResponseValue200ApplicationJsonPropertyDataPropertyAdditionalInformationItem.cs",
@@ -18562,7 +18562,7 @@
     {
       "path": "src/SellApp.net/SellApp.net.csproj",
       "mode": "100644",
-      "sha256": "108f96cd5913c95d56e7f8447b7212cbdb136a3cd02b5f737344fab00b433de6"
+      "sha256": "dcbcf052f95e4ae7235b55546d5f2c850e7fedf03c0ecd71b641a1ee5ddeb9fd"
     },
     {
       "path": "src/SellApp.net/Services/Account/AccountService.cs",
@@ -20442,12 +20442,12 @@
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_200_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_200_application_json_property_data_item_property_additional_information_item.json",
@@ -20477,12 +20477,12 @@
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_201_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_201_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/batch_create_products_response_value_201_application_json_property_data_item_property_additional_information_item.json",
@@ -20652,12 +20652,12 @@
     {
       "path": "test/SellAppTests/testdata/batch_delete_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/batch_delete_products_response_value_200_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/batch_delete_products_response_value_200_application_json_property_data_item_property_additional_information_item.json",
@@ -20942,12 +20942,12 @@
     {
       "path": "test/SellAppTests/testdata/batch_update_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/batch_update_products_response_value_200_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/batch_update_products_response_value_200_application_json_property_data_item_property_additional_information_item.json",
@@ -21412,7 +21412,7 @@
     {
       "path": "test/SellAppTests/testdata/create_booking_product_response_value_201_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "f15349e402fac8315f335d13f3044289534d49cac6a0230e642c9ae00cada16e"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/create_booking_product_response_value_201_application_json_property_data_property_additional_information_item.json",
@@ -23092,12 +23092,12 @@
     {
       "path": "test/SellAppTests/testdata/create_product_response_value_201_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/create_product_response_value_201_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/create_product_response_value_201_application_json_property_data_property_additional_information_item.json",
@@ -23982,12 +23982,12 @@
     {
       "path": "test/SellAppTests/testdata/delete_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/delete_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/delete_product_response_value_200_application_json_property_data_property_additional_information_item.json",
@@ -24387,12 +24387,12 @@
     {
       "path": "test/SellAppTests/testdata/duplicate_product_response_value_201_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/duplicate_product_response_value_201_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/duplicate_product_response_value_201_application_json_property_data_property_additional_information_item.json",
@@ -25992,12 +25992,12 @@
     {
       "path": "test/SellAppTests/testdata/get_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/get_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/get_product_response_value_200_application_json_property_data_property_additional_information_item.json",
@@ -28437,7 +28437,7 @@
     {
       "path": "test/SellAppTests/testdata/list_list_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "d51e9487ddd4a61f0540ec0bc8bc8c8b720b56514c902f86d092ca6aa5d54218"
+      "sha256": "17863442b7d38481fdc37ef128505066026e937d7a83ed2fc94ea6aa5ed00325"
     },
     {
       "path": "test/SellAppTests/testdata/list_list_products_within_group_response_value_200_application_json_property_data_item.json",
@@ -29072,12 +29072,12 @@
     {
       "path": "test/SellAppTests/testdata/list_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "1fc5903aa220916b2b9771cd3bb2a34d24227392d40381a4c17971a479d3391a"
+      "sha256": "70676f1ee0893151974d10804848fc9583e8b5c78786bd9355205cd96083e6d4"
     },
     {
       "path": "test/SellAppTests/testdata/list_products_response_value_200_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "50b85d9ca349005dd67e7c56c681c1a7d429d41a6dd84e1b3ebee2e778c5f09c"
+      "sha256": "0cdc3e0068cbf02b5942fe7ea1b3871f5676a520491bcd9479645bc8855d41c3"
     },
     {
       "path": "test/SellAppTests/testdata/list_products_response_value_200_application_json_property_data_item_property_additional_information_item.json",
@@ -29367,7 +29367,7 @@
     {
       "path": "test/SellAppTests/testdata/list_search_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "d51e9487ddd4a61f0540ec0bc8bc8c8b720b56514c902f86d092ca6aa5d54218"
+      "sha256": "17863442b7d38481fdc37ef128505066026e937d7a83ed2fc94ea6aa5ed00325"
     },
     {
       "path": "test/SellAppTests/testdata/list_search_products_within_group_response_value_200_application_json_property_data_item.json",
@@ -29987,12 +29987,12 @@
     {
       "path": "test/SellAppTests/testdata/move_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/move_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/move_product_response_value_200_application_json_property_data_property_additional_information_item.json",
@@ -30257,12 +30257,12 @@
     {
       "path": "test/SellAppTests/testdata/publish_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/publish_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/publish_product_response_value_200_application_json_property_data_property_additional_information_item.json",
@@ -31737,12 +31737,12 @@
     {
       "path": "test/SellAppTests/testdata/replace_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/replace_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/replace_product_response_value_200_application_json_property_data_property_additional_information_item.json",
@@ -32997,12 +32997,12 @@
     {
       "path": "test/SellAppTests/testdata/sdk_batch_create_products_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f09e1a616d05a8f7628d7d244e33232333e8d0451e212e8a4edaed17f0ed3bcd"
+      "sha256": "71bed641939a144915b870fbbae4576ea738f09bb1ecedfd29b85d4ea8606c3e"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_batch_create_products_response_value_201_application_json.json",
       "mode": "100644",
-      "sha256": "f09e1a616d05a8f7628d7d244e33232333e8d0451e212e8a4edaed17f0ed3bcd"
+      "sha256": "71bed641939a144915b870fbbae4576ea738f09bb1ecedfd29b85d4ea8606c3e"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_batch_create_sections_request_application_json.json",
@@ -33042,7 +33042,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_batch_delete_products_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f09e1a616d05a8f7628d7d244e33232333e8d0451e212e8a4edaed17f0ed3bcd"
+      "sha256": "71bed641939a144915b870fbbae4576ea738f09bb1ecedfd29b85d4ea8606c3e"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_batch_delete_sections_response_value_200_application_json.json",
@@ -33077,7 +33077,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_batch_update_products_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f09e1a616d05a8f7628d7d244e33232333e8d0451e212e8a4edaed17f0ed3bcd"
+      "sha256": "71bed641939a144915b870fbbae4576ea738f09bb1ecedfd29b85d4ea8606c3e"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_batch_update_sections_request_application_json.json",
@@ -33697,7 +33697,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_create_product_response_value_201_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_create_product_variant_request_application_json.json",
@@ -34017,7 +34017,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_delete_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_delete_product_variant_request_application_json.json",
@@ -34152,7 +34152,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_duplicate_product_response_value_201_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_duplicate_product_variant_response_value_201_application_json.json",
@@ -34447,7 +34447,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_get_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_get_product_variant_response_value_200_application_json.json",
@@ -34952,7 +34952,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_list_products_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "b3085a0c0d2ccbaaf95275aa352f85b3547760fdbf3f4e6e0611c132cd6b37af"
+      "sha256": "d667ef8ab44b36d3368c326135c688ee26569425b2eb464da8fd1583e935e706"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_list_products_within_group_response_value_200_application_json.json",
@@ -35182,7 +35182,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_move_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_notify_variant_buyers_response_value_202_application_json.json",
@@ -35317,7 +35317,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_publish_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_publish_product_variant_response_value_200_application_json.json",
@@ -35862,7 +35862,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_replace_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_replace_product_s_add_ons_request_application_json.json",
@@ -36617,7 +36617,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_search_products_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "b3085a0c0d2ccbaaf95275aa352f85b3547760fdbf3f4e6e0611c132cd6b37af"
+      "sha256": "d667ef8ab44b36d3368c326135c688ee26569425b2eb464da8fd1583e935e706"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_search_products_within_group_request_application_json.json",
@@ -37327,7 +37327,7 @@
     {
       "path": "test/SellAppTests/testdata/sdk_update_product_response_value_200_application_json.json",
       "mode": "100644",
-      "sha256": "f3af7ab369143da53502c0d7dcab9c05780704c1a5968f196363f6dcc70b6b77"
+      "sha256": "d6378e581a9fe131db3bdaec21e38be131dec63a66bcc044497ba2fec530e998"
     },
     {
       "path": "test/SellAppTests/testdata/sdk_update_product_variant_pricing_request_application_json.json",
@@ -39332,12 +39332,12 @@
     {
       "path": "test/SellAppTests/testdata/search_products_response_value_200_application_json_property_data_item.json",
       "mode": "100644",
-      "sha256": "1fc5903aa220916b2b9771cd3bb2a34d24227392d40381a4c17971a479d3391a"
+      "sha256": "70676f1ee0893151974d10804848fc9583e8b5c78786bd9355205cd96083e6d4"
     },
     {
       "path": "test/SellAppTests/testdata/search_products_response_value_200_application_json_property_data_item_nulls.json",
       "mode": "100644",
-      "sha256": "50b85d9ca349005dd67e7c56c681c1a7d429d41a6dd84e1b3ebee2e778c5f09c"
+      "sha256": "0cdc3e0068cbf02b5942fe7ea1b3871f5676a520491bcd9479645bc8855d41c3"
     },
     {
       "path": "test/SellAppTests/testdata/search_products_response_value_200_application_json_property_data_item_property_additional_information_item.json",
@@ -41217,12 +41217,12 @@
     {
       "path": "test/SellAppTests/testdata/update_product_response_value_200_application_json_property_data.json",
       "mode": "100644",
-      "sha256": "efeab483598f7e05ed92d576517c0a3831796a1076d4775d61cea650b936ca89"
+      "sha256": "20aaede3d91fe5a58c208beb875122a20d7ae2954df4d9fdfe3b1d7bc034b392"
     },
     {
       "path": "test/SellAppTests/testdata/update_product_response_value_200_application_json_property_data_nulls.json",
       "mode": "100644",
-      "sha256": "88bf0401588dba43c2253ae7f0c7b591dce805bb09a7bf83cefbc4ecac87c5d6"
+      "sha256": "103571cee178bd50dd196c57fe04acaaaa571df8fe93dae249889546f6a1dc36"
     },
     {
       "path": "test/SellAppTests/testdata/update_product_response_value_200_application_json_property_data_property_additional_information_item.json",

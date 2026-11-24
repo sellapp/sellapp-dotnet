@@ -69,6 +69,11 @@ namespace SellApp
         [STJS.JsonPropertyName("url")]
         public string Url { get; set; } = default!;
 
+        /// <summary>What kind of product this is: `product`, `bundle`, `addon`, `credits`, `course`, or `booking`.</summary>
+        [JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
+        [STJS.JsonPropertyName("type")]
+        public string Type { get; set; } = default!;
+
         /// <summary>The lowest and highest price among the product's published variants, formatted for display with the currency symbol: `$19.99`, or `$9.99 - $19.99` when the prices differ. Null when no published variant has a price.</summary>
         [JsonProperty("price_range", Required = Newtonsoft.Json.Required.AllowNull)]
         [STJS.JsonPropertyName("price_range")]
